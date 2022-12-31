@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-export function Title(props) {
+function Title(props) {
   return (
     <>
       <Typography variant="h5">{props.text}</Typography>
@@ -8,3 +8,5 @@ export function Title(props) {
     </>
   );
 }
+
+export default Title;

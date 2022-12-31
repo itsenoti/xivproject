@@ -1,13 +1,10 @@
 import { Container } from "@mui/material";
-import { Inter } from "@next/font/google";
 import { Announcements } from "../components/announcements";
 import { Title } from "../components/title";
-import { Header } from "./Header";
-import { Navigation } from "./Navigation";
+import Header from "./Header";
+import Navigation from "./Navigation";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home({ theme, setTheme }) {
+function Home({ theme, setTheme }) {
   return (
     <>
       <Header />
@@ -21,3 +18,5 @@ export default function Home({ theme, setTheme }) {
     </>
   );
 }
+
+export default Home;

@@ -1,7 +1,7 @@
 import { Alert } from "@mui/material";
 import { useState } from "react";
 // https://na.lodestonenews.com/news/maintenance/
-export function Announcements() {
+function Announcements() {
   const [announcement, setAnnouncement] = useState(null);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndtime] = useState(null);
@@ -50,3 +50,5 @@ export function Announcements() {
     </>
   );
 }
+
+export default Announcements;
