@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export function Header() {
+function Header() {
   return (
     <>
       <Head>
@@ -12,3 +12,5 @@ export function Header() {
     </>
   );
 }
+
+export default Header;

@@ -50,7 +50,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export function Navigation() {
+function Navigation() {
   const { isDarkMode, setDarkMode } = useContext(ThemeContext);
 
   return (
@@ -76,3 +76,5 @@ export function Navigation() {
     </>
   );
 }
+
+export default Navigation;
