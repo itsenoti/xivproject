@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
-import { Announcements } from "../components/announcements";
-import { Title } from "../components/title";
+import Announcements from "../components/announcements";
+import Title from "../components/title";
 import Header from "./Header";
 import Navigation from "./Navigation";
 
