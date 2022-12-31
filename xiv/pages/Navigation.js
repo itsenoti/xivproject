@@ -1,6 +1,18 @@
-import { AppBar, Button, FormControlLabel, Switch, Toolbar, Typography } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+  AppBar,
+  Box,
+  Button,
+  FormControlLabel,
+  List,
+  ListItem,
+  SwipeableDrawer,
+  Switch,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ThemeContext } from "../contexts/themeContext";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -51,26 +63,87 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function Navigation() {
+  /* Set theme to Dark Mode */
   const { isDarkMode, setDarkMode } = useContext(ThemeContext);
+  /* Set menu drawer to close */
+  const [isDrawerOpen, setDrawerState] = useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+      return;
+    }
+
+    setDrawerState({ ...isDrawerOpen, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        <ListItem key="Eureka">
+          <Button color="inherit">Eureka</Button>
+        </ListItem>
+        <ListItem key="Gardening">
+          <Button color="inherit">Gardening</Button>
+        </ListItem>
+        <ListItem key="ThemeSwitcher">
+          {/* Theme Switcher */}
+          <FormControlLabel
+            control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+            onChange={() => {
+              setDarkMode(!isDarkMode);
+            }}
+          />
+        </ListItem>
+      </List>
+    </Box>
+  );
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h5" color="inherit" style={{ flex: 1 }}>
             XIV Dump
           </Typography>
-          <div>
+
+          {/* Right side menu */}
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
             <Button color="inherit">Eureka</Button>
             <Button color="inherit">Gardening</Button>
+            {/* Theme Switcher */}
             <FormControlLabel
               control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
               onChange={() => {
                 setDarkMode(!isDarkMode);
-                console.log("isDarkMode", isDarkMode);
               }}
             />
-          </div>
+          </Box>
+          {/* Hamburger Menu */}
+          {["right"].map((anchor) => (
+            <>
+              <Button onClick={toggleDrawer(anchor, true)}>
+                <MenuIcon sx={{ display: { xs: "block", md: "none" }, color: "Highlight" }} />
+              </Button>
+              <SwipeableDrawer
+                anchor={anchor}
+                open={isDrawerOpen[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+                onOpen={toggleDrawer(anchor, true)}
+              >
+                {list(anchor)}
+              </SwipeableDrawer>
+            </>
+          ))}
         </Toolbar>
       </AppBar>
     </>

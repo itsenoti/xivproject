@@ -10,7 +10,7 @@ function Home({ theme, setTheme }) {
       <Header />
       <Navigation />
       <Announcements />
-      <Container sx={{ height: "100vh", pt: 1 }}>
+      <Container sx={{ height: "100vh", pt: 8 }}>
         <Title text="Weather Forecast" />
         <Title text="Baldesion Arsenal" />
         <Title text="Logograms" />
