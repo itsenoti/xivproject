@@ -6,10 +6,11 @@ import List from "@mui/material/List";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
 import Title from "../components/title";
+import { Animals } from "../pages/api/animals.json";
 import Header from "./Header";
 import Navigation from "./Navigation";
-
 /**
  * @returns arr of forecast time
  */
@@ -38,12 +39,12 @@ function getWeatherForecast(arg_start = 0, arg_end = 0, arg_weather = "") {
   if (arg_start > 8) sTime = "08:00";
   if (arg_start > 16) sTime = "16:00";
 
-  var eTime = arg_end == 0 ? 0 : arg_end;
+  var endTime = parseInt(arg_end) == 0 ? 0 : 1;
 
   var date;
   for (var i = 1; i < 100; i++) {
-    if (arg_end != 0) {
-      if (result[i]["weather"] == arg_weather) {
+    if (endTime) {
+      if (result[i]["weather"] == arg_weather && result[i]["et"] == sTime) {
         date = new Date(result[i]["lt"]);
         return formatTime(
           date.toLocaleDateString("default", {
@@ -55,7 +56,7 @@ function getWeatherForecast(arg_start = 0, arg_end = 0, arg_weather = "") {
         );
       }
     } else {
-      if (result[i]["weather"] == arg_weather && result[i]["et"]) {
+      if (result[i]["weather"] == arg_weather) {
         date = new Date(result[i]["lt"]);
         return formatTime(
           date.toLocaleDateString("default", {
@@ -105,7 +106,7 @@ function getNewWeatherStartTimeMs() {
   var startBell = bell - (bell % 8);
   var startUnixSeconds = EPOCH - 175 * (bell - startBell);
   var newDate = new Date(startUnixSeconds * 1000).getTime();
-  return newDate;
+  return newDate % 10 == 0 ? newDate : newDate + 1;
 }
 
 function formatTime(time) {
@@ -153,6 +154,15 @@ function getWeather(futureWeather) {
 }
 
 function IslandSanctuary() {
+  const [mounted, setMounted] = useState(false);
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
   return (
     <>
       <Header />
@@ -160,156 +170,42 @@ function IslandSanctuary() {
       <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
         <Title text={"Rare Animals Spawn Tracker "} />
         <List sx={{ width: "100%", color: "inherit" }}>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Black Chocobo"
-              secondary="Feather, Fur"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(0, 0, "Clear Skies")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Ornery Karakul"
-              secondary="Milk, Fleece"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(0, 0, "Fair Skies")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Paissa"
-              secondary="Claw, Fleec"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(12, 3, "Fair Skies")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Grand Buffalo"
-              secondary="Horn, Milk"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(0, 0, "Clouds")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Goobbue"
-              secondary="Fang, Claw"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(9, 12, "Clouds")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Gold Back"
-              secondary="Feather, Egg"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(0, 0, "Rain")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Beachcomb"
-              secondary="Carapace, Claw"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(0, 3, "Rain")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Alligator "
-              secondary="Claw, Fang"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(6, 9, "Showers")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Yellow Coblyn "
-              secondary="Carapace, Fang"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(0, 0, "Fog")}</Typography>{" "}
-            </Card>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="Twinklefleece"
-              secondary="Fleece, Fur"
-              secondaryTypographyProps={{ sx: { color: "inherit" } }}
-            />
-            <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-              <Typography variant="body2">{getWeatherForecast(6, 9, "Fog")}</Typography>{" "}
-            </Card>
-          </ListItem>
+          {(() => {
+            const rows = [];
+            for (let i = 0; i < Object.keys(Animals).length; i++) {
+              console.log(
+                Object.keys(Animals)[i] +
+                  " " +
+                  Object.values(Animals)[i]["start"] +
+                  " " +
+                  Object.values(Animals)[i]["end"]
+              );
+              rows.push(
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ImageIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={Object.keys(Animals)[i]}
+                    secondary={Object.values(Animals)[i]["loot"]}
+                    secondaryTypographyProps={{ sx: { color: "inherit" } }}
+                  />
+                  <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
+                    <Typography variant="body2">
+                      {getWeatherForecast(
+                        Object.values(Animals)[i]["start"],
+                        Object.values(Animals)[i]["end"],
+                        Object.values(Animals)[i]["weather"]
+                      )}
+                    </Typography>{" "}
+                  </Card>
+                </ListItem>
+              );
+            }
+            return rows;
+          })()}
         </List>
       </Container>
     </>

@@ -1,10 +1,10 @@
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 
 function Title(props) {
   return (
     <>
-      <Typography variant="h6">{props.text}</Typography>
-      <hr />
+      <Typography variant="subtitle1">{props.text}</Typography>
+      <Divider />
     </>
   );
 }

@@ -1,0 +1,64 @@
+{
+  "Animals": {
+    "Alligator": {
+      "start": 6,
+      "end": 9,
+      "weather": "Showers",
+      "loot":"Claw, Fang"
+    },
+    "Beachcomb": {
+      "start": 0,
+      "end": 3,
+      "weather": "Rain",
+      "loot":"Carapace, Claw"
+    },
+    "Black Chocobo": {
+      "start": 0,
+      "end": 0,
+      "weather": "Clear Skies",
+      "loot":"Feather, Fur"
+    },
+    "Gold Back": {
+      "start": 0,
+      "end": 0,
+      "weather": "Rain",
+      "loot":"Feather, Egg"
+    },
+    "Goobbue": {
+      "start": 9,
+      "end": 12,
+      "weather": "Clouds",
+      "loot":"Fang, Claw"
+    },
+    "Grand Buffalo": {
+      "start": 0,
+      "end": 0,
+      "weather": "Clouds",
+      "loot":"Horn, Milk"
+    },
+    "Ornery Karakul": {
+      "start": 0,
+      "end": 0,
+      "weather": "Fair Skies",
+      "loot":"Milk, Fleece"
+    },
+    "Paissa": {
+      "start": 12,
+      "end": 3,
+      "weather": "Fair Skies",
+      "loot":"Claw, Fleece"
+    },
+    "Twinklefleece": {
+      "start": 6,
+      "end": 9,
+      "weather": "Fog",
+      "loot":"Fleece, Fur"
+    },
+    "Yellow Coblyn": {
+      "start": 0,
+      "end": 0,
+      "weather": "Fog",
+      "loot":"Carapace, Fang"
+    }
+  }
+}

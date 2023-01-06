@@ -1,0 +1,24 @@
+{
+  "Spawns": {
+    "Anemos": {
+      "mob": "Pazuzu",
+      "weather": "Gales"
+    },
+    "Pagos": {
+      "mob": "Cassie",
+      "weather": "Blizzards",
+      "mob2": "King Arthro",
+      "weather2": "Fog"
+    },
+    "Pyros": {
+      "mob": "Penthesilea",
+      "weather": "Heat Waves"
+    }
+  },
+  "WeatherIcons": {
+    "Gales" : "../icons/Weather/060206_hr1.png",
+    "Blizzards": "../icons/Weather/060216_hr1.png",
+    "Fog": "../icons/Weather/060204_hr1.png",
+    "Heat Waves": "../icons/Weather/060214_hr1.png"
+  }
+}
