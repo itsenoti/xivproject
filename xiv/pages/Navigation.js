@@ -77,6 +77,8 @@ function Navigation() {
     right: false,
   });
 
+  const router = useRouter();
+
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
@@ -85,8 +87,6 @@ function Navigation() {
   if (!mounted) {
     return null;
   }
-
-  const router = useRouter();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
