@@ -12,8 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import React, { useContext, useState } from "react";
-import { ThemeContext } from "../contexts/themeContext";
+import { useTheme } from "next-themes";
+import React, { useEffect, useState } from "react";
+import { Theme } from "../public/globals";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -64,7 +65,10 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 function Navigation() {
   /* Set theme to Dark Mode */
-  const { isDarkMode, setDarkMode } = useContext(ThemeContext);
+  const { theme, setTheme } = useTheme();
+
+  const [mounted, setMounted] = useState(false);
+
   /* Set menu drawer to close */
   const [isDrawerOpen, setDrawerState] = useState({
     top: false,
@@ -72,6 +76,15 @@ function Navigation() {
     bottom: false,
     right: false,
   });
+
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -81,6 +94,7 @@ function Navigation() {
     setDrawerState({ ...isDrawerOpen, [anchor]: open });
   };
 
+  // These are the items inside the hamburger menu
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
@@ -93,14 +107,19 @@ function Navigation() {
           <Button color="inherit">Eureka</Button>
         </ListItem>
         <ListItem key="Gardening">
-          <Button color="inherit">Gardening</Button>
+          <Button color="inherit">Island Sanctuary</Button>
         </ListItem>
         <ListItem key="ThemeSwitcher">
           {/* Theme Switcher */}
           <FormControlLabel
-            control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+            control={
+              <MaterialUISwitch
+                sx={{ m: 1 }}
+                defaultChecked={theme === "dark" ? Theme.DARK : Theme.LIGHT}
+              />
+            }
             onChange={() => {
-              setDarkMode(!isDarkMode);
+              theme === "light" ? setTheme("dark") : setTheme("light");
             }}
           />
         </ListItem>
@@ -119,12 +138,17 @@ function Navigation() {
           {/* Right side menu */}
           <Box sx={{ display: { xs: "none", md: "block" } }}>
             <Button color="inherit">Eureka</Button>
-            <Button color="inherit">Gardening</Button>
+            <Button color="inherit">{theme}</Button>
             {/* Theme Switcher */}
             <FormControlLabel
-              control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+              control={
+                <MaterialUISwitch
+                  sx={{ m: 1 }}
+                  defaultChecked={theme === "dark" ? Theme.DARK : Theme.LIGHT}
+                />
+              }
               onChange={() => {
-                setDarkMode(!isDarkMode);
+                theme === "light" ? setTheme("dark") : setTheme("light");
               }}
             />
           </Box>
