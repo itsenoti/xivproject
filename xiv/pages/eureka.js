@@ -10,8 +10,9 @@ function Home({ theme, setTheme }) {
       <Header />
       <Navigation />
       <Announcements />
-      <Container sx={{ height: "100vh", pt: 8 }}>
-        <Title text="Announcements" />
+      <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
+        <Title text="Weather" />
+        <Title text="Logograms" />
       </Container>
     </>
   );

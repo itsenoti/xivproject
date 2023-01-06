@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Theme } from "../public/globals";
 
@@ -66,7 +67,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 function Navigation() {
   /* Set theme to Dark Mode */
   const { theme, setTheme } = useTheme();
-
   const [mounted, setMounted] = useState(false);
 
   /* Set menu drawer to close */
@@ -86,6 +86,8 @@ function Navigation() {
     return null;
   }
 
+  const router = useRouter();
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
@@ -103,11 +105,36 @@ function Navigation() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem key="Eureka">
-          <Button color="inherit">Eureka</Button>
+        {" "}
+        <ListItem key="Home">
+          <Button
+            color="inherit"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Home
+          </Button>
         </ListItem>
-        <ListItem key="Gardening">
-          <Button color="inherit">Island Sanctuary</Button>
+        <ListItem key="Eureka">
+          <Button
+            color="inherit"
+            onClick={() => {
+              router.push("/eureka");
+            }}
+          >
+            Eureka
+          </Button>
+        </ListItem>
+        <ListItem key="IslandSanctuary">
+          <Button
+            color="inherit"
+            onClick={() => {
+              router.push("/island-sanctuary");
+            }}
+          >
+            Island Sanctuary
+          </Button>
         </ListItem>
         <ListItem key="ThemeSwitcher">
           {/* Theme Switcher */}
