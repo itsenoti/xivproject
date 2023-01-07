@@ -1,4 +1,3 @@
-import ImageIcon from "@mui/icons-material/Image";
 import { Container, ListItem } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
@@ -6,6 +5,7 @@ import List from "@mui/material/List";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Title from "../components/title";
 import { Animals } from "../pages/api/animals.json";
@@ -173,23 +173,21 @@ function IslandSanctuary() {
           {(() => {
             const rows = [];
             for (let i = 0; i < Object.keys(Animals).length; i++) {
-              console.log(
-                Object.keys(Animals)[i] +
-                  " " +
-                  Object.values(Animals)[i]["start"] +
-                  " " +
-                  Object.values(Animals)[i]["end"]
-              );
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
-                      <ImageIcon />
+                      <Image src={Object.values(Animals)[i]["icon"]} width={40} height={40}></Image>
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={Object.keys(Animals)[i]}
-                    secondary={Object.values(Animals)[i]["loot"]}
+                    secondary={
+                      "(" +
+                      Object.values(Animals)[i]["loc"] +
+                      ") " +
+                      Object.values(Animals)[i]["loot"]
+                    }
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
                   <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>

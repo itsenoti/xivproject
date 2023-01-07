@@ -1,4 +1,10 @@
 {
+  "Zones": {
+    "Anemos": "Anemos",
+    "Pagos": "Pagos",
+    "Pyros": "Pyros",
+    "Hydatos": "Hydatos"
+  },
   "Spawns": {
     "Anemos": {
       "mob": "Pazuzu",
@@ -19,6 +25,8 @@
     "Gales" : "/icons/Weather/060206_hr1.png",
     "Blizzards": "/icons/Weather/060216_hr1.png",
     "Fog": "/icons/Weather/060204_hr1.png",
-    "Heat Waves": "/icons/Weather/060214_hr1.png"
+    "Gloom": "/icons/Weather/060218_hr1.png",
+    "Heat Waves": "/icons/Weather/060214_hr1.png",
+    "Thunder": "/icons/Weather/060209_hr1.png"
   }
 }

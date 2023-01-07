@@ -8,10 +8,11 @@ import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Title from "../components/title";
-import { WeatherIcons } from "../pages/api/eureka.json";
+// import { WeatherIcons } from "../pages/api/eureka.json";
+// import { Zones } from "./api/eureka.json";
+import Eureka from "./api/eureka.json";
 import Header from "./Header";
 import Navigation from "./Navigation";
-
 /**
  * @returns arr of forecast time
  */
@@ -32,23 +33,39 @@ function getWeatherForecast(weather = "", zone = "") {
     lt: forecast_lt[i],
     weather: forecast_wt[i],
   }));
-  console.log(result);
+  // console.log(result);
   var date;
   for (var i = 1; i < 100; i++) {
-    if (
-      result[i]["weather"] === weather &&
-      (result[i]["et"] === "16:00" || result[i]["et"] === "00:00")
-    ) {
-      date = new Date(result[i]["lt"]);
-      return formatTime(
-        date.toLocaleDateString("default", {
-          month: "short",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
+    // If Anemos, check if also Night Time
+    if (zone == Eureka.Zones.Anemos) {
+      if (
+        result[i]["weather"] === weather &&
+        (result[i]["et"] === "00:00" || result[i]["et"] === "16:00")
+      ) {
+        date = new Date(result[i]["lt"]);
+        return formatTime(
+          date.toLocaleDateString("default", {
+            month: "short",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+        );
+      }
+    } else {
+      if (result[i]["weather"] === weather) {
+        date = new Date(result[i]["lt"]);
+        return formatTime(
+          date.toLocaleDateString("default", {
+            month: "short",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+        );
+      }
     }
+    // }
   }
 }
 
@@ -119,7 +136,7 @@ const ZONES = {
 };
 
 function getForecast(chance, zone) {
-  console.log("Zone " + zone);
+  // console.log(Zones["Anemos"]);
   switch (zone) {
     case ZONES.EUREKA_ANEMOS:
       if (chance < 30) return "Fair Skies";
@@ -173,13 +190,14 @@ function IslandSanctuary() {
   var AnemosWeatherList = ["Gales"];
   var PagosWeatherList = ["Blizzards", "Fog"];
   var PyrosWeatherList = ["Heat Waves"];
+  var HydatosWeatherList = ["Gloom", "Thunder"];
 
   return (
     <>
       <Header />
       <Navigation />
       <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
-        <Title text={"Anemos"} />
+        <Title text={Eureka.Zones.Anemos} />
         <List sx={{ width: "100%", color: "inherit" }}>
           {(() => {
             const rows = [];
@@ -188,7 +206,11 @@ function IslandSanctuary() {
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
-                      <Image src={WeatherIcons[AnemosWeatherList[i]]} width={40} height={40} />
+                      <Image
+                        src={Eureka.WeatherIcons[AnemosWeatherList[i]]}
+                        width={40}
+                        height={40}
+                      />
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
@@ -198,7 +220,7 @@ function IslandSanctuary() {
                   />
                   <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
                     <Typography variant="body2">
-                      {getWeatherForecast(AnemosWeatherList[i], "Anemos")}
+                      {getWeatherForecast(AnemosWeatherList[i], Eureka.Zones.Anemos)}
                     </Typography>{" "}
                   </Card>
                 </ListItem>
@@ -208,7 +230,7 @@ function IslandSanctuary() {
           })()}
         </List>
 
-        <Title text={"Pagos"} />
+        <Title text={Eureka.Zones.Pagos} />
         <List sx={{ width: "100%", color: "inherit" }}>
           {(() => {
             const rows = [];
@@ -217,7 +239,11 @@ function IslandSanctuary() {
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
-                      <Image src={WeatherIcons[PagosWeatherList[i]]} width={40} height={40} />
+                      <Image
+                        src={Eureka.WeatherIcons[PagosWeatherList[i]]}
+                        width={40}
+                        height={40}
+                      />
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
@@ -227,7 +253,7 @@ function IslandSanctuary() {
                   />
                   <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
                     <Typography variant="body2">
-                      {getWeatherForecast(PagosWeatherList[i], "Pagos")}
+                      {getWeatherForecast(PagosWeatherList[i], Eureka.Zones.Pagos)}
                     </Typography>{" "}
                   </Card>
                 </ListItem>
@@ -237,7 +263,7 @@ function IslandSanctuary() {
           })()}
         </List>
 
-        <Title text={"Pyros"} />
+        <Title text={Eureka.Zones.Pyros} />
         <List sx={{ width: "100%", color: "inherit" }}>
           {(() => {
             const rows = [];
@@ -246,7 +272,11 @@ function IslandSanctuary() {
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
-                      <Image src={WeatherIcons[PyrosWeatherList[i]]} width={40} height={40} />
+                      <Image
+                        src={Eureka.WeatherIcons[PyrosWeatherList[i]]}
+                        width={40}
+                        height={40}
+                      />
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
@@ -256,7 +286,40 @@ function IslandSanctuary() {
                   />
                   <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
                     <Typography variant="body2">
-                      {getWeatherForecast(PyrosWeatherList[i], "Pyros")}
+                      {getWeatherForecast(PyrosWeatherList[i], Eureka.Zones.Pyros)}
+                    </Typography>{" "}
+                  </Card>
+                </ListItem>
+              );
+            }
+            return rows;
+          })()}
+        </List>
+
+        <Title text={Eureka.Zones.Hydatos} />
+        <List sx={{ width: "100%", color: "inherit" }}>
+          {(() => {
+            const rows = [];
+            for (let i = 0; i < HydatosWeatherList.length; i++) {
+              rows.push(
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <Image
+                        src={Eureka.WeatherIcons[HydatosWeatherList[i]]}
+                        width={40}
+                        height={40}
+                      />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={HydatosWeatherList[i]}
+                    // secondary={Object.values(Animals)[i]["loot"]}
+                    secondaryTypographyProps={{ sx: { color: "inherit" } }}
+                  />
+                  <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
+                    <Typography variant="body2">
+                      {getWeatherForecast(HydatosWeatherList[i], Eureka.Zones.Hydatos)}
                     </Typography>{" "}
                   </Card>
                 </ListItem>

@@ -3,7 +3,9 @@ import { Divider, Typography } from "@mui/material";
 function Title(props) {
   return (
     <>
-      <Typography variant="subtitle1">{props.text}</Typography>
+      <Typography variant="subtitle1" sx={{ pl: 1 }}>
+        {props.text}
+      </Typography>
       <Divider />
     </>
   );

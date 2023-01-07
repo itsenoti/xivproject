@@ -4,61 +4,81 @@
       "start": 6,
       "end": 9,
       "weather": "Showers",
-      "loot":"Claw, Fang"
+      "loot":"Claw, Fang",
+      "loc":"17, 24",
+      "icon":"/icons/IslandSanctuary/Alligator.png"
     },
     "Beachcomb": {
       "start": 0,
       "end": 3,
       "weather": "Rain",
-      "loot":"Carapace, Claw"
+      "loot":"Carapace, Claw",
+      "loc":"17.8, 12.6",
+      "icon":"/icons/IslandSanctuary/Beachcomb.png"
     },
     "Black Chocobo": {
       "start": 0,
       "end": 0,
       "weather": "Clear Skies",
-      "loot":"Feather, Fur"
+      "loot":"Feather, Fur",
+      "loc":"13, 11",
+      "icon":"/icons/IslandSanctuary/BlackChocobo.png"
     },
     "Gold Back": {
       "start": 0,
       "end": 0,
       "weather": "Rain",
-      "loot":"Feather, Egg"
+      "loot":"Feather, Egg",
+      "loc":"31, 28",
+      "icon":"/icons/IslandSanctuary/Gold Back.png"
     },
     "Goobbue": {
       "start": 9,
       "end": 12,
       "weather": "Clouds",
-      "loot":"Fang, Claw"
+      "loot":"Fang, Claw",
+      "loc":"33, 16",
+      "icon":"/icons/IslandSanctuary/Goobbue.png"
     },
     "Grand Buffalo": {
       "start": 0,
       "end": 0,
       "weather": "Clouds",
-      "loot":"Horn, Milk"
+      "loot":"Horn, Milk",
+      "loc":"12, 17",
+      "icon":"/icons/IslandSanctuary/Grand Buffalo.png"
     },
     "Ornery Karakul": {
       "start": 0,
       "end": 0,
       "weather": "Fair Skies",
-      "loot":"Milk, Fleece"
+      "loot":"Milk, Fleece",
+      "loc":"20, 23",
+      "icon":"/icons/IslandSanctuary/Ornery Karakul.png"
     },
     "Paissa": {
       "start": 12,
       "end": 3,
       "weather": "Fair Skies",
-      "loot":"Claw, Fleece"
+      "loot":"Claw, Fleece",
+      "loc":"24, 28",
+      "icon":"/icons/IslandSanctuary/Paissa.png"
     },
     "Twinklefleece": {
       "start": 6,
       "end": 9,
       "weather": "Fog",
-      "loot":"Fleece, Fur"
+      "loot":"Fleece, Fur",
+      "loc":"22.1, 20.8",
+      "icon":"/icons/IslandSanctuary/Twinklefleece.png"
     },
     "Yellow Coblyn": {
       "start": 0,
       "end": 0,
       "weather": "Fog",
-      "loot":"Carapace, Fang"
+      "loot":"Carapace, Fang",
+      "loc":"27, 19",
+      "icon":"/icons/IslandSanctuary/Yellow Coblyn.png"
     }
   }
 }
