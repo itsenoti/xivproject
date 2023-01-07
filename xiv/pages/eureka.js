@@ -5,11 +5,13 @@ import List from "@mui/material/List";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Title from "../components/title";
 import { WeatherIcons } from "../pages/api/eureka.json";
 import Header from "./Header";
 import Navigation from "./Navigation";
+
 /**
  * @returns arr of forecast time
  */
@@ -168,9 +170,9 @@ function IslandSanctuary() {
     return null;
   }
 
-  var anemos = ["Gales"];
-  var pagos = ["Blizzards", "Fog"];
-  var pyros = ["Heat Waves"];
+  var AnemosWeatherList = ["Gales"];
+  var PagosWeatherList = ["Blizzards", "Fog"];
+  var PyrosWeatherList = ["Heat Waves"];
 
   return (
     <>
@@ -181,22 +183,22 @@ function IslandSanctuary() {
         <List sx={{ width: "100%", color: "inherit" }}>
           {(() => {
             const rows = [];
-            for (let i = 0; i < anemos.length; i++) {
+            for (let i = 0; i < AnemosWeatherList.length; i++) {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
-                      <img src={WeatherIcons[anemos[i]]}></img>
+                      <Image src={WeatherIcons[AnemosWeatherList[i]]} width={40} height={40} />
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={anemos[i]}
+                    primary={AnemosWeatherList[i]}
                     // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
                   <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
                     <Typography variant="body2">
-                      {getWeatherForecast(anemos[i], "Anemos")}
+                      {getWeatherForecast(AnemosWeatherList[i], "Anemos")}
                     </Typography>{" "}
                   </Card>
                 </ListItem>
@@ -210,21 +212,23 @@ function IslandSanctuary() {
         <List sx={{ width: "100%", color: "inherit" }}>
           {(() => {
             const rows = [];
-            for (let i = 0; i < pagos.length; i++) {
+            for (let i = 0; i < PagosWeatherList.length; i++) {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
-                      <img src={WeatherIcons[pagos[i]]}></img>
+                      <Image src={WeatherIcons[PagosWeatherList[i]]} width={40} height={40} />
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={pagos[i]}
+                    primary={PagosWeatherList[i]}
                     // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
                   <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-                    <Typography variant="body2">{getWeatherForecast(pagos[i], "Pagos")}</Typography>{" "}
+                    <Typography variant="body2">
+                      {getWeatherForecast(PagosWeatherList[i], "Pagos")}
+                    </Typography>{" "}
                   </Card>
                 </ListItem>
               );
@@ -237,21 +241,23 @@ function IslandSanctuary() {
         <List sx={{ width: "100%", color: "inherit" }}>
           {(() => {
             const rows = [];
-            for (let i = 0; i < pyros.length; i++) {
+            for (let i = 0; i < PyrosWeatherList.length; i++) {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
-                      <img src={WeatherIcons[pyros[i]]}></img>
+                      <Image src={WeatherIcons[PyrosWeatherList[i]]} width={40} height={40} />
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={pyros[i]}
+                    primary={PyrosWeatherList[i]}
                     // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
                   <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
-                    <Typography variant="body2">{getWeatherForecast(pyros[i], "Pyros")}</Typography>{" "}
+                    <Typography variant="body2">
+                      {getWeatherForecast(PyrosWeatherList[i], "Pyros")}
+                    </Typography>{" "}
                   </Card>
                 </ListItem>
               );
