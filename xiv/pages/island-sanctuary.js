@@ -5,7 +5,6 @@ import List from "@mui/material/List";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import Title from "../components/title";
 import { Animals } from "../pages/api/animals.json";
@@ -155,7 +154,6 @@ function getWeather(futureWeather) {
 
 function IslandSanctuary() {
   const [mounted, setMounted] = useState(false);
-  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -176,8 +174,8 @@ function IslandSanctuary() {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
-                      <Image src={Object.values(Animals)[i]["icon"]} width={40} height={40}></Image>
+                    <Avatar src={Object.values(Animals)[i]["icon"]}>
+                      {/* <Image src={Object.values(Animals)[i]["icon"]} width={40} height={40}></Image> */}
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
@@ -188,7 +186,9 @@ function IslandSanctuary() {
                       ") " +
                       Object.values(Animals)[i]["loot"]
                     }
-                    secondaryTypographyProps={{ sx: { color: "inherit" } }}
+                    secondaryTypographyProps={{
+                      sx: { color: "inherit", fontSize: "25rem", color: "text.secondary" },
+                    }}
                   />
                   <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
                     <Typography variant="body2">

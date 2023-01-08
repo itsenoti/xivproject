@@ -112,6 +112,7 @@ function Navigation() {
             onClick={() => {
               router.push("/");
             }}
+            sx={{ width: "100%", justifyContent: "left" }}
           >
             Home
           </Button>
@@ -122,6 +123,7 @@ function Navigation() {
             onClick={() => {
               router.push("/eureka");
             }}
+            sx={{ width: "100%", justifyContent: "left" }}
           >
             Eureka
           </Button>
@@ -132,6 +134,7 @@ function Navigation() {
             onClick={() => {
               router.push("/island-sanctuary");
             }}
+            sx={{ width: "100%", justifyContent: "left" }}
           >
             Island Sanctuary
           </Button>

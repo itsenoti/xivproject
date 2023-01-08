@@ -1,19 +1,116 @@
 
+:root {
+  --common-font-size: 1rem;
+  --light-bg: #FCFCFD;
+  --light-color: #667085;
+  --light-25: #fcfcfd;
+  --light-50: #f9fafb;
+  --light-100: #f2f4f7;
+  --light-200: #e4e7ec;
+  --light-300: #d0d5dd;
+  --light-400: #98a2b3;
+  --dark-bg: #1d2939;
+  --dark-color: #d0d5dd;
+  --dark-500: #667085;
+  --dark-600: #475467;
+  --dark-700: #344054;
+  --dark-800: #1d2939;
+  --dark-900: #101828;
+  --button-font-size: 0.8rem; 
+}
+
 * {
   font-display: swap;
   font-family: 'Inter' !important;
+  /* font-size: 0.9rem !important; */
+  color: var(--light-color)
 }
 
-span.MuiTypography-body1 {
-  font-size: 0.9rem;
+button.MuiButton-root.MuiButton-text {
+  font-size: var(--button-font-size) !important;
 }
 
-p.MuiTypography-body2 {
+[class*='body2'] {
+  color: var(--dark-color);
+}
+
+div > p[class*='body2'] {
+  font-size: 0.7rem;
+}
+
+div > span[class*='body1'] {
   font-size: 0.8rem;
 }
 
-h6.MuiTypography-subtitle1  {
-  font-size: 0.8rem;
-  font-weight: bold;
+h6 {
+  color:red;
+}
+
+h6[class*="subtitle1"] {
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
   text-transform: uppercase;
+  letter-spacing: 0.15rem;
+}
+
+[dark-theme='light'] span[class*='body1'] {
+  font-weight: normal;
+  color: var(--dark-color) !important;
+}
+
+[dark-theme='dark'] span[class*='body1'] {
+  font-weight: normal;
+  color: red !important;
+}
+
+/* Website Name */
+[data-theme='light'] h5[class*='h5'] {
+  font-size: 1.3rem !important;
+  color: var(--dark-800);
+}
+
+[data-theme='dark'] h5[class*='h5'] {
+  font-size: 1.3rem !important;
+  color: var(--dark-color);
+}
+
+/* Hamburger Menu */
+[data-theme='light'] svg[data-testid='MenuIcon'] {
+  font-size: 1.5rem !important;
+}
+
+[data-theme='dark'] svg[data-testid='MenuIcon'] {
+  font-size: 1.5rem !important;
+}
+
+[data-theme='light'] [class*='MuiCard'] {
+  background-color: var(--light-100);
+}
+
+[data-theme='dark'] {
+  background-color: var(--dark-bg);
+  color: var(--light-400) !important;
+}
+
+[data-theme='dark'] [class*='MuiAppBar'] {
+  background-color: #101828;
+}
+
+[data-theme='dark'] [class*='elevation1'] {
+  background-color: var(--dark-700);
+  color: var(--dark-color);
+}
+
+[data-theme='dark'] [class*='MuiCard'] {
+  background-color: var(--dark-700);
+}
+
+[data-theme='dark'] [class*='MuiListItemText'],
+[data-theme='dark'] [class*="subtitle1"],
+[data-theme='dark'] button.MuiButton-root.MuiButton-text {
+  color: var(--dark-color);
+}
+
+[data-theme='dark'] button.MuiButton-root.MuiButton-text {
+  font-size: var(--button-font-size) !important;
 }

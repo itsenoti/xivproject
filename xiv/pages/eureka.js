@@ -5,7 +5,6 @@ import List from "@mui/material/List";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import Title from "../components/title";
 // import { WeatherIcons } from "../pages/api/eureka.json";
@@ -205,13 +204,7 @@ function IslandSanctuary() {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
-                      <Image
-                        src={Eureka.WeatherIcons[AnemosWeatherList[i]]}
-                        width={40}
-                        height={40}
-                      />
-                    </Avatar>
+                    <Avatar src={Eureka.WeatherIcons[AnemosWeatherList[i]]}></Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={AnemosWeatherList[i]}
@@ -238,13 +231,7 @@ function IslandSanctuary() {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
-                      <Image
-                        src={Eureka.WeatherIcons[PagosWeatherList[i]]}
-                        width={40}
-                        height={40}
-                      />
-                    </Avatar>
+                    <Avatar src={Eureka.WeatherIcons[PagosWeatherList[i]]}></Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={PagosWeatherList[i]}
@@ -271,13 +258,7 @@ function IslandSanctuary() {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
-                      <Image
-                        src={Eureka.WeatherIcons[PyrosWeatherList[i]]}
-                        width={40}
-                        height={40}
-                      />
-                    </Avatar>
+                    <Avatar src={Eureka.WeatherIcons[PyrosWeatherList[i]]}></Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={PyrosWeatherList[i]}
@@ -304,13 +285,7 @@ function IslandSanctuary() {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
-                      <Image
-                        src={Eureka.WeatherIcons[HydatosWeatherList[i]]}
-                        width={40}
-                        height={40}
-                      />
-                    </Avatar>
+                    <Avatar src={Eureka.WeatherIcons[HydatosWeatherList[i]]}></Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={HydatosWeatherList[i]}
