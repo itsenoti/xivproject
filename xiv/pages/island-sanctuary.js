@@ -14,17 +14,17 @@ import Navigation from "./Navigation";
  * @returns arr of forecast time
  */
 function getWeatherForecast(arg_start = 0, arg_end = 0, arg_weather = "") {
-  if (arg_start == 0 && arg_end == 0 && arg_weather == "") return;
+  // if (arg_start == 0 && arg_end == 0 && arg_weather == "") return;
 
   let forecast_et = [];
   let forecast_lt = [];
   let forecast_wt = [];
 
-  for (let i = 0; i < 100; i++) forecast_et[i] = getETHour(i);
+  for (let i = 0; i < 1000; i++) forecast_et[i] = getETHour(i);
 
-  for (let i = 0; i < 100; i++) forecast_lt[i] = convertETToLT(i);
+  for (let i = 0; i < 1000; i++) forecast_lt[i] = convertETToLT(i);
 
-  for (let i = 0; i < 100; i++) forecast_wt[i] = getWeather(i);
+  for (let i = 0; i < 1000; i++) forecast_wt[i] = getWeather(i);
 
   const result = forecast_et.map((time, i) => ({
     et: time,
@@ -32,38 +32,69 @@ function getWeatherForecast(arg_start = 0, arg_end = 0, arg_weather = "") {
     weather: forecast_wt[i],
   }));
 
+  // console.log(result);
+
   // arg_start: >0 or >8, or >16
   var sTime;
   if (arg_start >= 0) sTime = "00:00";
-  if (arg_start > 8) sTime = "08:00";
-  if (arg_start > 16) sTime = "16:00";
+  if (arg_start >= 8) sTime = "08:00";
+  if (arg_start >= 16) sTime = "16:00";
 
-  var endTime = parseInt(arg_end) == 0 ? 0 : 1;
+  // var hasEndtime = parseInt(arg_end) == 0 ? 0 : 1;
 
   var date;
-  for (var i = 1; i < 100; i++) {
-    if (endTime) {
+  var day = 0;
+  var tempHour = 0;
+  var tempMins = 0;
+  for (var i = 1; i < 1000; i++) {
+    if (parseInt(arg_end)) {
       if (result[i]["weather"] == arg_weather && result[i]["et"] == sTime) {
         date = new Date(result[i]["lt"]);
-        return formatTime(
-          date.toLocaleDateString("default", {
-            month: "short",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+        var curDate = new Date();
+        console.log(Math.round(Math.abs(date - curDate) / 60000) + " " + "mins");
+        var totalMins = Math.round(Math.abs(date - curDate) / 60000);
+        tempHour = Math.floor(totalMins / 60);
+        if (tempHour > 24) {
+          day = Math.floor(tempHour / 24);
+          tempHour = tempHour % 24;
+        }
+        tempMins = totalMins % 60;
+        // return formatTime(
+        //   date.toLocaleDateString("default", {
+        //     month: "short",
+        //     day: "2-digit",
+        //     hour: "2-digit",
+        //     minute: "2-digit",
+        //   })
+        // );
+
+        return (
+          (day ? day + "days " : "") + (tempHour ? tempHour + "hours " : "") + tempMins + "min"
         );
       }
     } else {
       if (result[i]["weather"] == arg_weather) {
         date = new Date(result[i]["lt"]);
-        return formatTime(
-          date.toLocaleDateString("default", {
-            month: "short",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+        var curDate = new Date();
+        console.log(Math.round(Math.abs(date - curDate) / 60000) + " " + "mins");
+        var totalMins = Math.round(Math.abs(date - curDate) / 60000);
+        tempHour = Math.floor(totalMins / 60);
+        if (tempHour > 24) {
+          day = Math.floor(tempHour / 24);
+          tempHour = tempHour % 24;
+        }
+        tempMins = totalMins % 60;
+        // return formatTime(
+        //   date.toLocaleDateString("default", {
+        //     month: "short",
+        //     day: "2-digit",
+        //     hour: "2-digit",
+        //     minute: "2-digit",
+        //   })
+        // );
+
+        return (
+          (day ? day + "days " : "") + (tempHour ? tempHour + "hours " : "") + tempMins + "min"
         );
       }
     }

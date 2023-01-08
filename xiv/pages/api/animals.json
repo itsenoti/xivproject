@@ -73,8 +73,8 @@
       "icon":"/icons/IslandSanctuary/Paissa.png"
     },
     "Twinklefleece": {
-      "start": 6,
-      "end": 9,
+      "start": 18,
+      "end": 21,
       "weather": "Fog",
       "loot":"Fleece",
       "loot2": "Fur",

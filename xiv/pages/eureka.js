@@ -20,11 +20,11 @@ function getWeatherForecast(weather = "", zone = "") {
   let forecast_lt = [];
   let forecast_wt = [];
 
-  for (let i = 0; i < 100; i++) forecast_et[i] = getETHour(i);
+  for (let i = 0; i < 1000; i++) forecast_et[i] = getETHour(i);
 
-  for (let i = 0; i < 100; i++) forecast_lt[i] = convertETToLT(i);
+  for (let i = 0; i < 1000; i++) forecast_lt[i] = convertETToLT(i);
 
-  for (let i = 0; i < 100; i++) forecast_wt[i] = getWeather(i, zone);
+  for (let i = 0; i < 1000; i++) forecast_wt[i] = getWeather(i, zone);
 
   /* Collate ET Hour + LT Hour + Weather */
   const result = forecast_et.map((time, i) => ({
@@ -34,7 +34,10 @@ function getWeatherForecast(weather = "", zone = "") {
   }));
   // console.log(result);
   var date;
-  for (var i = 1; i < 100; i++) {
+  var day = 0;
+  var tempHour = 0;
+  var tempMins = 0;
+  for (var i = 1; i < 1000; i++) {
     // If Anemos, check if also Night Time
     if (zone == Eureka.Zones.Anemos) {
       if (
@@ -42,25 +45,51 @@ function getWeatherForecast(weather = "", zone = "") {
         (result[i]["et"] === "00:00" || result[i]["et"] === "16:00")
       ) {
         date = new Date(result[i]["lt"]);
-        return formatTime(
-          date.toLocaleDateString("default", {
-            month: "short",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+        var curDate = new Date();
+        console.log(Math.round(Math.abs(date - curDate) / 60000) + " " + "mins");
+        var totalMins = Math.round(Math.abs(date - curDate) / 60000);
+        tempHour = Math.floor(totalMins / 60);
+        if (tempHour > 24) {
+          day = Math.floor(tempHour / 24);
+          tempHour = tempHour % 24;
+        }
+        tempMins = totalMins % 60;
+        // return formatTime(
+        //   date.toLocaleDateString("default", {
+        //     month: "short",
+        //     day: "2-digit",
+        //     hour: "2-digit",
+        //     minute: "2-digit",
+        //   })
+        // );
+
+        return (
+          (day ? day + "days " : "") + (tempHour ? tempHour + "hours " : "") + tempMins + "min"
         );
       }
     } else {
       if (result[i]["weather"] === weather) {
         date = new Date(result[i]["lt"]);
-        return formatTime(
-          date.toLocaleDateString("default", {
-            month: "short",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+        var curDate = new Date();
+        console.log(Math.round(Math.abs(date - curDate) / 60000) + " " + "mins");
+        var totalMins = Math.round(Math.abs(date - curDate) / 60000);
+        tempHour = Math.floor(totalMins / 60);
+        if (tempHour > 24) {
+          day = Math.floor(tempHour / 24);
+          tempHour = tempHour % 24;
+        }
+        tempMins = totalMins % 60;
+        // return formatTime(
+        //   date.toLocaleDateString("default", {
+        //     month: "short",
+        //     day: "2-digit",
+        //     hour: "2-digit",
+        //     minute: "2-digit",
+        //   })
+        // );
+
+        return (
+          (day ? day + "days " : "") + (tempHour ? tempHour + "hours " : "") + tempMins + "min"
         );
       }
     }
@@ -175,7 +204,7 @@ function getWeather(futureWeather, zone) {
   return weather;
 }
 
-function IslandSanctuary() {
+function Eureka_() {
   const [mounted, setMounted] = useState(false);
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
@@ -208,7 +237,6 @@ function IslandSanctuary() {
                   </ListItemAvatar>
                   <ListItemText
                     primary={AnemosWeatherList[i]}
-                    // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
                   <Card
@@ -238,7 +266,6 @@ function IslandSanctuary() {
                   </ListItemAvatar>
                   <ListItemText
                     primary={PagosWeatherList[i]}
-                    // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
                   <Card
@@ -268,7 +295,6 @@ function IslandSanctuary() {
                   </ListItemAvatar>
                   <ListItemText
                     primary={PyrosWeatherList[i]}
-                    // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
                   <Card
@@ -298,7 +324,6 @@ function IslandSanctuary() {
                   </ListItemAvatar>
                   <ListItemText
                     primary={HydatosWeatherList[i]}
-                    // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
                   <Card
@@ -320,4 +345,4 @@ function IslandSanctuary() {
   );
 }
 
-export default IslandSanctuary;
+export default Eureka_;
