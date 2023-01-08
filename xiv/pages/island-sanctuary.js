@@ -211,7 +211,10 @@ function IslandSanctuary() {
                       sx: { color: "inherit", fontSize: "25rem", color: "text.secondary" },
                     }}
                   />
-                  <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
+                  <Card
+                    variant="outlined"
+                    sx={{ width: "7rem", p: 1, fontFamily: "inherit", textAlign: "center" }}
+                  >
                     <Typography variant="body2">
                       {getWeatherForecast(
                         Object.values(Animals)[i]["start"],

@@ -211,7 +211,10 @@ function IslandSanctuary() {
                     // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
-                  <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
+                  <Card
+                    variant="outlined"
+                    sx={{ width: "7rem", p: 1, fontFamily: "inherit", textAlign: "center" }}
+                  >
                     <Typography variant="body2">
                       {getWeatherForecast(AnemosWeatherList[i], Eureka.Zones.Anemos)}
                     </Typography>{" "}
@@ -238,7 +241,10 @@ function IslandSanctuary() {
                     // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
-                  <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
+                  <Card
+                    variant="outlined"
+                    sx={{ width: "7rem", p: 1, fontFamily: "inherit", textAlign: "center" }}
+                  >
                     <Typography variant="body2">
                       {getWeatherForecast(PagosWeatherList[i], Eureka.Zones.Pagos)}
                     </Typography>{" "}
@@ -265,7 +271,10 @@ function IslandSanctuary() {
                     // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
-                  <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
+                  <Card
+                    variant="outlined"
+                    sx={{ width: "7rem", p: 1, fontFamily: "inherit", textAlign: "center" }}
+                  >
                     <Typography variant="body2">
                       {getWeatherForecast(PyrosWeatherList[i], Eureka.Zones.Pyros)}
                     </Typography>{" "}
@@ -292,7 +301,10 @@ function IslandSanctuary() {
                     // secondary={Object.values(Animals)[i]["loot"]}
                     secondaryTypographyProps={{ sx: { color: "inherit" } }}
                   />
-                  <Card variant="outlined" sx={{ p: 1, fontFamily: "inherit" }}>
+                  <Card
+                    variant="outlined"
+                    sx={{ width: "7rem", p: 1, fontFamily: "inherit", textAlign: "center" }}
+                  >
                     <Typography variant="body2">
                       {getWeatherForecast(HydatosWeatherList[i], Eureka.Zones.Hydatos)}
                     </Typography>{" "}
