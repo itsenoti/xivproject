@@ -162,21 +162,32 @@ function IslandSanctuary() {
     return null;
   }
 
-  function chips(obj1, obj2, obj3) {
+  function chips(obj1, obj2) {
     const chip = (
       <>
-        {/* <Chip label={obj1} size="small"></Chip> */}
         <Chip label={obj1} size="small" variant="outlined" sx={{ mr: "0.3rem" }}></Chip>
         <Chip label={obj2} size="small"></Chip>
       </>
     );
     return chip;
   }
+
+  function primaryDetails(obj1, obj2) {
+    const primaryDetails = (
+      <>
+        <Typography variant="body2">
+          {obj1} <small>({obj2})</small>
+        </Typography>
+      </>
+    );
+
+    return primaryDetails;
+  }
   return (
     <>
       <Header />
       <Navigation />
-      <Container sx={{ padding: 0, pt: 8, pb: 10 }}>
+      <Container sx={{ padding: 0, pt: 8, pb: 3 }}>
         <Title text={"Rare Animals Spawn Tracker "} />
         <List sx={{ width: "100%", color: "inherit" }}>
           {(() => {
@@ -188,9 +199,11 @@ function IslandSanctuary() {
                     <Avatar src={Object.values(Animals)[i]["icon"]} variant="rounded"></Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={Object.keys(Animals)[i]}
+                    primary={primaryDetails(
+                      Object.keys(Animals)[i],
+                      Object.values(Animals)[i]["loc"]
+                    )}
                     secondary={chips(
-                      // Object.values(Animals)[i]["loc"],
                       Object.values(Animals)[i]["loot"],
                       Object.values(Animals)[i]["loot2"]
                     )}

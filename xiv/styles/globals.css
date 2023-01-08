@@ -27,7 +27,15 @@
   font-display: swap;
   font-family: 'Inter' !important;
   /* font-size: 0.9rem !important; */
-  color: var(--light-color)
+  /* color: var(--light-color) */
+}
+
+:is([data-theme='light']) small {
+  opacity: 0.5;
+}
+
+:is([data-theme='dark']) small {
+  opacity: 0.2;
 }
 
 button.MuiButton-root.MuiButton-text {
@@ -65,19 +73,14 @@ div > span[class*='MuiChip-labelSmall'] {
   background-color: var(--light-chip-secondary);
 }
 
+:is([data-theme='light'])
+:is([class*='MuiListItemText'],[class*="subtitle1"],button.MuiButton-root.MuiButton-text, [class*='MuiTypography-body2'], div[class*='MuiTypography-h6']){
+  color: var(--light-color);
+}
 :is([data-theme='dark'])
 :is([class*='MuiListItemText'],[class*="subtitle1"],button.MuiButton-root.MuiButton-text, [class*='MuiTypography-body2'], div[class*='MuiTypography-h6']){
   color: var(--dark-color);
 }
-
-
-
-
-
-
-
-
-
 
 
 [data-theme='dark'] div[class*='MuiChip-filledDefault'] {
@@ -111,7 +114,7 @@ h6[class*="subtitle1"] {
 /* Website Name */
 [data-theme='light'] h5[class*='h5'] {
   font-size: 1.3rem !important;
-  color: var(--dark-800);
+  color: var(--light-200);
 }
 
 [data-theme='dark'] h5[class*='h5'] {
