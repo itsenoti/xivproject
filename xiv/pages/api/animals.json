@@ -4,7 +4,8 @@
       "start": 6,
       "end": 9,
       "weather": "Showers",
-      "loot":"Claw, Fang",
+      "loot":"Claw",
+      "loot2": "Fang",
       "loc":"17, 24",
       "icon":"/icons/IslandSanctuary/Alligator.png"
     },
@@ -12,7 +13,8 @@
       "start": 0,
       "end": 3,
       "weather": "Rain",
-      "loot":"Carapace, Claw",
+      "loot":"Carapace",
+      "loot2": "Claw",
       "loc":"17.8, 12.6",
       "icon":"/icons/IslandSanctuary/Beachcomb.png"
     },
@@ -20,7 +22,8 @@
       "start": 0,
       "end": 0,
       "weather": "Clear Skies",
-      "loot":"Feather, Fur",
+      "loot":"Feather",
+      "loot2": "Fur",
       "loc":"13, 11",
       "icon":"/icons/IslandSanctuary/BlackChocobo.png"
     },
@@ -28,7 +31,8 @@
       "start": 0,
       "end": 0,
       "weather": "Rain",
-      "loot":"Feather, Egg",
+      "loot":"Feather",
+      "loot2": "Egg",
       "loc":"31, 28",
       "icon":"/icons/IslandSanctuary/Gold Back.png"
     },
@@ -36,7 +40,8 @@
       "start": 9,
       "end": 12,
       "weather": "Clouds",
-      "loot":"Fang, Claw",
+      "loot":"Fang",
+      "loot2": "Claw",
       "loc":"33, 16",
       "icon":"/icons/IslandSanctuary/Goobbue.png"
     },
@@ -44,7 +49,8 @@
       "start": 0,
       "end": 0,
       "weather": "Clouds",
-      "loot":"Horn, Milk",
+      "loot":"Horn",
+      "loot2": "Milk",
       "loc":"12, 17",
       "icon":"/icons/IslandSanctuary/Grand Buffalo.png"
     },
@@ -52,7 +58,8 @@
       "start": 0,
       "end": 0,
       "weather": "Fair Skies",
-      "loot":"Milk, Fleece",
+      "loot":"Milk",
+      "loot2": "Fleece",
       "loc":"20, 23",
       "icon":"/icons/IslandSanctuary/Ornery Karakul.png"
     },
@@ -60,7 +67,8 @@
       "start": 12,
       "end": 3,
       "weather": "Fair Skies",
-      "loot":"Claw, Fleece",
+      "loot":"Claw",
+      "loot2": "Fleece",
       "loc":"24, 28",
       "icon":"/icons/IslandSanctuary/Paissa.png"
     },
@@ -68,7 +76,8 @@
       "start": 6,
       "end": 9,
       "weather": "Fog",
-      "loot":"Fleece, Fur",
+      "loot":"Fleece",
+      "loot2": "Fur",
       "loc":"22.1, 20.8",
       "icon":"/icons/IslandSanctuary/Twinklefleece.png"
     },
@@ -76,7 +85,8 @@
       "start": 0,
       "end": 0,
       "weather": "Fog",
-      "loot":"Carapace, Fang",
+      "loot":"Carapace",
+      "loot2": "Fang",
       "loc":"27, 19",
       "icon":"/icons/IslandSanctuary/Yellow Coblyn.png"
     }

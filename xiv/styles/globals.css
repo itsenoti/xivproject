@@ -9,6 +9,8 @@
   --light-200: #e4e7ec;
   --light-300: #d0d5dd;
   --light-400: #98a2b3;
+  --light-chip-primary: #f1f1f1;
+  --light-chip-secondary: #bdbdbd;
   --dark-bg: #1d2939;
   --dark-color: #d0d5dd;
   --dark-500: #667085;
@@ -16,6 +18,8 @@
   --dark-700: #344054;
   --dark-800: #1d2939;
   --dark-900: #101828;
+  --dark-chip-primary: #9e9e9e;
+  --dark-chip-secondary: #e0e0e0;
   --button-font-size: 0.8rem; 
 }
 
@@ -39,11 +43,52 @@ div > p[class*='body2'] {
 }
 
 div > span[class*='body1'] {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
-h6 {
-  color:red;
+div[class*='MuiChip-labelSmall'] {
+  padding: 0;
+}
+div > span[class*='MuiChip-labelSmall'] {
+  font-size: 0.7rem;
+  padding: 0.5rem;
+}
+
+[data-theme='light'] div[class*='MuiChip-filledDefault'] {
+  height: 1.1rem;
+  color: var(--dark-900);
+  background-color: var(--light-chip-primary);
+}
+
+[data-theme='light'] div[class*='MuiChip-outlinedDefault'] {
+  height: 1.1rem;
+  background-color: var(--light-chip-secondary);
+}
+
+:is([data-theme='dark'])
+:is([class*='MuiListItemText'],[class*="subtitle1"],button.MuiButton-root.MuiButton-text, [class*='MuiTypography-body2'], div[class*='MuiTypography-h6']){
+  color: var(--dark-color);
+}
+
+
+
+
+
+
+
+
+
+
+
+[data-theme='dark'] div[class*='MuiChip-filledDefault'] {
+  height: 1.1rem;
+  color: var(--dark-900);
+  background-color: var(--dark-chip-primary);
+}
+
+[data-theme='dark'] div[class*='MuiChip-outlinedDefault'] {
+  height: 1.1rem;
+  background-color: var(--dark-chip-secondary);
 }
 
 h6[class*="subtitle1"] {

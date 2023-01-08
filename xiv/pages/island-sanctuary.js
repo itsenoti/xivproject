@@ -1,4 +1,4 @@
-import { Container, ListItem } from "@mui/material";
+import { Chip, Container, ListItem } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
 import List from "@mui/material/List";
@@ -161,11 +161,22 @@ function IslandSanctuary() {
   if (!mounted) {
     return null;
   }
+
+  function chips(obj1, obj2, obj3) {
+    const chip = (
+      <>
+        {/* <Chip label={obj1} size="small"></Chip> */}
+        <Chip label={obj1} size="small" variant="outlined" sx={{ mr: "0.3rem" }}></Chip>
+        <Chip label={obj2} size="small"></Chip>
+      </>
+    );
+    return chip;
+  }
   return (
     <>
       <Header />
       <Navigation />
-      <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
+      <Container sx={{ padding: 0, pt: 8, pb: 10 }}>
         <Title text={"Rare Animals Spawn Tracker "} />
         <List sx={{ width: "100%", color: "inherit" }}>
           {(() => {
@@ -174,18 +185,15 @@ function IslandSanctuary() {
               rows.push(
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar src={Object.values(Animals)[i]["icon"]}>
-                      {/* <Image src={Object.values(Animals)[i]["icon"]} width={40} height={40}></Image> */}
-                    </Avatar>
+                    <Avatar src={Object.values(Animals)[i]["icon"]} variant="rounded"></Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary={Object.keys(Animals)[i]}
-                    secondary={
-                      "(" +
-                      Object.values(Animals)[i]["loc"] +
-                      ") " +
-                      Object.values(Animals)[i]["loot"]
-                    }
+                    secondary={chips(
+                      // Object.values(Animals)[i]["loc"],
+                      Object.values(Animals)[i]["loot"],
+                      Object.values(Animals)[i]["loot2"]
+                    )}
                     secondaryTypographyProps={{
                       sx: { color: "inherit", fontSize: "25rem", color: "text.secondary" },
                     }}
