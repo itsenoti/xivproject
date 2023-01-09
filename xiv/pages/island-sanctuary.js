@@ -264,6 +264,7 @@ function IslandSanctuary() {
     var hour = 0;
     var min = 0;
     var secs = 0;
+
     dateDifference = Time.getTimeDifferenceMs(outlookDate.getTime(), currentDateMs);
 
     day = Time.getNumberOfDays(dateDifference);
@@ -278,14 +279,17 @@ function IslandSanctuary() {
         className={isAlmostReady ? styles.isAlmostReady : styles.remainingTime}
         title={outlookDate}
       >
-        {`${day}d ${hour}h ${min}m`}
+        {hour == 0 && min == 0 ? `Ready to spawn` : `${day}d ${hour}h ${min}m`}
       </span>
     );
   }
 
   function isWithinSpawnWindow(outlookDate, currentDate, outlookDatePlus8_45mins) {
     // Spawn window is 8 minutes and 45 seconds Earth Hour after the spawn time start
-    return outlookDate < currentDate && outlookDatePlus8_45mins > currentDate;
+    return (
+      (outlookDate < currentDate && outlookDatePlus8_45mins > currentDate) ||
+      outlookDate == currentDate
+    );
   }
 
   function convertSpawnTimeToET(arg_start) {

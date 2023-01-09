@@ -1,10 +1,17 @@
 .remainingTime {
   font-family: 'AzeretMono' !important;
+  font-size: 0.85rem;
 }
 
 .hasSpawned {
   font-family: 'AzeretMono' !important;
+  font-size: 0.75rem;
   color: greenyellow;
+}
+
+[data-theme='light'] .hasSpawned {
+  font-family: 'AzeretMono' !important;
+  color: green;
 }
 
 .isAlmostOver {
@@ -14,5 +21,6 @@
 
 .isAlmostReady {
   font-family: 'AzeretMono' !important;
+  font-size: 0.85rem;
   color: orange;
 }
