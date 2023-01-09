@@ -1,0 +1,18 @@
+.remainingTime {
+  font-family: 'AzeretMono' !important;
+}
+
+.hasSpawned {
+  font-family: 'AzeretMono' !important;
+  color: greenyellow;
+}
+
+.isAlmostOver {
+  font-family: 'AzeretMono' !important;
+  color: red;
+}
+
+.isAlmostReady {
+  font-family: 'AzeretMono' !important;
+  color: orange;
+}

@@ -53,7 +53,7 @@ function getWeatherForecast(weather = "", zone = "") {
           day = Math.floor(tempHour / 24);
           tempHour = tempHour % 24;
         }
-        tempMins = totalMins % 60;
+        tempMins = Math.round(totalMins % 60);
         // return formatTime(
         //   date.toLocaleDateString("default", {
         //     month: "short",

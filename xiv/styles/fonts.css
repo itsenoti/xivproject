@@ -4,4 +4,11 @@
   /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
   font-weight: 400;
   font-style: normal;
-  }
+}
+
+@font-face {
+  font-family: 'AzeretMono';
+  src: url('../public/fonts/Azeret/AzeretMono.ttf');
+  /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
+  font-style: normal;
+}
