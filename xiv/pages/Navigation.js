@@ -139,6 +139,17 @@ function Navigation() {
             Island Sanctuary
           </Button>
         </ListItem>
+        <ListItem key="Links">
+          <Button
+            color="inherit"
+            onClick={() => {
+              router.push("/links");
+            }}
+            sx={{ width: "100%", justifyContent: "left" }}
+          >
+            Links
+          </Button>
+        </ListItem>
         <ListItem key="ThemeSwitcher">
           {/* Theme Switcher */}
           <FormControlLabel
