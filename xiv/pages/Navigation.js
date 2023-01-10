@@ -3,6 +3,7 @@ import {
   AppBar,
   Box,
   Button,
+  Divider,
   FormControlLabel,
   List,
   ListItem,
@@ -117,6 +118,7 @@ function Navigation() {
             Home
           </Button>
         </ListItem>
+        <Divider />
         <ListItem key="Eureka">
           <Button
             color="inherit"
@@ -128,6 +130,7 @@ function Navigation() {
             Eureka
           </Button>
         </ListItem>
+        <Divider />
         <ListItem key="IslandSanctuary">
           <Button
             color="inherit"
@@ -139,6 +142,7 @@ function Navigation() {
             Island Sanctuary
           </Button>
         </ListItem>
+        <Divider />
         <ListItem key="Links">
           <Button
             color="inherit"
@@ -150,6 +154,7 @@ function Navigation() {
             Links
           </Button>
         </ListItem>
+        <Divider />
         <ListItem key="ThemeSwitcher">
           {/* Theme Switcher */}
           <FormControlLabel
@@ -171,15 +176,13 @@ function Navigation() {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar>
-          <Typography variant="h5" color="inherit" style={{ flex: 1 }}>
-            XIV Dump
-          </Typography>
-
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography sx={{ fontFamily: "Inter !important", fontWeight: "bold" }}>X|V</Typography>
           {/* Right side menu */}
           <Box sx={{ display: { xs: "none", md: "block" } }}>
             <Button color="inherit">Eureka</Button>
             <Button color="inherit">{theme}</Button>
+            <Divider />
             {/* Theme Switcher */}
             <FormControlLabel
               control={
@@ -193,6 +196,7 @@ function Navigation() {
               }}
             />
           </Box>
+          <div />
           {/* Hamburger Menu */}
           {["right"].map((anchor) => (
             <>

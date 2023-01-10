@@ -253,7 +253,8 @@ function IslandSanctuary() {
 
     return (
       <span className={isAlmostOver ? styles.isAlmostOver : styles.hasSpawned} title={outlookDate}>
-        {`Available for ${min == 0 ? "" : min}m ${secs}s`}
+        {`Available for
+        ${min == 0 ? "" : min + "m"} ${secs}s`}
       </span>
     );
   }
@@ -279,7 +280,11 @@ function IslandSanctuary() {
         className={isAlmostReady ? styles.isAlmostReady : styles.remainingTime}
         title={outlookDate}
       >
-        {hour == 0 && min == 0 ? `Ready to spawn` : `${day}d ${hour}h ${min}m`}
+        {hour == 0 && min == 0 && secs == 0
+          ? `Ready to spawn`
+          : `${day == 0 ? "" : day + "d"} ${hour == 0 ? "" : hour + "h"} ${
+              min <= 1 ? secs + "s" : min + "m"
+            }`}
       </span>
     );
   }

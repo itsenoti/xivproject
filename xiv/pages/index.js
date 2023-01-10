@@ -9,6 +9,8 @@ import Announcements from "../components/announcements";
 import Header from "./Header";
 import Navigation from "./Navigation";
 
+import styles from "./styles/Index.module.css";
+
 function Home({ theme, setTheme }) {
   const [title, setTitle] = useState(null);
   const [startTime, setStartTime] = useState(null);
@@ -23,28 +25,32 @@ function Home({ theme, setTheme }) {
     fetch(newsUrl)
       .then((response) => response.json())
       .then((responseData) => {
-        setTitle(responseData["game"][0]["title"].slice(0, -9));
-        setUrl(responseData["game"][0]["url"]);
-        date = new Date(responseData["game"][0]["start"]);
-        setStartTime(
-          date.toLocaleString("default", {
-            month: "long",
-            day: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          })
-        );
-        date = new Date(responseData["game"][0]["end"]);
-        setEndTime(
-          date.toLocaleString("default", {
-            month: "long",
-            day: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          })
-        );
+        console.log(Object.values(responseData["game"]) == "");
+        if (Object.values(responseData["game"]) != "") {
+          setTitle(responseData["game"][0]["title"].slice(0, -9));
+          setUrl(responseData["game"][0]["url"]);
+          console.log(xxx);
+          date = new Date(responseData["game"][0]["start"]);
+          setStartTime(
+            date.toLocaleString("default", {
+              month: "long",
+              day: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          );
+          date = new Date(responseData["game"][0]["end"]);
+          setEndTime(
+            date.toLocaleString("default", {
+              month: "long",
+              day: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          );
+        }
       });
     return;
   }
@@ -70,8 +76,9 @@ function Home({ theme, setTheme }) {
               <Typography gutterBottom variant="h6" component="div">
                 {title}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {startTime} (GMT+8) until {endTime} (GMT+8)
+              <Typography variant="body2" color="text.secondary" className="maintenanceSchedule">
+                <code className={styles.maintenanceTime}>{startTime}</code> until{" "}
+                <code className={styles.maintenanceTime}>{endTime}</code>
               </Typography>
             </CardContent>
             <CardActions></CardActions>

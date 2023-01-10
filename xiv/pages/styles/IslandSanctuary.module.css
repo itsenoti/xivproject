@@ -1,26 +1,26 @@
 .remainingTime {
-  font-family: 'AzeretMono' !important;
+  font-family: 'Nunito' !important;
   font-size: 0.85rem;
 }
 
 .hasSpawned {
-  font-family: 'AzeretMono' !important;
-  font-size: 0.75rem;
+  font-family: 'Nunito' !important;
+  font-size: 0.8rem;
   color: greenyellow;
 }
 
 [data-theme='light'] .hasSpawned {
-  font-family: 'AzeretMono' !important;
+  font-family: 'Nunito' !important;
   color: green;
 }
 
 .isAlmostOver {
-  font-family: 'AzeretMono' !important;
+  font-family: 'Nunito' !important;
   color: red;
 }
 
 .isAlmostReady {
-  font-family: 'AzeretMono' !important;
+  font-family: 'Nunito' !important;
   font-size: 0.85rem;
   color: orange;
 }

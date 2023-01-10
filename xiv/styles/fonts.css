@@ -12,3 +12,10 @@
   /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../public/fonts/Nunito/Nunito.ttf');
+  /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
+  font-style: normal;
+}
