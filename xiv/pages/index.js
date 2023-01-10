@@ -4,6 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Announcements from "../components/announcements";
 import Header from "./Header";
@@ -16,6 +17,8 @@ function Home({ theme, setTheme }) {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [url, setUrl] = useState(null);
+
+  const router = useRouter();
 
   var date;
 
@@ -50,6 +53,8 @@ function Home({ theme, setTheme }) {
               minute: "2-digit",
             })
           );
+        } else {
+          router.push("/island-sanctuary");
         }
       });
     return;
