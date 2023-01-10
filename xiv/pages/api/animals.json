@@ -54,6 +54,15 @@
       "loc":"12.0,17.0",
       "icon":"/icons/IslandSanctuary/Grand Buffalo.png"
     },
+    "Griffin": {
+      "start": 15,
+      "end": 18,
+      "weather": "Clear Skies",
+      "loot":"Feather",
+      "loot2": "Claw",
+      "loc":"15.0,22.0",
+      "icon":"/icons/IslandSanctuary/Grand Buffalo.png"
+    },
     "Ornery Karakul": {
       "start": 0,
       "end": 0,
@@ -71,6 +80,15 @@
       "loot2": "Fleece",
       "loc":"24.0,28.0",
       "icon":"/icons/IslandSanctuary/Paissa.png"
+    },
+    "Tiger of Paradise": {
+      "start": 18,
+      "end": 21,
+      "weather": "Fair Skies",
+      "loot":"Fang",
+      "loot2": "Fur",
+      "loc":"15.0,14.0",
+      "icon":"/icons/IslandSanctuary/Tiger of Paradise.png"
     },
     "Twinklefleece": {
       "start": 18,
