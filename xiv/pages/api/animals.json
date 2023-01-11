@@ -55,7 +55,7 @@
       "icon":"/icons/IslandSanctuary/Grand Buffalo.png"
     },
     "Griffin": {
-      "start": 15,
+      "start": 16,
       "end": 18,
       "weather": "Clear Skies",
       "loot":"Feather",

@@ -83,7 +83,7 @@ function Home({ theme, setTheme }) {
               </Typography>
               <Typography variant="body2" color="text.secondary" className="maintenanceSchedule">
                 <code className={styles.maintenanceTime}>{startTime}</code> until{" "}
-                <code className={styles.maintenanceTime}>{endTime}</code>
+                <code className={styles.maintenanceTime}>{endTime}</code> (your local time)
               </Typography>
             </CardContent>
             <CardActions></CardActions>

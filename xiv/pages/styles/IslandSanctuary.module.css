@@ -5,7 +5,7 @@
 
 .hasSpawned {
   font-family: 'Nunito' !important;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: greenyellow;
 }
 
@@ -16,6 +16,7 @@
 
 .isAlmostOver {
   font-family: 'Nunito' !important;
+  font-size: 0.85rem;
   color: red;
 }
 

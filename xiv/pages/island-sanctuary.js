@@ -12,9 +12,8 @@ import { Animals } from "../pages/api/animals.json";
 import Header from "./Header";
 import Navigation from "./Navigation";
 
+import * as Style from "./../pages/styles/IslandSanctuary.module.css";
 import * as Time from "./../utils/TimeConverter";
-
-import * as styles from "./../pages/styles/IslandSanctuary.module.css";
 
 /**
  * @description This function gets all ET where weather changes (ie 00:00, 08:00, 16:00)
@@ -35,14 +34,24 @@ function convertETToLT(nextTime) {
 }
 
 function getEorzeaTime() {
+  let E_CONSTANT = 3600 / 175;
+  let epoch = new Date().getTime() / 1000;
+  let newtime = epoch * E_CONSTANT;
+
+  let hh = Math.floor((newtime / 3600) % 24);
+  let mm = Math.floor((newtime / 60) % 60);
+
+  return formatTime(hh) + ":" + formatTime(mm);
+}
+
+function getCurrentEorzeanHour() {
   var E_CONSTANT = 3600 / 175;
   var epoch = new Date().getTime() / 1000;
   var newtime = epoch * E_CONSTANT;
 
   var hh = Math.floor((newtime / 3600) % 24);
-  var mm = Math.floor((newtime / 60) % 60);
 
-  return formatTime(hh) + ":" + formatTime(mm);
+  return formatTime(hh);
 }
 
 function getNewWeatherStartTimeMs() {
@@ -99,14 +108,34 @@ function getWeather(futureWeather) {
 }
 
 function IslandSanctuary() {
-  const [control, setControl] = useState(new Date().getTime());
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [currentDateTimeMs, setCurrentDateTimeMs] = useState(new Date().getTime());
   const [mounted, setMounted] = useState(false);
+  var dateDifference = 0;
+  var day = 0;
+  var hour = 0;
+  var min = 0;
+  var secs = 0;
+  var isAlmostOver = false;
+  var isAlmostReady = false;
+  const _8MIN45SEC = 525000;
+  const _TOTALFORECAST = 1000;
+
+  var animalsForecastList = [];
+  var forecastList = [null];
+
   useEffect(() => {
     setMounted(true);
     setTimeout(function () {
-      setControl(new Date().getTime());
+      setCurrentDateTimeMs(new Date().getTime());
     }, 1000);
-  }, [control]);
+  }, [currentDateTimeMs]);
+
+  useEffect(() => {
+    if (currentWeather == null) setCurrentWeather(getWeather(1));
+    else setCurrentWeather(forecastList[1]["weather"]);
+    // console.log(forecastList);
+  }, [forecastList]);
 
   // Avoid hydration issues
   if (!mounted) return null;
@@ -173,68 +202,88 @@ function IslandSanctuary() {
     return rows;
   }
 
+  function getSpecificLT(animal, arg_start, earthtime) {
+    // Eorzean time                   // Earth Equivalent
+    // ----------------------------------------------
+    // 1 minute	60 seconds(1 minute) 	  2 11/12 seconds
+    // 1 bell	  60 minutes(1 hour)  	  2 minutes, 55 seconds
+    // 1 sun	  24 bells(1day)	       70 minutes
+    // 1 week	   8 suns (1 week)	      9 hours and 20 minutes
+    // 1 moon	   4 weeks(1 month)	     37 hours and 20 minutes
+    // 1 year	  12 moons(1 year)	     18 days and 16 hours
+    var dummytime = earthtime;
+    for (let i = 0; i < _TOTALFORECAST; i++) {
+      const E_CONSTANT = 3600 / 175;
+      let ticks = dummytime.getTime() / 1000;
+      let newtime = ticks * E_CONSTANT;
+
+      let hh = formatTime(Math.floor((newtime / 3600) % 24));
+      let mm = formatTime(Math.floor((newtime / 60) % 60));
+
+      if (hh == formatTime(arg_start)) {
+        // console.log(`${animal} : ${arg_start} : ${dummytime}`);
+        return dummytime;
+      }
+
+      dummytime = new Date(dummytime.getTime() + 175000);
+    }
+  }
+
   /**
    * @returns arr of forecast time
    */
   function getWeatherForecast(animal, arg_start = 0, arg_end = 0, arg_weather = "", currentDateMs) {
     let forecast_et = [];
     let forecast_lt = [];
-    var dateDifference = 0;
     let forecast_wt = [];
     var outlookDate = 0;
     var currentDate = new Date(currentDateMs);
     var convertedStartTime;
     var outlookDatePlus8mins;
-    const _8min45sec = 525000;
-    const totalForecast = 1000;
 
-    for (let i = 0; i < totalForecast; i++) {
+    for (let i = 0; i < _TOTALFORECAST; i++) {
       forecast_et[i] = getETHour(i);
-      forecast_lt[i] = convertETToLT(i);
+      forecast_lt[i] = convertETToLT(i); // ← LT here refers to 00:00, 08:00, and 16:00
       forecast_wt[i] = getWeather(i);
     }
 
-    const forecastList = forecast_et.map((time, i) => ({
+    // Collate ET, LT, and Weather in 1 array
+    forecastList = forecast_et.map((time, i) => ({
       et: time,
       lt: forecast_lt[i],
       weather: forecast_wt[i],
     }));
 
-    // console.log(result.length);
-
     convertedStartTime = convertSpawnTimeToET(arg_start);
 
-    for (var i = 1; i < totalForecast; i++) {
+    for (var i = 1; i < _TOTALFORECAST; i++) {
       if (parseInt(arg_end)) {
         if (
           forecastList[i]["weather"] == arg_weather &&
           forecastList[i]["et"] == convertedStartTime
         ) {
-          outlookDate = new Date(forecastList[i]["lt"]);
-          outlookDatePlus8mins = new Date(outlookDate.getTime() + _8min45sec);
+          outlookDate = getSpecificLT(animal, arg_start, forecastList[i]["lt"]);
+
+          outlookDatePlus8mins = new Date(outlookDate.getTime() + _8MIN45SEC);
 
           if (isWithinSpawnWindow(outlookDate, currentDate, outlookDatePlus8mins)) {
             return displayForecastTime_Expired(outlookDatePlus8mins, currentDateMs);
           } else {
             if (outlookDate > currentDate) {
-              dateDifference = outlookDate.getTime() - currentDateMs;
               return displayForecastTime_Active(outlookDate, currentDateMs);
             }
           }
         }
-      } else {
-        if (forecastList[i]["weather"] == arg_weather) {
-          outlookDate = new Date(forecastList[i]["lt"]);
-          outlookDatePlus8mins = new Date(outlookDate.getTime() + _8min45sec);
+      } else if (forecastList[i]["weather"] == arg_weather) {
+        outlookDate = getSpecificLT(animal, 0, forecastList[i]["lt"]);
 
-          // If already past target date but 8.45 min spawn window is still open
-          if (isWithinSpawnWindow(outlookDate, currentDate, outlookDatePlus8mins)) {
-            return displayForecastTime_Expired(outlookDatePlus8mins, currentDateMs);
-          } else {
-            // If 8.45 spawn window is already over
-            if (outlookDate > currentDate) {
-              return displayForecastTime_Active(outlookDate, currentDateMs);
-            }
+        outlookDatePlus8mins = new Date(outlookDate.getTime() + _8MIN45SEC);
+
+        if (isWithinSpawnWindow(outlookDate, currentDate, outlookDatePlus8mins)) {
+          return displayForecastTime_Expired(outlookDatePlus8mins, currentDateMs);
+        } else {
+          if (outlookDate > currentDate) {
+            return displayForecastTime_Active(outlookDate, currentDateMs);
           }
         }
       }
@@ -242,30 +291,21 @@ function IslandSanctuary() {
   }
 
   function displayForecastTime_Expired(outlookDate, currentDateMs) {
-    var dateDifference = 0;
-    var min = 0;
-    var secs = 0;
     dateDifference = Time.getTimeDifferenceMs(outlookDate, currentDateMs);
     min = Time.getNumberOfMinutes(dateDifference);
     secs = Time.getNumberOfSeconds(dateDifference);
 
-    var isAlmostOver = min == 0 && secs < 30 ? true : false;
+    isAlmostOver = min == 0 && secs < 30 ? true : false;
 
     return (
-      <span className={isAlmostOver ? styles.isAlmostOver : styles.hasSpawned} title={outlookDate}>
-        {`Available for
-        ${min == 0 ? "" : min + "m"} ${secs}s`}
+      <span className={isAlmostOver ? Style.isAlmostOver : Style.hasSpawned} title={outlookDate}>
+        {`Available for `} <br />
+        {`${min == 0 ? "" : min + "m"} ${secs}s`}
       </span>
     );
   }
 
   function displayForecastTime_Active(outlookDate, currentDateMs) {
-    var dateDifference = 0;
-    var day = 0;
-    var hour = 0;
-    var min = 0;
-    var secs = 0;
-
     dateDifference = Time.getTimeDifferenceMs(outlookDate.getTime(), currentDateMs);
 
     day = Time.getNumberOfDays(dateDifference);
@@ -273,24 +313,24 @@ function IslandSanctuary() {
     min = Time.getNumberOfMinutes(dateDifference);
     secs = Time.getNumberOfSeconds(dateDifference);
 
-    var isAlmostReady = hour == 0 && min < 5 ? true : false;
+    isAlmostReady = hour == 0 && min < 5 ? true : false;
 
     return (
       <span
-        className={isAlmostReady ? styles.isAlmostReady : styles.remainingTime}
+        className={isAlmostReady ? Style.isAlmostReady : Style.remainingTime}
         title={outlookDate}
       >
         {hour == 0 && min == 0 && secs == 0
           ? `Ready to spawn`
           : `${day == 0 ? "" : day + "d"} ${hour == 0 ? "" : hour + "h"} ${
-              min <= 1 ? secs + "s" : min + "m"
+              hour == 0 && min <= 1 ? secs + "s" : min + "m"
             }`}
       </span>
     );
   }
 
   function isWithinSpawnWindow(outlookDate, currentDate, outlookDatePlus8_45mins) {
-    // Spawn window is 8 minutes and 45 seconds Earth Hour after the spawn time start
+    // Spawn window is 8 minutes and 45 seconds (Earth Hour) after the spawn time start
     return (
       (outlookDate < currentDate && outlookDatePlus8_45mins > currentDate) ||
       outlookDate == currentDate
@@ -309,7 +349,9 @@ function IslandSanctuary() {
       <Navigation />
       <Container sx={{ padding: 0, pt: 8, pb: 3 }}>
         <Title text={"Rare Animals Spawn Tracker "} />
-        <List sx={{ width: "100%", color: "inherit" }}>{allAnimalsSpawnTimeForecast(control)}</List>
+        <List sx={{ width: "100%", color: "inherit" }}>
+          {allAnimalsSpawnTimeForecast(currentDateTimeMs)}
+        </List>
       </Container>
     </>
   );
