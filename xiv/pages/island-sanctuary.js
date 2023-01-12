@@ -122,7 +122,6 @@ function IslandSanctuary() {
   const _8MIN45SEC = 525000;
   const _TOTALFORECAST = 1000;
 
-  var animalsForecastList = [];
   var forecastList = [null];
 
   useEffect(() => {
@@ -132,11 +131,11 @@ function IslandSanctuary() {
     }, 1000);
   }, [currentDateTimeMs]);
 
-  useEffect(() => {
-    if (currentWeather == null) setCurrentWeather(getWeather(1));
-    else setCurrentWeather(forecastList[1]["weather"]);
-    // console.log(forecastList);
-  }, [forecastList]);
+  // useEffect(() => {
+  //   if (currentWeather == null) setCurrentWeather(getWeather(1));
+  //   else setCurrentWeather(forecastList[1]["weather"]);
+  //   // console.log(forecastList);
+  // }, [forecastList]);
 
   // Avoid hydration issues
   if (!mounted) return null;
@@ -359,8 +358,8 @@ function IslandSanctuary() {
         </List>
         <Title text={"Macros"} />
         The macro below will trigger the Duty Action I (Sprint), target a node, enable lock on, then
-        automatically makes your character run to it. This, however, won't auto-gather so you need
-        to press the confirm key (Num0 or X in PS4 Controller) to start gathering.
+        automatically makes your character run to it. This, however, won&apos;t auto-gather so you
+        need to press the confirm key (Num0 or X in PS4 Controller) to start gathering.
         <br />
         <br />
         <CodeBlock
@@ -378,7 +377,7 @@ function IslandSanctuary() {
         ></CodeBlock>
         <br />
         For longer distances between nodes, you can also use the mount version: (Feel free to change
-        "Company Chocobo" to your mount of choice)
+        &quot;Company Chocobo&quot; to your mount of choice)
         <br />
         <br />
         <CodeBlock
