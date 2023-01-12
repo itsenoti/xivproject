@@ -119,6 +119,18 @@ function Navigation() {
           </Button>
         </ListItem>
         <Divider />
+        <ListItem key="Gathering">
+          <Button
+            color="inherit"
+            onClick={() => {
+              router.push("/gathering");
+            }}
+            sx={{ width: "100%", justifyContent: "left" }}
+          >
+            Gathering
+          </Button>
+        </ListItem>
+        <Divider />
         <ListItem key="Eureka">
           <Button
             color="inherit"

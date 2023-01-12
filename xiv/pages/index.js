@@ -32,7 +32,6 @@ function Home({ theme, setTheme }) {
         if (Object.values(responseData["game"]) != "") {
           setTitle(responseData["game"][0]["title"].slice(0, -9));
           setUrl(responseData["game"][0]["url"]);
-          console.log(xxx);
           date = new Date(responseData["game"][0]["start"]);
           setStartTime(
             date.toLocaleString("default", {

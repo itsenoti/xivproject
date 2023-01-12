@@ -131,12 +131,6 @@ function IslandSanctuary() {
     }, 1000);
   }, [currentDateTimeMs]);
 
-  // useEffect(() => {
-  //   if (currentWeather == null) setCurrentWeather(getWeather(1));
-  //   else setCurrentWeather(forecastList[1]["weather"]);
-  //   // console.log(forecastList);
-  // }, [forecastList]);
-
   // Avoid hydration issues
   if (!mounted) return null;
 
@@ -169,7 +163,6 @@ function IslandSanctuary() {
     var rows = [];
 
     for (var i in animal) {
-      console.log(Object.values(Animals));
       rows.push(
         <ListItem>
           <ListItemAvatar>
@@ -222,7 +215,6 @@ function IslandSanctuary() {
       let mm = formatTime(Math.floor((newtime / 60) % 60));
 
       if (hh == formatTime(arg_start)) {
-        // console.log(`${animal} : ${arg_start} : ${dummytime}`);
         return dummytime;
       }
 
@@ -265,8 +257,6 @@ function IslandSanctuary() {
         ) {
           outlookDate = getSpecificLT(animal, arg_start, forecastList[i]["lt"]);
 
-          // console.log(`${animal} ${arg_start}  ${outlookDate}`);
-
           outlookDatePlus8mins = new Date(outlookDate.getTime() + _8MIN45SEC);
 
           if (isWithinSpawnWindow(outlookDate, currentDate, outlookDatePlus8mins)) {
@@ -279,7 +269,6 @@ function IslandSanctuary() {
         }
       } else if (forecastList[i]["weather"] == arg_weather) {
         outlookDate = getSpecificLT(animal, 0, forecastList[i]["lt"]);
-        // console.log(`${animal} ${arg_start}  ${outlookDate}`);
 
         outlookDatePlus8mins = new Date(outlookDate.getTime() + _8MIN45SEC);
 

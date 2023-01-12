@@ -5,19 +5,23 @@ const MIN = 60;
 var allEorzeanWeatherList = [];
 
 function getCurrentEorzeaTime() {
-  var time = new Date();
-  for (let i = 0; i < 10; i++) {
-    let ticks = time.getTime() / 1000;
-    let newtime = ticks * E_CONSTANT;
+  // const xiv = new XIVAPI({
+  //   private_key: "0e10f5e9281a440aa3ef229247707c388ceabfc282d84558945abd1d795bb3e4",
+  //   language: "en",
+  //   snake_case: true,
+  // });
 
-    let hh = Math.floor((newtime / 3600) % 24);
-    let mm = Math.floor((newtime / 60) % 60);
-    console.log(`et: ${hh}:${mm} - ${time}`);
+  // console.log(xiv);
+  const XIVAPI = require("@xivapi/js");
 
-    time = new Date(time.getTime() + 175000);
-  }
+  const xiv = new XIVAPI({
+    private_key: "0e10f5e9281a440aa3ef229247707c388ceabfc282d84558945abd1d795bb3e4",
+    language: "ja",
+    snake_case: true,
+  });
 
-  // return `${KEY}`;
+  const id = xiv.search("Prismstone");
+  console.log(id);
 }
 
 function convertLTtoET(time) {
