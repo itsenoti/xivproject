@@ -177,7 +177,7 @@ function Navigation() {
     <>
       <AppBar position="fixed">
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Typography sx={{ fontFamily: "Inter !important", fontWeight: "bold" }}>X|V</Typography>
+          <Typography sx={{ fontFamily: "Inter !important", fontWeight: "bold" }}>FFX|V</Typography>
           {/* Right side menu */}
           <Box sx={{ display: { xs: "none", md: "block" } }}>
             <Button color="inherit">Eureka</Button>
