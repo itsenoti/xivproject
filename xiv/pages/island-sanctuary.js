@@ -7,6 +7,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
+import { atomOneDark, CodeBlock } from "react-code-blocks";
 import Title from "../components/title";
 import { Animals } from "../pages/api/animals.json";
 import Header from "./Header";
@@ -169,6 +170,7 @@ function IslandSanctuary() {
     var rows = [];
 
     for (var i in animal) {
+      console.log(Object.values(Animals));
       rows.push(
         <ListItem>
           <ListItemAvatar>
@@ -264,6 +266,8 @@ function IslandSanctuary() {
         ) {
           outlookDate = getSpecificLT(animal, arg_start, forecastList[i]["lt"]);
 
+          // console.log(`${animal} ${arg_start}  ${outlookDate}`);
+
           outlookDatePlus8mins = new Date(outlookDate.getTime() + _8MIN45SEC);
 
           if (isWithinSpawnWindow(outlookDate, currentDate, outlookDatePlus8mins)) {
@@ -276,6 +280,7 @@ function IslandSanctuary() {
         }
       } else if (forecastList[i]["weather"] == arg_weather) {
         outlookDate = getSpecificLT(animal, 0, forecastList[i]["lt"]);
+        // console.log(`${animal} ${arg_start}  ${outlookDate}`);
 
         outlookDatePlus8mins = new Date(outlookDate.getTime() + _8MIN45SEC);
 
@@ -352,6 +357,43 @@ function IslandSanctuary() {
         <List sx={{ width: "100%", color: "inherit" }}>
           {allAnimalsSpawnTimeForecast(currentDateTimeMs)}
         </List>
+        <Title text={"Macros"} />
+        The macro below will trigger the Duty Action I (Sprint), target a node, enable lock on, then
+        automatically makes your character run to it. This, however, won't auto-gather so you need
+        to press the confirm key (Num0 or X in PS4 Controller) to start gathering.
+        <br />
+        <br />
+        <CodeBlock
+          text={`/merror off
+/micon "Duty Action I"
+/ac "Duty Action I"
+/targetnpc
+/lockon on
+/automove on`}
+          language="python"
+          showLineNumbers="true"
+          wrapLines
+          theme={atomOneDark}
+          className="code"
+        ></CodeBlock>
+        <br />
+        For longer distances between nodes, you can also use the mount version: (Feel free to change
+        "Company Chocobo" to your mount of choice)
+        <br />
+        <br />
+        <CodeBlock
+          text={`/merror off
+/micon "Company Chocobo" mount
+/targetnpc
+/mount "Company Chocobo"
+/wait 2
+/lockon on
+/automove on`}
+          language="python"
+          showLineNumbers="true"
+          wrapLines
+          theme={atomOneDark}
+        ></CodeBlock>
       </Container>
     </>
   );

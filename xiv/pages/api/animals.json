@@ -63,6 +63,15 @@
       "loc":"15.0,22.0",
       "icon":"/icons/IslandSanctuary/Griffin.png"
     },
+    "Morbol Seedling": {
+      "start": 3,
+      "end": 6,
+      "weather": "Clouds",
+      "loot":"Fang",
+      "loot2": "Claw",
+      "loc":"19.0,19.0",
+      "icon":"/icons/IslandSanctuary/Morbol Seedling.png"
+    },
     "Ornery Karakul": {
       "start": 0,
       "end": 0,
