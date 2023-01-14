@@ -1,3 +1,17 @@
 .standardSearch {
   color: red !important;
 }
+
+.details {
+  background-color: transparent;
+}
+
+.spawned {
+  color: greenyellow;
+}
+
+.time {
+  background-color: transparent;
+  font-family: 'Inter' !important;
+  font-size: smaller;
+}

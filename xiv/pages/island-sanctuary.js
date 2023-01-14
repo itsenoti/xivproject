@@ -236,7 +236,7 @@ function IslandSanctuary() {
 
     for (let i = 0; i < _TOTALFORECAST; i++) {
       forecast_et[i] = getETHour(i);
-      forecast_lt[i] = convertETToLT(i); // ← LT here refers to 00:00, 08:00, and 16:00
+      forecast_lt[i] = convertETToLT(i); // ← LT here is equivalent for 00:00, 08:00, and 16:00
       forecast_wt[i] = getWeather(i);
     }
 
@@ -315,9 +315,9 @@ function IslandSanctuary() {
       >
         {hour == 0 && min == 0 && secs == 0
           ? `Ready to spawn`
-          : `${day == 0 ? "" : day + "d"} ${hour == 0 ? "" : hour + "h"} ${
-              hour == 0 && min <= 1 ? secs + "s" : min + "m"
-            }`}
+          : `${day == 0 ? "" : day + "d"} 
+          ${hour == 0 ? "" : hour + "h"} 
+          ${hour == 0 && min <= 1 ? secs + "s" : min + "m"}`}
       </span>
     );
   }

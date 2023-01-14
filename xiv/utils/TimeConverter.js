@@ -11,7 +11,7 @@ export function getNumberOfMinutes(time) {
 }
 
 export function getNumberOfSeconds(time) {
-  return Math.floor((time % (1000 * 60)) / 1000);
+  return Math.abs(Math.floor((time % (1000 * 60)) / 1000));
 }
 
 export function getTimeDifferenceMs(future, current) {
