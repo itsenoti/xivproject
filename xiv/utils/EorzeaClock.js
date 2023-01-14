@@ -89,7 +89,7 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
     subMin = min - 29;
     return (
       <span className={style.spawned}>
-        {formatTime(subMin)}:{formatTime(secs)}
+        {formatTime(subMin)}:{secs}
       </span>
     );
     // return `[SPAWNED] ${subMin}:${secs}`;
