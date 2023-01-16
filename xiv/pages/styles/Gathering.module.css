@@ -16,6 +16,28 @@
   font-size: smaller;
 }
 
+.itemName {
+  font-family: 'Inter' !important;
+  display :inline-block;
+  width: 12rem;
+}
+
+.location {
+  font-family: 'Inter' !important;
+  font-size: smaller;
+}
+
+.timer {
+  display:inline-block;
+  width: 5.1rem;
+  text-align: center;
+  font-size:medium;
+}
+
 [data-theme='dark'] .input {
   color: #d0d5dd;
+}
+
+.spawned {
+  background-color: rgba(18, 135, 0, 0.47);
 }

@@ -1,4 +1,3 @@
-import style from "./../pages/styles/Gathering.module.css";
 import * as Time from "./../utils/TimeConverter";
 
 const E_CONSTANT = 3600 / 175;
@@ -97,14 +96,14 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
   min = formatTime(min);
   secs = formatTime(secs);
 
-  // Time's up
+  // Spawned
   if (min >= 29) {
     let subMin = min;
     subMin = min - 29;
     return (
-      <span className={style.spawned}>
-        {formatTime(subMin)}:{secs}
-      </span>
+      // <span className={style.spawned}>
+      `${formatTime(subMin)}:${secs} ★`
+      // {/* </span> */}
     );
   }
 
