@@ -24,7 +24,6 @@ import Navigation from "./Navigation";
 import style from "./styles/Gathering.module.css";
 
 const garlandtools = require("garlandtools-api");
-garlandtools.setLang("ja");
 
 function Gathering({ theme, setTheme }) {
   const [hasLoaded, setHadLoaded] = useState(false);
