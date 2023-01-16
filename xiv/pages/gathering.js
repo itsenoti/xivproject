@@ -5,7 +5,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import React, { useEffect, useState } from "react";
 
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ManageSearchTwoToneIcon from "@mui/icons-material/ManageSearchTwoTone";
 import Avatar from "@mui/material/Avatar";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -14,11 +14,10 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Announcements from "../components/announcements";
 import Title from "../components/title";
+import * as ETClock from "./../utils/EorzeaClock";
 import * as Data from "./api/data.json";
 import Header from "./Header";
 import Navigation from "./Navigation";
-
-import * as ETClock from "./../utils/EorzeaClock";
 
 import style from "./styles/Gathering.module.css";
 
@@ -196,7 +195,7 @@ function Gathering({ theme, setTheme }) {
 
                 // console.log(`key is ${JSON.stringify(data)}`);
                 let row = (
-                  <Stack width={"100%"} spacing={2}>
+                  <Stack width={"100%"} spacing={1}>
                     <ListItem
                       alignItems="flex-start"
                       secondaryAction={
@@ -205,8 +204,9 @@ function Gathering({ theme, setTheme }) {
                           aria-label="delete"
                           id={items[data]["uiid"]}
                           onClick={onDeleteItemButtonClick}
+                          sx={{ color: "var(--light-color)" }}
                         >
-                          <DeleteIcon sx={{ color: "white" }} />
+                          <DeleteForeverIcon sx={{ color: "white" }} />
                         </IconButton>
                       }
                     >
@@ -214,10 +214,15 @@ function Gathering({ theme, setTheme }) {
                         <Avatar alt="Remy Sharp" src={items[data].icon} variant="rounded" />
                       </ListItemAvatar>
                       <ListItemText
-                        primary={`${data} ▸ ${ETClock.lt_getRemainingTimeBeforeSpawn(
-                          items[data].location?.[0].spawn1,
-                          items[data].location?.[0].spawn2
-                        )}`}
+                        primary={
+                          <React.Fragment>
+                            {data} ▸{" "}
+                            {ETClock.lt_getRemainingTimeBeforeSpawn(
+                              items[data].location?.[0].spawn1,
+                              items[data].location?.[0].spawn2
+                            )}
+                          </React.Fragment>
+                        }
                         secondary={
                           <React.Fragment>
                             <Typography
@@ -233,6 +238,7 @@ function Gathering({ theme, setTheme }) {
                         }
                       />
                     </ListItem>
+                    <Divider />
                   </Stack>
                 );
                 dispRow.push(row);
