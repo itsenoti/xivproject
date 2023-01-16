@@ -1,76 +1,97 @@
-import { Container, List } from "@mui/material";
-import Stack from "@mui/material/Stack";
-import Grid from "@mui/material/Unstable_Grid2";
+import { Container, Divider, Stack } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import InputBase from "@mui/material/InputBase";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import React, { useEffect, useState } from "react";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import ManageSearchTwoToneIcon from "@mui/icons-material/ManageSearchTwoTone";
+import Avatar from "@mui/material/Avatar";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import Announcements from "../components/announcements";
 import Title from "../components/title";
+import * as Data from "./api/data.json";
 import Header from "./Header";
 import Navigation from "./Navigation";
 
 import * as ETClock from "./../utils/EorzeaClock";
-import * as Data from "./api/data.json";
+
 import style from "./styles/Gathering.module.css";
 
 const garlandtools = require("garlandtools-api");
 
 function Gathering({ theme, setTheme }) {
-  var itemsToGatherList = [
-    "Bayberry",
-    "Prismstone",
-    "Royal Grapes",
-    "Paldao Log",
-    "Ilmenite",
-    "Rime Dolomite",
-    "Blue Quartz",
-    "Ash Diatomite",
-  ];
-  const [items, setItems] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [items, setItems] = useState(new Map());
+  const [searchString, setSearchString] = useState("");
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [rows, setRows] = useState(() => {
+    if (typeof window != "undefined") {
+      if (window.localStorage.getItem("gatheringList")) {
+        return JSON.parse(window.localStorage.getItem("gatheringList"));
+      } else return new Map();
+    }
+  });
   const [currentDateTimeMs, setCurrentDateTimeMs] = useState(new Date().getTime());
 
-  useEffect(() => {
-    async function loadItems(index) {
-      let ids = (await garlandtools.search(itemsToGatherList[index]))[0].id;
-      let it = await garlandtools.item(ids);
+  if (rows) {
+    loadItems();
+  }
 
-      let gather = await garlandtools.node(it.item.nodes);
-      let zone = Data.locationIndex[gather.node.zoneid].name;
+  async function loadItems(uiid = "") {
+    for (let index = 0; index < Object.keys(rows).length; index++) {
+      // console.log(`To search item is [${Object.values(rows)[index]}]`);
 
-      var icon = parseInt(it.item.icon);
-      icon = icon - (icon % 1000);
-      var time1 = 0;
-      var time2 = 0;
-      if (icon < 100000) {
-        icon = "https://xivapi.com/i/0" + icon + "/0" + it.item.icon + ".png";
-      } else {
-        icon = "https://xivapi.com/i/" + icon + "/" + it.item.icon + ".png";
+      let tgtItem = (await garlandtools.search(Object.keys(rows)[index]))[0];
+
+      if (tgtItem) {
+        var itemName = tgtItem.obj.n;
+        items[tgtItem.obj.n] = {
+          id: tgtItem.id,
+          name: tgtItem.obj.n,
+          type: tgtItem.type,
+          icon: tgtItem.obj.c,
+        };
+
+        tgtItem = await garlandtools.item(tgtItem.id);
+        items[itemName]["description"] = tgtItem.item.description;
+
+        let nodes = tgtItem.item.nodes;
+
+        var nodeInfoList = {};
+
+        for (let index = 0; index < nodes.length; index++) {
+          let nodeDetails = [""];
+          nodeDetails = (await garlandtools.node(nodes[index])).node;
+          nodeInfoList[index] = {
+            name: Data.locationIndex[nodeDetails.zoneid].name,
+            xcoord: nodeDetails.coords[0],
+            ycoord: nodeDetails.coords[1],
+            spawn1: nodeDetails.time?.[0],
+            spawn2: nodeDetails.time?.[1],
+            nodeType: nodeDetails.limitType,
+          };
+        }
+
+        items[itemName]["location"] = nodeInfoList;
+
+        let icon = items[itemName]["icon"];
+        let icon_dir =
+          icon - (icon % 1000) < 100000 ? "0" + (icon - (icon % 1000)) : icon - (icon % 1000);
+        icon = icon < 100000 ? "0" + icon : icon;
+        icon = "https://xivapi.com/i/" + icon_dir + "/" + icon + ".png";
+
+        items[itemName]["icon"] = icon;
+
+        items[itemName]["uiid"] = Object.keys(rows)[index];
       }
-
-      if (gather.node.time) time1 = gather.node.time[0];
-      if (gather.node.time) time2 = gather.node.time[1];
-
-      setItems((prev) => [
-        ...prev,
-        [
-          it.item.name,
-          icon,
-          gather.node.coords[0],
-          gather.node.coords[1],
-          gather.node.name,
-          time1,
-          time2,
-          zone,
-        ],
-      ]);
+      console.log(`${JSON.stringify(items, null, 4)}`);
     }
-
-    for (let index = 0; index < itemsToGatherList.length; index++) {
-      loadItems(index);
-    }
-
-    setIsLoading(false);
-  }, []);
+  }
 
   useEffect(() => {
     setTimeout(function () {
@@ -78,22 +99,65 @@ function Gathering({ theme, setTheme }) {
     }, 1000);
   }, [currentDateTimeMs]);
 
-  if (isLoading) {
-    return (
-      <>
-        <Header />
-        <Navigation />
-        <Announcements />
-        <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
-          <Title text={"Gathering"} />
-          <Stack spacing={2} direction="row">
-            Loading...
-          </Stack>
-        </Container>
-      </>
-    );
+  // Search field & button event handler
+  const onSearchFieldChange = (event) => {
+    event.preventDefault();
+    setSearchString(event.target.value);
+  };
+
+  const onDeleteItemButtonClick = (event) => {
+    event.preventDefault();
+
+    console.log(`Deletion on ${event.currentTarget.id}`);
+
+    delete rows[event.currentTarget.id];
+    delete items[event.currentTarget.id];
+
+    if (typeof window != "undefined") {
+      window.localStorage.setItem("gatheringList", JSON.stringify(rows));
+    }
+
+    loadItems();
+  };
+
+  /**
+   * @description Search button callback
+   * @param {*} event
+   *
+   */
+  const onSearchButtonClick = (event) => {
+    event.preventDefault();
+    if (searchString != "") {
+      addRow(searchString);
+    }
+  };
+
+  function cleanString(txt) {
+    let dummyText = txt.split(" ");
+    for (let index = 0; index < dummyText.length; index++) {
+      dummyText[index] = dummyText[index].charAt(0).toUpperCase() + dummyText[index].substring(1);
+    }
+
+    return dummyText.join(" ");
   }
 
+  /**
+   *
+   * @param {*} obj
+   * @returns row that contains info
+   */
+  function addRow(searchString) {
+    let id = self.crypto.randomUUID();
+    let index = Object.keys(rows).length + 1;
+
+    rows[cleanString(searchString)] = id;
+
+    if (typeof window != "undefined") {
+      window.localStorage.setItem("gatheringList", JSON.stringify(rows));
+    }
+
+    loadItems();
+  }
   return (
     <>
       <Header />
@@ -101,39 +165,80 @@ function Gathering({ theme, setTheme }) {
       <Announcements />
       <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
         <Title text={"Gathering"} />
+
+        <Paper
+          component="form"
+          sx={{ p: "2px 0px", display: "flex", alignItems: "center", width: "100%" }}
+        >
+          <InputBase
+            sx={{ ml: 1, mr: 1, flex: 1 }}
+            placeholder="Track item"
+            inputProps={{ "aria-label": "track item" }}
+            onChange={onSearchFieldChange}
+            className={style.input}
+          />
+          <IconButton
+            type="button"
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={onSearchButtonClick}
+          >
+            <ManageSearchTwoToneIcon />
+          </IconButton>
+        </Paper>
+        <Divider />
         <Stack spacing={2} direction="row">
-          <List>
+          <List sx={{ width: "100%" }}>
             {(() => {
-              items.sort();
-              var rows = [];
-              for (const key in items) {
+              var dispRow = [];
+              for (let index = 0; index < Object.keys(items).length; index++) {
+                var data = Object.keys(items)[index];
+
+                // console.log(`key is ${JSON.stringify(data)}`);
                 let row = (
-                  <Stack spacing={2}>
-                    <Grid container spacing={2}>
-                      <Grid>
-                        <img src={items[key][1]} />
-                        {/* <Image
-                          loader={() => items[key][1]}
-                          src={items[key][1]}
-                          width={40}
-                          height={40}
-                        /> */}
-                      </Grid>
-                      <Grid className={style.details} sx={{ width: "17rem", fontSize: "0.85rem" }}>
-                        <div>{items[key][0]}</div>
-                        <div>
-                          {items[key][7]} (X:{items[key][2]},Y:{items[key][3]})
-                        </div>
-                      </Grid>
-                      <Grid className={style.time} sx={{ width: "5rem" }}>
-                        {ETClock.lt_getRemainingTimeBeforeSpawn(items[key][5], items[key][6])}
-                      </Grid>
-                    </Grid>
+                  <Stack width={"100%"} spacing={2}>
+                    <ListItem
+                      alignItems="flex-start"
+                      secondaryAction={
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          id={items[data]["uiid"]}
+                          onClick={onDeleteItemButtonClick}
+                        >
+                          <DeleteIcon sx={{ color: "white" }} />
+                        </IconButton>
+                      }
+                    >
+                      <ListItemAvatar>
+                        <Avatar alt="Remy Sharp" src={items[data].icon} variant="rounded" />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={`${data} ▸ ${ETClock.lt_getRemainingTimeBeforeSpawn(
+                          items[data].location?.[0].spawn1,
+                          items[data].location?.[0].spawn2
+                        )}`}
+                        secondary={
+                          <React.Fragment>
+                            <Typography
+                              sx={{ display: "inline" }}
+                              component="span"
+                              variant="body2"
+                              color="text.primary"
+                            >
+                              {items[data].location?.[0].name} X:{items[data].location?.[0].xcoord}
+                              ,Y:{items[data].location?.[0].ycoord}
+                            </Typography>
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
                   </Stack>
                 );
-                rows.push(row);
+                dispRow.push(row);
               }
-              return rows;
+
+              return dispRow;
             })()}
           </List>
         </Stack>

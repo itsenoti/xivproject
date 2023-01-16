@@ -42,7 +42,7 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
   let allETHours = [];
   let allLTHours = [];
 
-  for (let index = 0; index < 100; index++) {
+  for (let index = 0; index < 1000; index++) {
     allETHours[index] = getETBaseHour(index);
     allLTHours[index] = getLTUsingETBaseHour(index);
   }
@@ -52,22 +52,37 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
     lt: allLTHours[i],
   }));
 
-  // console.log(allETLTMapping);
-
   let lastWeatherChange_ET = allETHours[0];
   let lastWeatherChange_LT = allLTHours[0];
 
-  var ltTargetTime;
-  for (let index = 0; index < 100; index++) {
+  var ltTargetTime = new Date();
+  for (let index = 0; index < 1000; index++) {
     // Convert LT to ET
     let epoch = lastWeatherChange_LT.getTime() / 1000;
     let newtime = epoch * E_CONSTANT;
 
     let current_hh = Math.floor((newtime / 3600) % 24);
-    if (current_hh == am || current_hh == pm) {
-      if (new Date() <= lastWeatherChange_LT) {
-        ltTargetTime = lastWeatherChange_LT;
-        break;
+
+    if (am !== undefined && pm !== undefined) {
+      if (current_hh == am || current_hh == pm) {
+        if (new Date() <= lastWeatherChange_LT) {
+          ltTargetTime = lastWeatherChange_LT;
+          break;
+        }
+      }
+    } else if (am !== undefined && pm === undefined) {
+      if (current_hh == am) {
+        if (new Date() <= lastWeatherChange_LT) {
+          ltTargetTime = lastWeatherChange_LT;
+          break;
+        }
+      }
+    } else {
+      if (current_hh == pm) {
+        if (new Date() <= lastWeatherChange_LT) {
+          ltTargetTime = lastWeatherChange_LT;
+          break;
+        }
       }
     }
 
@@ -77,14 +92,13 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
   let timeDifference = Time.getTimeDifferenceMs(ltTargetTime.getTime(), new Date().getTime());
   var hour = Time.getNumberOfHours(timeDifference);
   var min = Time.getNumberOfMinutes(timeDifference);
-  min = formatTime(min);
-
   var secs = Time.getNumberOfSeconds(timeDifference);
+
+  min = formatTime(min);
   secs = formatTime(secs);
 
   // Time's up
-  if (min > 29) {
-    // Check if open window
+  if (min >= 29) {
     let subMin = min;
     subMin = min - 29;
     return (
@@ -92,10 +106,53 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
         {formatTime(subMin)}:{secs}
       </span>
     );
-    // return `[SPAWNED] ${subMin}:${secs}`;
   }
 
   return `${min}:${secs}`;
+}
+
+/**
+ *
+ * @param {int} ETToConvert Eorzean hour to convert
+ * @returns equivalent time in earth in ms
+ */
+function convertETotLT(ETToConvert) {
+  if (!ETToConvert) return;
+
+  let allETHours = [];
+  let allLTHours = [];
+
+  for (let index = 0; index < 1000; index++) {
+    allETHours[index] = getETBaseHour(index);
+    allLTHours[index] = getLTUsingETBaseHour(index);
+  }
+
+  let allETLTMapping = allETHours.map((time, i) => ({
+    et: time,
+    lt: allLTHours[i],
+  }));
+
+  let lastWeatherChange_ET = allETHours[0];
+  let lastWeatherChange_LT = allLTHours[0];
+
+  var ltTargetTime = new Date();
+  for (let index = 0; index < 1000; index++) {
+    let epoch = lastWeatherChange_LT.getTime() / 1000;
+    let newtime = epoch * E_CONSTANT;
+
+    let current_hh = Math.floor((newtime / 3600) % 24);
+
+    if (current_hh == ETToConvert) {
+      if (new Date() <= lastWeatherChange_LT) {
+        ltTargetTime = lastWeatherChange_LT;
+        break;
+      }
+    }
+
+    lastWeatherChange_LT = new Date(lastWeatherChange_LT.getTime() + TWOMINS55SEC);
+  }
+
+  return ltTargetTime;
 }
 
 function isPastMidnight(time) {
@@ -114,7 +171,7 @@ function isAfternoon(time) {
 }
 
 function isAvailableAnytime(am, pm) {
-  if (pm == 0) return true;
+  if (am === undefined && pm === undefined) return true;
   return false;
 }
 
