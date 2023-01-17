@@ -107,7 +107,7 @@ function Gathering({ theme, setTheme }) {
   const onDeleteItemButtonClick = (event) => {
     event.preventDefault();
 
-    console.log(`Deletion on ${event.currentTarget.id}`);
+    console.log(`Attempting deletion of ${event.currentTarget.id}`);
 
     delete rows[event.currentTarget.id];
     delete items[event.currentTarget.id];
@@ -115,6 +115,7 @@ function Gathering({ theme, setTheme }) {
     if (typeof window != "undefined") {
       window.localStorage.setItem("gatheringList", JSON.stringify(rows));
     }
+    console.log(`${event.currentTarget.id} deleted.`);
 
     loadItems();
   };
@@ -193,7 +194,7 @@ function Gathering({ theme, setTheme }) {
               var dispRow = [];
               for (let index = 0; index < Object.keys(items).length; index++) {
                 var data = Object.keys(items)[index];
-                var numberOfLocations = Object.keys(items?.[data].location).length;
+                var numberOfLocations = Object.keys(items[data].location).length;
 
                 for (let loc = 0; loc < numberOfLocations; loc++) {
                   var spawned = ETClock.lt_getRemainingTimeBeforeSpawn(
