@@ -8,6 +8,8 @@
 
 .spawned {
   color: greenyellow;
+  animation: animate__rubberBand;
+  animation-duration: 1s;
 }
 
 .time {
@@ -16,10 +18,14 @@
   font-size: smaller;
 }
 
-.itemName {
+.itemNameArea {
   font-family: 'Inter' !important;
-  display :inline-block;
+  display : inline-flex;
   width: 12rem;
+}
+
+.itemName {
+  margin-top: 0.35rem;
 }
 
 .location {
@@ -40,4 +46,13 @@
 
 .spawned {
   background-color: rgba(18, 135, 0, 0.47);
+}
+
+.avatar{
+  margin-top: 0.3rem;
+}
+
+.row {
+  animation: animate__rubberBand;
+  animation-duration: 1s;
 }

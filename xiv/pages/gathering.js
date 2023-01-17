@@ -14,7 +14,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import Slide from "@mui/material/Slide";
 import Typography from "@mui/material/Typography";
-import Zoom from "@mui/material/Zoom";
 import Announcements from "../components/announcements";
 import Title from "../components/title";
 import * as ETClock from "./../utils/EorzeaClock";
@@ -23,12 +22,19 @@ import Header from "./Header";
 import Navigation from "./Navigation";
 import style from "./styles/Gathering.module.css";
 
+import GIcons from "./../pages/api/gathering.json";
+
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import Switch from "@mui/material/Switch";
+
 const garlandtools = require("garlandtools-api");
 
 function Gathering({ theme, setTheme }) {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [items, setItems] = useState(new Map());
   const [searchString, setSearchString] = useState("");
+  const [showHasSpawned, setShowHasSpawed] = useState(true);
 
   const [rows, setRows] = useState(() => {
     if (typeof window != "undefined") {
@@ -48,7 +54,7 @@ function Gathering({ theme, setTheme }) {
       let tgtItem = (await garlandtools.search(Object.keys(rows)[index]))[0];
 
       let dum = await garlandtools.search(Object.keys(rows)[index]);
-      console.log(`XXXXX ${JSON.stringify(dum, null, 4)}`);
+      // console.log(`XXXXX ${JSON.stringify(dum, null, 4)}`);
 
       if (tgtItem) {
         var itemName = tgtItem.obj.n;
@@ -59,7 +65,7 @@ function Gathering({ theme, setTheme }) {
           icon: tgtItem.obj.c,
         };
 
-        console.log(`Name     ${tgtItem.obj.n} ${JSON.stringify(tgtItem, null, 4)}`);
+        // console.log(`Name     ${tgtItem.obj.n} ${JSON.stringify(tgtItem, null, 4)}`);
 
         tgtItem = await garlandtools.item(tgtItem.id);
 
@@ -73,9 +79,9 @@ function Gathering({ theme, setTheme }) {
           let nodeDetails = [""];
           nodeDetails = (await garlandtools.node(nodes[index])).node;
 
-          console.log(
-            `Nodes (${(itemName, nodeDetails.type)})   ${JSON.stringify(nodeDetails, null, 4)}`
-          );
+          // console.log(
+          //   `Nodes (${(itemName, nodeDetails.type)})   ${JSON.stringify(nodeDetails, null, 4)}`
+          // );
 
           // console.log(nodeDetails);
           nodeInfoList[index] = {
@@ -91,7 +97,7 @@ function Gathering({ theme, setTheme }) {
 
         items[itemName]["location"] = nodeInfoList;
 
-        console.log(`nodeInfoList   ${JSON.stringify(nodeInfoList, null, 4)}`);
+        // console.log(`nodeInfoList   ${JSON.stringify(nodeInfoList, null, 4)}`);
 
         let icon = items[itemName]["icon"];
         let icon_dir =
@@ -107,7 +113,7 @@ function Gathering({ theme, setTheme }) {
   }
 
   useEffect(() => {
-    setTimeout(function () {
+    let updateTime = setTimeout(function () {
       setCurrentDateTimeMs(new Date().getTime());
     }, 1000);
   }, [currentDateTimeMs]);
@@ -155,6 +161,11 @@ function Gathering({ theme, setTheme }) {
     return dummyText.join(" ");
   }
 
+  const changeDisplayList = (event) => {
+    event.preventDefault();
+    setShowHasSpawed(!showHasSpawned);
+  };
+
   /**
    *
    * @param {*} obj
@@ -172,21 +183,9 @@ function Gathering({ theme, setTheme }) {
     loadItems();
   }
 
-  function getGatheringType(type) {
-    switch (type) {
-      // Mining
-      case 0:
-        return;
-      //  Quarrying
-      case 1:
-        return;
-      // Logging
-      case 3:
-        return;
-      // Harvesting
-      case 4:
-        return;
-    }
+  function getIcon(type) {
+    console.log(type);
+    return GIcons["Icons"][type];
   }
 
   if (!hasLoaded)
@@ -250,7 +249,14 @@ function Gathering({ theme, setTheme }) {
           </IconButton>
         </Paper>
         <Divider />
-        <Stack spacing={2} direction="row">
+        <Stack spacing={2} direction="column">
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch defaultChecked onChange={changeDisplayList} />}
+              label="Only show spawned"
+              sx={{ mt: 2 }}
+            />
+          </FormGroup>
           <List sx={{ width: "100%" }}>
             {(() => {
               var spawnedItems = [];
@@ -270,8 +276,18 @@ function Gathering({ theme, setTheme }) {
                     items[data].location?.[loc]?.spawn2
                   );
 
-                  var trigger;
-                  trigger = spawned.indexOf("★") > -1 ? true : false;
+                  var trigger = false;
+                  trigger =
+                    spawned.charAt(spawned.length - 1) == "★"
+                      ? {
+                          function() {
+                            setShowHasSpawed(true);
+                          },
+                        }
+                      : false;
+                  if (spawned == "00:00 ★") {
+                    trigger = false;
+                  }
 
                   let row = (
                     <Stack width={"100%"} spacing={1} className={trigger ? style.spawned : ""}>
@@ -285,17 +301,27 @@ function Gathering({ theme, setTheme }) {
                             onClick={onDeleteItemButtonClick}
                             sx={{ color: "var(--light-color)" }}
                           >
-                            <DeleteForeverIcon sx={{ color: "white" }} />
+                            <DeleteForeverIcon sx={{ color: "white", opacity: "0.1" }} />
                           </IconButton>
                         }
                       >
                         <ListItemAvatar>
-                          <Avatar alt="Remy Sharp" src={items[data].icon} variant="rounded" />
+                          <Avatar
+                            src={items[data].icon}
+                            variant="rounded"
+                            className={style.avatar}
+                          />
                         </ListItemAvatar>
                         <ListItemText
                           primary={
                             <React.Fragment>
-                              <span className={style.itemName}>{data}</span>{" "}
+                              <span className={style.itemNameArea}>
+                                <span className={style.itemName}>{data}</span>
+                                <img
+                                  src={getIcon(items[data].location?.[loc].type)}
+                                  width="30rem"
+                                ></img>{" "}
+                              </span>
                               <span className={style.timer}>
                                 {ETClock.lt_getRemainingTimeBeforeSpawn(
                                   items[data].location?.[loc]?.spawn1,
@@ -313,11 +339,16 @@ function Gathering({ theme, setTheme }) {
                                 color="text.primary"
                               >
                                 <span className={style.location}>
-                                  {items[data].location?.[loc]?.xcoord
-                                    ? `Type ${items[data].location?.[loc].type} ${items[data].location?.[loc]?.name} ▸
-                                  x:${items[data].location?.[loc]?.xcoord}
-                                  ,y:${items[data].location?.[loc]?.ycoord}`
-                                    : "Cannot be gathered by normal means."}
+                                  {/* {console.log(`${getIcon(items[data].location?.[loc].type)}`)} */}
+                                  {items[data].location?.[loc]?.xcoord ? (
+                                    <React.Fragment>
+                                      {items[data].location?.[loc]?.name} ▸ x:
+                                      {items[data].location?.[loc]?.xcoord}
+                                      ,y:{items[data].location?.[loc]?.ycoord}
+                                    </React.Fragment>
+                                  ) : (
+                                    "Cannot be gathered by normal means."
+                                  )}
                                 </span>
                               </Typography>
                             </React.Fragment>
@@ -335,13 +366,16 @@ function Gathering({ theme, setTheme }) {
                   );
 
                   let AnimateDeSpawned = (
-                    <Zoom in={!trigger} style={{ transitionDelay: trigger ? "500ms" : "0ms" }}>
+                    // <Zoom in={!trigger} style={{ transitionDelay: trigger ? "500ms" : "0ms" }}>
+                    //   {row}
+                    // </Zoom>
+                    <Slide direction="left" in={!trigger} mountOnEnter unmountOnExit>
                       {row}
-                    </Zoom>
+                    </Slide>
                   );
 
-                  if (trigger) spawnedItems.push(AnimateSpawned);
-                  else dispRow.push(AnimateDeSpawned);
+                  if (showHasSpawned) spawnedItems.push(AnimateSpawned);
+                  else dispRow.push(row);
 
                   spawned = null;
                 }
