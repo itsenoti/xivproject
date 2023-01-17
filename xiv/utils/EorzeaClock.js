@@ -36,7 +36,9 @@ function getLTUsingETBaseHour(iteration) {
 }
 
 export function lt_getRemainingTimeBeforeSpawn(am, pm) {
-  if (isAvailableAnytime(am, pm)) return `Anytime`;
+  if (isAvailableAnytime(am, pm)) {
+    return `--:--`;
+  }
 
   let allETHours = [];
   let allLTHours = [];

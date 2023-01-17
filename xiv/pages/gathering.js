@@ -26,7 +26,7 @@ import style from "./styles/Gathering.module.css";
 const garlandtools = require("garlandtools-api");
 
 function Gathering({ theme, setTheme }) {
-  const [hasLoaded, setHadLoaded] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [items, setItems] = useState(new Map());
   const [searchString, setSearchString] = useState("");
 
@@ -47,6 +47,9 @@ function Gathering({ theme, setTheme }) {
     for (let index = 0; index < Object.keys(rows).length; index++) {
       let tgtItem = (await garlandtools.search(Object.keys(rows)[index]))[0];
 
+      let dum = await garlandtools.search(Object.keys(rows)[index]);
+      console.log(`XXXXX ${JSON.stringify(dum, null, 4)}`);
+
       if (tgtItem) {
         var itemName = tgtItem.obj.n;
         items[tgtItem.obj.n] = {
@@ -56,19 +59,28 @@ function Gathering({ theme, setTheme }) {
           icon: tgtItem.obj.c,
         };
 
+        console.log(`Name     ${tgtItem.obj.n} ${JSON.stringify(tgtItem, null, 4)}`);
+
         tgtItem = await garlandtools.item(tgtItem.id);
+
         items[itemName]["description"] = tgtItem.item.description;
 
-        let nodes = tgtItem.item.nodes;
+        var nodes = tgtItem.item.nodes || 0;
 
         var nodeInfoList = {};
 
         for (let index = 0; index < nodes.length; index++) {
           let nodeDetails = [""];
           nodeDetails = (await garlandtools.node(nodes[index])).node;
-          console.log(nodeDetails);
+
+          console.log(
+            `Nodes (${(itemName, nodeDetails.type)})   ${JSON.stringify(nodeDetails, null, 4)}`
+          );
+
+          // console.log(nodeDetails);
           nodeInfoList[index] = {
             name: Data.locationIndex[nodeDetails.zoneid].name,
+            type: nodeDetails.type,
             xcoord: nodeDetails.coords[0],
             ycoord: nodeDetails.coords[1],
             spawn1: nodeDetails.time?.[0],
@@ -78,6 +90,8 @@ function Gathering({ theme, setTheme }) {
         }
 
         items[itemName]["location"] = nodeInfoList;
+
+        console.log(`nodeInfoList   ${JSON.stringify(nodeInfoList, null, 4)}`);
 
         let icon = items[itemName]["icon"];
         let icon_dir =
@@ -158,6 +172,55 @@ function Gathering({ theme, setTheme }) {
     loadItems();
   }
 
+  function getGatheringType(type) {
+    switch (type) {
+      // Mining
+      case 0:
+        return;
+      //  Quarrying
+      case 1:
+        return;
+      // Logging
+      case 3:
+        return;
+      // Harvesting
+      case 4:
+        return;
+    }
+  }
+
+  if (!hasLoaded)
+    <>
+      <Header />
+      <Navigation />
+      <Announcements />
+      <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
+        <Title text={"Gathering"} />
+        <Paper
+          component="form"
+          sx={{ p: "2px 0px", display: "flex", alignItems: "center", width: "100%" }}
+        >
+          <InputBase
+            sx={{ ml: 1, mr: 1, flex: 1 }}
+            placeholder="Track item"
+            inputProps={{ "aria-label": "track item" }}
+            onChange={onSearchFieldChange}
+            className={style.input}
+          />
+          <IconButton
+            type="button"
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={onSearchButtonClick}
+          >
+            <ManageSearchTwoToneIcon />
+          </IconButton>
+        </Paper>
+        <Divider />
+        Loading...
+      </Container>
+    </>;
+
   return (
     <>
       <Header />
@@ -192,14 +255,19 @@ function Gathering({ theme, setTheme }) {
             {(() => {
               var spawnedItems = [];
               var dispRow = [];
+              var numberOfLocations = 0;
+
               for (let index = 0; index < Object.keys(items).length; index++) {
                 var data = Object.keys(items)[index];
-                var numberOfLocations = Object.keys(items[data].location).length;
+
+                if (items[data].location?.[0]) {
+                  numberOfLocations = Object.keys(items[data].location).length;
+                }
 
                 for (let loc = 0; loc < numberOfLocations; loc++) {
                   var spawned = ETClock.lt_getRemainingTimeBeforeSpawn(
-                    items[data].location?.[loc].spawn1,
-                    items[data].location?.[loc].spawn2
+                    items[data].location?.[loc]?.spawn1,
+                    items[data].location?.[loc]?.spawn2
                   );
 
                   var trigger;
@@ -230,8 +298,8 @@ function Gathering({ theme, setTheme }) {
                               <span className={style.itemName}>{data}</span>{" "}
                               <span className={style.timer}>
                                 {ETClock.lt_getRemainingTimeBeforeSpawn(
-                                  items[data].location?.[loc].spawn1,
-                                  items[data].location?.[loc].spawn2
+                                  items[data].location?.[loc]?.spawn1,
+                                  items[data].location?.[loc]?.spawn2
                                 )}
                               </span>
                             </React.Fragment>
@@ -245,10 +313,11 @@ function Gathering({ theme, setTheme }) {
                                 color="text.primary"
                               >
                                 <span className={style.location}>
-                                  {items[data].location?.[loc].name} ▸
-                                  {/* <PlaceIcon fontSize="30px" /> */} x:
-                                  {items[data].location?.[loc].xcoord}
-                                  ,y:{items[data].location?.[0].ycoord}
+                                  {items[data].location?.[loc]?.xcoord
+                                    ? `Type ${items[data].location?.[loc].type} ${items[data].location?.[loc]?.name} ▸
+                                  x:${items[data].location?.[loc]?.xcoord}
+                                  ,y:${items[data].location?.[loc]?.ycoord}`
+                                    : "Cannot be gathered by normal means."}
                                 </span>
                               </Typography>
                             </React.Fragment>
