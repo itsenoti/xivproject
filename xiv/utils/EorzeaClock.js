@@ -10,6 +10,26 @@ const MIDNIGHT = 0;
 const MORNING = 8;
 const AFTERNOON = 16;
 
+export function getCurrentEorzeanHour() {
+  var E_CONSTANT = 3600 / 175;
+  var epoch = new Date().getTime() / 1000;
+  var newtime = epoch * E_CONSTANT;
+
+  var hh = Math.floor((newtime / 3600) % 24);
+
+  return hh;
+}
+
+export function getCurrentEorzeanMinute() {
+  var E_CONSTANT = 3600 / 175;
+  var epoch = new Date().getTime() / 1000;
+  var newtime = epoch * E_CONSTANT;
+
+  let mm = Math.floor((newtime / 60) % 60);
+
+  return mm;
+}
+
 export function lt_getLtByET(et) {
   let epoch = new Date().getTime() / 1000;
   let newtime = epoch * E_CONSTANT;
@@ -35,8 +55,8 @@ function getLTUsingETBaseHour(iteration) {
   return lt;
 }
 
-export function lt_getRemainingTimeBeforeSpawn(am, pm) {
-  if (isAvailableAnytime(am, pm)) {
+export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
+  if (isAvailableAnytime(spawnTime)) {
     return `--:--`;
   }
 
@@ -61,25 +81,12 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
     // Convert LT to ET
     let epoch = lastWeatherChange_LT.getTime() / 1000;
     let newtime = epoch * E_CONSTANT;
-
     let current_hh = Math.floor((newtime / 3600) % 24);
 
-    if (am !== undefined && pm !== undefined) {
-      if (current_hh == am || current_hh == pm) {
-        if (new Date() <= lastWeatherChange_LT) {
-          ltTargetTime = lastWeatherChange_LT;
-          break;
-        }
-      }
-    } else if (am !== undefined && pm === undefined) {
-      if (current_hh == am) {
-        if (new Date() <= lastWeatherChange_LT) {
-          ltTargetTime = lastWeatherChange_LT;
-          break;
-        }
-      }
-    } else {
-      if (current_hh == pm) {
+    let endtime = spawnTime + 1 >= 24 ? spawnTime - 23 : spawnTime + 1;
+
+    if (spawnTime !== undefined) {
+      if (current_hh == spawnTime) {
         if (new Date() <= lastWeatherChange_LT) {
           ltTargetTime = lastWeatherChange_LT;
           break;
@@ -91,24 +98,12 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
   }
 
   let timeDifference = Time.getTimeDifferenceMs(ltTargetTime.getTime(), new Date().getTime());
-  var hour = Time.getNumberOfHours(timeDifference);
-  var min = Time.getNumberOfMinutes(timeDifference);
-  var secs = Time.getNumberOfSeconds(timeDifference);
+  let hour = Time.getNumberOfHours(timeDifference);
+  let min = Time.getNumberOfMinutes(timeDifference);
+  let secs = Time.getNumberOfSeconds(timeDifference);
 
-  min = formatTime(min);
   secs = formatTime(secs);
-
-  // Spawned
-  if (min >= 29) {
-    let subMin = min;
-    subMin = min - 29;
-    return (
-      // <span className={style.spawned}>
-      `${formatTime(subMin)}:${secs} ★`
-      // {/* </span> */}
-    );
-  }
-
+  min = formatTime(min);
   return `${min}:${secs}`;
 }
 
@@ -117,8 +112,8 @@ export function lt_getRemainingTimeBeforeSpawn(am, pm) {
  * @param {int} ETToConvert Eorzean hour to convert
  * @returns equivalent time in earth in ms
  */
-function convertETotLT(ETToConvert) {
-  if (!ETToConvert) return;
+export function convertETotLT(ETToConvert) {
+  // if (!ETToConvert) return;
 
   let allETHours = [];
   let allLTHours = [];
@@ -156,6 +151,18 @@ function convertETotLT(ETToConvert) {
   return ltTargetTime;
 }
 
+export function inGatheringWindow(ETToConvert) {
+  let endtime = ETToConvert + 1 >= 24 ? ETToConvert - 23 : ETToConvert + 1;
+
+  let timeDifference = Time.getTimeDifferenceMs(convertETotLT(endtime), new Date().getTime());
+  let min = Time.getNumberOfMinutes(timeDifference);
+  let secs = Time.getNumberOfSeconds(timeDifference);
+
+  secs = formatTime(secs);
+  min = formatTime(min);
+  return `@${min}:${secs}`;
+}
+
 function isPastMidnight(time) {
   if (time >= 0 && time < 8) return true;
   return false;
@@ -172,11 +179,11 @@ function isAfternoon(time) {
 }
 
 function isAvailableAnytime(am, pm) {
-  if (am === undefined && pm === undefined) return true;
+  if (am === undefined) return true;
   return false;
 }
 
-function formatTime(time) {
+export function formatTime(time) {
   if (time < 10) return `0${time}`;
 
   return time;

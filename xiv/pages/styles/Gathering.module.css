@@ -6,10 +6,38 @@
   background-color: transparent;
 }
 
-.spawned {
+.notSpawned {
+  color: var(--dark-color);
+  animation: slideIn;
+  animation-duration: 500ms;
+}
+.despawn {
   color: greenyellow;
-  animation: animate__rubberBand;
-  animation-duration: 1s;
+  animation: slideOut 500ms ease-out 1000ms 1;
+}
+.spawned {
+  background-color: green;
+  /* transform: translateX(0px); */
+  /* animation: slideIn 500ms ease-in 1; */
+}
+
+@keyframes slideIn {
+  from{
+    transform: translateX(-500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+@keyframes slideOut {
+  from{
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .time {
@@ -25,6 +53,7 @@
 }
 
 .itemName {
+  font-family: 'Inter' !important;
   margin-top: 0.35rem;
 }
 
@@ -44,10 +73,6 @@
   color: #d0d5dd;
 }
 
-.spawned {
-  background-color: rgba(18, 135, 0, 0.47);
-}
-
 .avatar{
   margin-top: 0.3rem;
 }
@@ -56,3 +81,4 @@
   animation: animate__rubberBand;
   animation-duration: 1s;
 }
+
