@@ -302,7 +302,7 @@ function Gathering({ theme, setTheme }) {
                   ETClock.getCurrentEorzeanHour() >= c.spawnTime_et &&
                   ETClock.getCurrentEorzeanHour() <= end_time;
                 var almostGone =
-                  ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et + 2) == "00:01"
+                  ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et + 2) == "00:00"
                     ? true
                     : false;
 
@@ -313,6 +313,7 @@ function Gathering({ theme, setTheme }) {
                       in={hasSpawned && !almostGone}
                       mountOnEnter
                       unmountOnExit
+                      {...(hasSpawned && !almostGone ? { timeout: 500 } : {})}
                     >
                       <Stack width={"100%"} spacing={1} className={style.spawned}>
                         <ListItem
