@@ -1,0 +1,33 @@
+
+
+/* Web screen */
+@media only screen and (min-width: 414px)
+{
+  .container {
+    margin-top: 30px;
+    }
+}
+
+/* Mobile screen (iPhone XR) */
+@media only screen and (max-width: 414px)
+{
+  .container {
+    margin-top: 10px;
+  }
+}
+
+.image {
+  margin-right: 1rem;
+  align-self: center;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.subNav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}

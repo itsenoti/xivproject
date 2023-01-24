@@ -345,6 +345,9 @@ function IslandSanctuary() {
         <List sx={{ width: "100%", color: "inherit" }}>
           {allAnimalsSpawnTimeForecast(currentDateTimeMs)}
         </List>
+        <Title text={"Recommended Animals (as of Patch 6.3)"} />
+        <Avatar src={Animals["Griffin"].icon} variant="rounded"></Avatar>{" "}
+        <Avatar src={Animals["Tiger of Paradise"].icon} variant="rounded"></Avatar>
         <Title text={"Macros"} />
         The macro below will trigger the Duty Action I (Sprint), target a node, enable lock on, then
         automatically makes your character run to it. This, however, won&apos;t auto-gather so you

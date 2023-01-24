@@ -25,7 +25,7 @@
 
 * {
   font-display: swap;
-  font-family: 'Nunito' !important;
+  font-family: 'Inter' !important;
   /* font-size: 0.9rem !important; */
   /* color: var(--light-color) */
 }
@@ -157,9 +157,14 @@ h6[class*="subtitle1"] {
 
 [data-theme='dark'] [class*='MuiListItemText'],
 [data-theme='dark'] [class*="subtitle1"],
-[data-theme='dark'] button.MuiButton-root.MuiButton-text {
+[data-theme='dark'] button.MuiButton-root.MuiButton-text,
+[data-theme='dark'] [class*='MuiInputBase-colorPrimary'],
+[data-theme='dark'] [class*='MuiInputLabel'],
+[data-theme='dark'] [class*='MuiOutlinedInput'],
+[data-theme='dark'] [class*='MuiTableCell'] {
   color: var(--dark-color);
 }
+
 
 [data-theme='dark'] button.MuiButton-root.MuiButton-text {
   font-size: var(--button-font-size) !important;
@@ -168,3 +173,7 @@ h6[class*="subtitle1"] {
 p[class*="maintenanceSchedule"] {
   font-size: 0.85rem !important;
 }
+
+
+
+/* MuiInputBase-colorPrimary */

@@ -104,7 +104,10 @@ export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
 
   secs = formatTime(secs);
   min = formatTime(min);
-  return `${min}:${secs}`;
+
+  if (min <= 5) return `${min}:${secs}`;
+
+  return `${min}m`;
 }
 
 /**

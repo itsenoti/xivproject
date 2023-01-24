@@ -3,7 +3,6 @@ import {
   AppBar,
   Box,
   Button,
-  Divider,
   FormControlLabel,
   List,
   ListItem,
@@ -17,6 +16,9 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Theme } from "../public/globals";
+import NavItem from "./../components/NavItem";
+
+import style from "./../pages/styles/Navigation.module.css";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -107,66 +109,12 @@ function Navigation() {
     >
       <List>
         {" "}
-        <ListItem key="Home">
-          <Button
-            color="inherit"
-            onClick={() => {
-              router.push("/");
-            }}
-            sx={{ width: "100%", justifyContent: "left" }}
-          >
-            Home
-          </Button>
-        </ListItem>
-        <Divider />
-        <ListItem key="Gathering">
-          <Button
-            color="inherit"
-            onClick={() => {
-              router.push("/gathering");
-            }}
-            sx={{ width: "100%", justifyContent: "left" }}
-          >
-            Gathering
-          </Button>
-        </ListItem>
-        <Divider />
-        <ListItem key="Eureka">
-          <Button
-            color="inherit"
-            onClick={() => {
-              router.push("/eureka");
-            }}
-            sx={{ width: "100%", justifyContent: "left" }}
-          >
-            Eureka
-          </Button>
-        </ListItem>
-        <Divider />
-        <ListItem key="IslandSanctuary">
-          <Button
-            color="inherit"
-            onClick={() => {
-              router.push("/island-sanctuary");
-            }}
-            sx={{ width: "100%", justifyContent: "left" }}
-          >
-            Island Sanctuary
-          </Button>
-        </ListItem>
-        <Divider />
-        <ListItem key="Links">
-          <Button
-            color="inherit"
-            onClick={() => {
-              router.push("/links");
-            }}
-            sx={{ width: "100%", justifyContent: "left" }}
-          >
-            Links
-          </Button>
-        </ListItem>
-        <Divider />
+        <NavItem page="" />
+        <NavItem page="gathering" />
+        <NavItem page="crafting" />
+        <NavItem page="eureka" />
+        <NavItem page="island-sanctuary" />
+        <NavItem page="links" />
         <ListItem key="ThemeSwitcher">
           {/* Theme Switcher */}
           <FormControlLabel
@@ -190,26 +138,16 @@ function Navigation() {
       <AppBar position="fixed">
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Typography sx={{ fontFamily: "Inter !important", fontWeight: "bold" }}>FFX|V</Typography>
-          {/* Right side menu */}
-          <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <Button color="inherit">Eureka</Button>
-            <Button color="inherit">{theme}</Button>
-            <Divider />
-            {/* Theme Switcher */}
-            <FormControlLabel
-              control={
-                <MaterialUISwitch
-                  sx={{ m: 1 }}
-                  defaultChecked={theme === "dark" ? Theme.DARK : Theme.LIGHT}
-                />
-              }
-              onChange={() => {
-                theme === "light" ? setTheme("dark") : setTheme("light");
-              }}
-            />
+          <Box className={style.navItemContainer}>
+            <NavItem page="" />
+            <NavItem page="gathering" />
+            <NavItem page="crafting" />
+            <NavItem page="eureka" />
+            <NavItem page="island-sanctuary" />
+            <NavItem page="links" />
           </Box>
-          <div />
-          {/* Hamburger Menu */}
+
+          {/* Drawer */}
           {["right"].map((anchor) => (
             <>
               <Button onClick={toggleDrawer(anchor, true)}>

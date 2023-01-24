@@ -8,6 +8,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import Paper from "@mui/material/Paper";
@@ -27,7 +28,12 @@ import GIcons from "./../pages/api/gathering.json";
 import * as TextConvert from "./../utils/StringConverters";
 
 import Typography from "@mui/material/Typography";
+
+const TIME_UP = "00:00";
 const garlandtools = require("garlandtools-api");
+
+// Set language
+// garlandtools.setLang("ja");
 
 function Gathering({ theme, setTheme }) {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -43,8 +49,7 @@ function Gathering({ theme, setTheme }) {
   });
   const [currentDateTimeMs, setCurrentDateTimeMs] = useState(new Date().getTime());
 
-  var sortedItemsFin = {};
-
+  // If rows = not empty, load them
   if (rows) {
     loadItems();
   }
@@ -63,6 +68,7 @@ function Gathering({ theme, setTheme }) {
         };
 
         tgtItem = await garlandtools.item(tgtItem.id);
+        // console.log(tgtItem);
 
         items[itemName]["description"] = tgtItem.item.description;
 
@@ -72,9 +78,8 @@ function Gathering({ theme, setTheme }) {
 
         for (let index = 0; index < nodes.length; index++) {
           let nodeDetails = [""];
-          nodeDetails = (await garlandtools.node(nodes[index])).node;
 
-          // console.log(`${itemName} ${JSON.stringify(nodeDetails, null, 3)}`);
+          nodeDetails = (await garlandtools.node(nodes[index])).node;
 
           nodeInfoList[index] = {
             name: Data.locationIndex[nodeDetails.zoneid].name,
@@ -178,44 +183,46 @@ function Gathering({ theme, setTheme }) {
 
     for (let index = 0; index < Object.keys(items).length; index++) {
       let item = Object.values(items)[index];
-      let locationCount = Object.keys(item.location).length;
+      if (item.location) {
+        let locationCount = Object.keys(item.location).length;
 
-      if (locationCount) {
-        for (let locationIndex = 0; locationIndex < locationCount; locationIndex++) {
-          let loc = item.location?.[locationIndex];
+        if (locationCount) {
+          for (let locationIndex = 0; locationIndex < locationCount; locationIndex++) {
+            let loc = item.location?.[locationIndex];
 
-          let s1 = loc.spawn1 < 10 ? 0 + loc.spawn1 : loc.spawn1;
+            let s1 = loc.spawn1 < 10 ? 0 + loc.spawn1 : loc.spawn1;
 
-          sortedItems[s1 + "_" + item.name] = {
-            id: item.id,
-            name: item.name,
-            type: item.type,
-            icon: item.icon,
-            description: item.description,
-            location_name: loc.name,
-            location_type: loc.type,
-            location_xcoord: loc.xcoord,
-            location_ycoord: loc.ycoord,
-            location_nodeType: loc.nodeType,
-            location_time: loc.spawn1,
-            uiid: item.uiid,
-          };
+            sortedItems[s1 + "_" + item.name] = {
+              id: item.id,
+              name: item.name,
+              type: item.type,
+              icon: item.icon,
+              description: item.description,
+              location_name: loc.name,
+              location_type: loc.type,
+              location_xcoord: loc.xcoord,
+              location_ycoord: loc.ycoord,
+              location_nodeType: loc.nodeType,
+              location_time: loc.spawn1,
+              uiid: item.uiid,
+            };
 
-          let s2 = loc.spawn2 < 10 ? 0 + loc.spawn2 : loc.spawn2;
-          sortedItems[s2 + "_" + item.name] = {
-            id: item.id,
-            name: item.name,
-            type: item.type,
-            icon: item.icon,
-            description: item.description,
-            location_name: loc.name,
-            location_type: loc.type,
-            location_xcoord: loc.xcoord,
-            location_ycoord: loc.ycoord,
-            location_nodeType: loc.nodeType,
-            location_time: loc.spawn2,
-            uiid: item.uiid,
-          };
+            let s2 = loc.spawn2 < 10 ? 0 + loc.spawn2 : loc.spawn2;
+            sortedItems[s2 + "_" + item.name] = {
+              id: item.id,
+              name: item.name,
+              type: item.type,
+              icon: item.icon,
+              description: item.description,
+              location_name: loc.name,
+              location_type: loc.type,
+              location_xcoord: loc.xcoord,
+              location_ycoord: loc.ycoord,
+              location_nodeType: loc.nodeType,
+              location_time: loc.spawn2,
+              uiid: item.uiid,
+            };
+          }
         }
       }
     }
@@ -265,7 +272,7 @@ function Gathering({ theme, setTheme }) {
       <Header />
       <Navigation />
       <Announcements />
-      <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
+      <Container sx={{ padding: 0, pt: 8 }}>
         <Title text={"Gathering"} />
 
         <Paper
@@ -294,17 +301,18 @@ function Gathering({ theme, setTheme }) {
             {(() => {
               var entries = [];
               var itemList = sortItems();
+              // ------------------------------- Spawned Items ------------------------------- //
               for (let index = 0; index < Object.keys(itemList).length; index++) {
                 var c = Object.values(itemList)[index];
                 var end_time = c.spawnTime_et + 1 >= 24 ? c.spawnTime_et - 23 : c.spawnTime_et + 1;
+                var end_timeFlag =
+                  c.spawnTime_et + 2 >= 24 ? c.spawnTime_et - 23 : c.spawnTime_et + 2;
 
                 var hasSpawned =
                   ETClock.getCurrentEorzeanHour() >= c.spawnTime_et &&
                   ETClock.getCurrentEorzeanHour() <= end_time;
                 var almostGone =
-                  ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et + 2) == "00:00"
-                    ? true
-                    : false;
+                  ETClock.lt_getRemainingTimeBeforeSpawn(end_timeFlag) == TIME_UP ? true : false;
 
                 if (hasSpawned) {
                   var row = (
@@ -338,7 +346,8 @@ function Gathering({ theme, setTheme }) {
                               <>
                                 <span className={style.itemNameArea}>
                                   <span className={style.itemName}>{c.name}</span>
-                                  <img src={getIcon(c.location_type)} width="30rem"></img>{" "}
+                                  <Image src={getIcon(c.location_type)} width={30} height={30} />
+                                  {/* <img src={getIcon(c.location_type)} width="30rem"></img>{" "} */}
                                 </span>
                                 <span className={style.timer}>
                                   {ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et + 2)}
@@ -376,6 +385,7 @@ function Gathering({ theme, setTheme }) {
                 }
               }
 
+              // ------------------------------- Soon to Spawn ------------------------------- //
               for (let index = 0; index < Object.keys(itemList).length; index++) {
                 var i = Object.keys(itemList)[index];
                 var c = Object.values(itemList)[index];
@@ -443,6 +453,7 @@ function Gathering({ theme, setTheme }) {
                 }
               }
 
+              // ------------------------------- Just Spawned ------------------------------- //
               for (let index = 0; index < Object.keys(itemList).length; index++) {
                 var i = Object.keys(itemList)[index];
                 var c = Object.values(itemList)[index];
