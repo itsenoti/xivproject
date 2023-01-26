@@ -55,7 +55,19 @@ function getLTUsingETBaseHour(iteration) {
   return lt;
 }
 
+function getEorzeaTime(ET_Date) {
+  let E_CONSTANT = 3600 / 175;
+  let epoch = new Date(ET_Date).getTime() / 1000;
+  let newtime = epoch * E_CONSTANT;
+
+  let hh = Math.floor((newtime / 3600) % 24);
+  let mm = Math.floor((newtime / 60) % 60);
+
+  return formatTime(hh) + ":" + formatTime(mm);
+}
+
 export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
+  // console.log(`spawnTime ${formatTime(spawnTime)}`);
   if (isAvailableAnytime(spawnTime)) {
     return `--:--`;
   }
@@ -63,7 +75,7 @@ export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
   let allETHours = [];
   let allLTHours = [];
 
-  for (let index = 0; index < 1000; index++) {
+  for (let index = 0; index < 100; index++) {
     allETHours[index] = getETBaseHour(index);
     allLTHours[index] = getLTUsingETBaseHour(index);
   }
@@ -73,41 +85,36 @@ export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
     lt: allLTHours[i],
   }));
 
-  let lastWeatherChange_ET = allETHours[0];
-  let lastWeatherChange_LT = allLTHours[0];
-
-  var ltTargetTime = new Date();
-  for (let index = 0; index < 1000; index++) {
-    // Convert LT to ET
-    let epoch = lastWeatherChange_LT.getTime() / 1000;
+  // **********************************************************************************
+  var EveryETHourToLT = {};
+  let dlastWeatherChange_LT = allLTHours[0];
+  for (let i = 0; i < 24; i++) {
+    let epoch = dlastWeatherChange_LT.getTime() / 1000;
     let newtime = epoch * E_CONSTANT;
     let current_hh = Math.floor((newtime / 3600) % 24);
 
-    let endtime = spawnTime + 1 >= 24 ? spawnTime - 23 : spawnTime + 1;
-
-    if (spawnTime !== undefined) {
-      if (current_hh == spawnTime) {
-        if (new Date() <= lastWeatherChange_LT) {
-          ltTargetTime = lastWeatherChange_LT;
-          break;
-        }
-      }
-    }
-
-    lastWeatherChange_LT = new Date(lastWeatherChange_LT.getTime() + TWOMINS55SEC);
+    dlastWeatherChange_LT = new Date(dlastWeatherChange_LT.getTime() + TWOMINS55SEC);
+    EveryETHourToLT[getEorzeaTime(dlastWeatherChange_LT)] = { lt: dlastWeatherChange_LT };
   }
 
-  let timeDifference = Time.getTimeDifferenceMs(ltTargetTime.getTime(), new Date().getTime());
-  let hour = Time.getNumberOfHours(timeDifference);
+  var ltTargetTime = EveryETHourToLT[formatTime(spawnTime) + ":00"];
+
+  if (!ltTargetTime) return 0;
+  if (ltTargetTime.lt < new Date()) return 0;
+
+  let timeDifference = Time.getTimeDifferenceMs(ltTargetTime.lt.getTime(), new Date().getTime());
   let min = Time.getNumberOfMinutes(timeDifference);
+
+  if (min > 28) return 0;
+
   let secs = Time.getNumberOfSeconds(timeDifference);
 
   secs = formatTime(secs);
   min = formatTime(min);
 
-  if (min <= 5) return `${min}:${secs}`;
+  if (min > 1) return `${min}m`;
 
-  return `${min}m`;
+  return `${min}:${secs}`;
 }
 
 /**

@@ -15,5 +15,7 @@ export function getNumberOfSeconds(time) {
 }
 
 export function getTimeDifferenceMs(future, current) {
-  return future - current;
+  // console.log(future > current ? `As expected` : `Oops, current is higher than target`);
+  // if (future > current) {
+  return future > current ? future - current : future + 2100000 - current;
 }

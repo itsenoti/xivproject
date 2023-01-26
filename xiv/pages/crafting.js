@@ -58,6 +58,8 @@ function Crafting({ theme, setTheme }) {
     let updateTime = setInterval(function () {
       setCurrentDateTimeMs(new Date().getTime());
     }, 1000);
+
+    return () => clearTimeout(updateTime);
   }, [currentDateTimeMs]);
 
   const onSearchButtonClick = (event) => {

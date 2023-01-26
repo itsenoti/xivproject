@@ -16,7 +16,8 @@
   animation: slideOut 500ms ease-out 1000ms 1;
 }
 .spawned {
-  background-color: green;
+  /* background-color: green; */
+  color:greenyellow;
   /* transform: translateX(0px); */
   /* animation: slideIn 500ms ease-in 1; */
 }
@@ -64,9 +65,11 @@
 
 .timer {
   display:inline-block;
+  right: 0;
+  align-self: flex-end;
   width: 5.1rem;
-  text-align: center;
-  font-size:medium;
+  text-align: right;
+  font-size:larger;
 }
 
 [data-theme='dark'] .input {

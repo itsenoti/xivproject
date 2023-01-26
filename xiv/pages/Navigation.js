@@ -112,6 +112,7 @@ function Navigation() {
         <NavItem page="" />
         <NavItem page="gathering" />
         <NavItem page="crafting" />
+        <NavItem page="crafting-list" />
         <NavItem page="eureka" />
         <NavItem page="island-sanctuary" />
         <NavItem page="links" />
@@ -142,6 +143,7 @@ function Navigation() {
             <NavItem page="" />
             <NavItem page="gathering" />
             <NavItem page="crafting" />
+            <NavItem page="crafting-list" />
             <NavItem page="eureka" />
             <NavItem page="island-sanctuary" />
             <NavItem page="links" />

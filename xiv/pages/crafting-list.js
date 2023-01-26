@@ -26,88 +26,40 @@ function CraftingList({ theme, setTheme }) {
   const [itemQty, setItemQty] = useState(1);
   const [midIngredientsList, setMidIngredientsList] = useState({});
   const [topIngredientsList, setTopIngredientsList] = useState({});
+  const [buyableMaterials, setBuyableMaterials] = useState({});
   const [endProductsList, setEndProductsList] = useState({});
 
   const garlandtools = require("garlandtools-api");
 
   async function search() {
     if (typeof window != "undefined") {
-      let existing_entries = JSON.parse(window.localStorage.getItem("craftingList"));
-      var ids = Object.keys(existing_entries);
-      if (existing_entries) {
-        for (let i = 0; i < ids.length; i++) {
-          var amtToCraft = existing_entries[i];
+      var oCurrentCraftingList = JSON.parse(window.localStorage.getItem("craftingList")) || [];
+      if (oCurrentCraftingList) {
+        for (let index = 0; index < Object.keys(oCurrentCraftingList).length; index++) {
+          var iItemId = Object.keys(oCurrentCraftingList)[index];
+          var oItemBreakDown = await garlandtools.item(iItemId);
+          console.log(oItemBreakDown);
 
-          var itemInfo = await garlandtools.item(ids[i]);
-          var mainItem = itemInfo["item"];
-
-          endProductsList[mainItem.id] = { name: mainItem.name, icon: mainItem.icon };
-
-          var ingredientsAmount = mainItem["craft"]?.[0]?.["ingredients"]; // Amount of each ingredient
-          var ingredientsList = itemInfo["ingredients"]; // Ingredient details
-          var dumyList = {};
-
-          for (let i = 0; i < Object.values(ingredientsAmount).length; i++) {
-            dumyList[ingredientsAmount[i]?.["id"]] = ingredientsAmount[i]?.["amount"];
-          }
-
-          // Record all top ingredients
-          for (let i = 0; i < Object.values(ingredientsList).length; i++) {
-            let item = Object.values(ingredientsList)[i];
-            if (!item["craft"]) {
-              topIngredientsList[item.id] = {
-                id: item.id,
-                name: item.name,
-                amount: dumyList?.[item.id] ? dumyList?.[item.id] : 0,
-              };
-            } else {
-              midIngredientsList[item.id] = {
-                amt: dumyList[item.id],
-                ing: item.craft?.[0].ingredients,
-              };
-            }
-          }
+          getIngredients(oItemBreakDown);
         }
-        console.log(`${JSON.stringify(midIngredientsList, null, 4)}`);
       }
+
+      // console.log(`Top Ingredients - ${JSON.stringify(topIngredientsList, null, 3)}`);
+      // console.log(`Mid Ingredients - ${JSON.stringify(midIngredientsList, null, 3)}`);
     }
   }
 
-  function getAmountOfIngredientsNeeded() {}
+  function getIngredients(oItemBreakDown) {
+    var oIngredientsList = oItemBreakDown.ingredients;
+  }
 
   useEffect(() => {
     let updateTime = setTimeout(function () {
       setCurrentDateTimeMs(new Date().getTime());
     }, 1000);
-  }, [currentDateTimeMs]);
 
-  function checkIfAlreadyListed(id) {
-    if (typeof window != "undefined") {
-      let list = JSON.parse(window.localStorage.getItem("craftingList"));
-      if (list[id]) return true;
-      else return false;
-    }
-  }
-
-  const addRemoveItemToTray = (event) => {
-    if (typeof window != "undefined") {
-      var existing_entries = {};
-      var id = event.target.id;
-
-      if (localStorage.getItem("craftingList")) {
-        existing_entries = JSON.parse(window.localStorage.getItem("craftingList"));
-      }
-
-      if (existing_entries[event.target.id]) {
-        console.log(`Delete ${id}`);
-        delete existing_entries[id];
-      } else {
-        existing_entries[event.currentTarget.id] = itemQty;
-      }
-
-      window.localStorage.setItem("craftingList", JSON.stringify(existing_entries));
-    }
-  };
+    return () => clearTimeout(updateTime);
+  }, []);
 
   function getIconUrl(icon) {
     if (typeof icon == "undefined") icon = 0;
@@ -142,95 +94,93 @@ function CraftingList({ theme, setTheme }) {
             <TableHead>
               <TableRow>
                 <TableCell align="center">Icon</TableCell>
+                {/* <TableCell align="center">ID</TableCell> */}
                 <TableCell align="center">Item</TableCell>
-                <TableCell align="center">ID</TableCell>
-                <TableCell align="center">Level</TableCell>
-                <TableCell align="center">Crafter</TableCell>
-                <TableCell align="center">Difficulty</TableCell>
-                <TableCell align="center" style={{ width: "5rem" }}>
-                  Quantity
-                </TableCell>
-                <TableCell align="center">Action</TableCell>
+                <TableCell align="center">Needed</TableCell>
+                <TableCell align="center">Source</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {(() => {
                 search();
-                // var itemRow = [];
-                // if (searchResult) {
-                //   for (let index = 0; index < Object.keys(searchResult).length; index++) {
-                //     const item = Object.values(searchResult)[index];
-                //     const item_name = item?.["obj"]?.["n"];
-                //     const item_id = item?.["id"];
-                //     const item_lvl = item?.["obj"]?.["f"]?.[0]?.["lvl"];
-                //     const item_crafter = Jobs["Jobs"][item?.["obj"]?.["f"]?.[0]?.["job"]]?.["name"];
-                //     const item_difficulty = item?.["obj"]?.["f"]?.[0]?.["stars"];
-                //     var icon = item?.["obj"]?.["c"];
 
-                //     icon = getIconUrl(icon);
+                var row = [];
 
-                //     if (item_name != null) {
-                //       let _item_ = (
-                //         <TableRow
-                //           key={item_id}
-                //           sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                //         >
-                //           <TableCell align="center" component="th" scope="row">
-                //             <img
-                //               src={icon}
-                //               className={style.image}
-                //               onError={(event) => {
-                //                 event.target.src = "/icons/placeholder.png";
-                //                 event.onError = null;
-                //               }}
-                //               width="40px"
-                //               height="40px"
-                //             />
-                //           </TableCell>
-                //           <TableCell align="left">{item_name}</TableCell>
-                //           <TableCell align="center">{item_id}</TableCell>
-                //           <TableCell align="center">{item_lvl}</TableCell>
-                //           <TableCell align="center">
-                //             {item_crafter ? item_crafter : "Free Company Craft"}
-                //           </TableCell>
-                //           <TableCell align="center">
-                //             <Rating
-                //               name="read-only"
-                //               value={item_difficulty}
-                //               size="small"
-                //               readOnly
-                //             />
-                //           </TableCell>
-                //           <TableCell align="center">
-                //             <TextField
-                //               type="number"
-                //               defaultValue="1"
-                //               size="small"
-                //               onChange={(event) => setItemQty(event.target.value)}
-                //             ></TextField>
-                //           </TableCell>
-                //           <TableCell align="center">
-                //             <Button
-                //               color={checkIfAlreadyListed(item_id) ? "success" : "primary"}
-                //               variant="contained"
-                //               id={item_id}
-                //               onClick={addRemoveItemToTray}
-                //             >
-                //               {checkIfAlreadyListed(item_id) ? (
-                //                 <CheckIcon />
-                //               ) : (
-                //                 <AddBoxRoundedIcon />
-                //               )}
-                //             </Button>
-                //           </TableCell>
-                //         </TableRow>
-                //       );
-                //       itemRow.push(_item_);
-                //     }
-                //   }
-                // }
+                var topIngredientsKeys = Object.keys(topIngredientsList);
+                topIngredientsKeys.forEach((i) => {
+                  let _item_ = (
+                    <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      <TableCell align="center" component="th" scope="row">
+                        <img
+                          src={getIconUrl(topIngredientsList[i].icon)}
+                          onError={(event) => {
+                            event.target.src = "/icons/placeholder.png";
+                            event.onError = null;
+                          }}
+                          width="40px"
+                          height="40px"
+                        />
+                      </TableCell>
+                      {/* <TableCell align="center">{topIngredientsList[i].id}</TableCell> */}
+                      <TableCell align="center">{topIngredientsList[i].name}</TableCell>
+                      <TableCell align="center">{topIngredientsList[i].amount}</TableCell>
+                      <TableCell align="center">{topIngredientsList[i].amount}</TableCell>
+                    </TableRow>
+                  );
 
-                // return itemRow;
+                  row.push(_item_);
+                });
+                return row;
+              })()}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <br />
+        <br />
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Icon</TableCell>
+                {/* <TableCell align="center">ID</TableCell> */}
+                <TableCell align="center">Item</TableCell>
+                <TableCell align="center">Needed</TableCell>
+                <TableCell align="center">Source</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(() => {
+                search();
+
+                var row = [];
+
+                var midIngredientsListKeys = Object.keys(midIngredientsList);
+                midIngredientsListKeys.forEach((i) => {
+                  let _item_ = (
+                    <TableRow key={i} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      <TableCell align="center" component="th" scope="row">
+                        <img
+                          src={getIconUrl(midIngredientsList[i].icon)}
+                          onError={(event) => {
+                            event.target.src = "/icons/placeholder.png";
+                            event.onError = null;
+                          }}
+                          width="40px"
+                          height="40px"
+                        />
+                      </TableCell>
+                      {/* <TableCell align="center">{topIngredientsList[i].id}</TableCell> */}
+                      <TableCell align="center">{midIngredientsList[i].name}</TableCell>
+                      <TableCell align="center">{midIngredientsList[i].amount}</TableCell>
+                      <TableCell align="center">{midIngredientsList[i].amount}</TableCell>
+                    </TableRow>
+                  );
+
+                  row.push(_item_);
+                });
+                return row;
               })()}
             </TableBody>
           </Table>

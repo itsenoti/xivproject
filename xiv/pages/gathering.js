@@ -1,5 +1,5 @@
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ManageSearchTwoToneIcon from "@mui/icons-material/ManageSearchTwoTone";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -7,12 +7,11 @@ import InputBase from "@mui/material/InputBase";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
+import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-
-import Paper from "@mui/material/Paper";
-import Slide from "@mui/material/Slide";
 import Announcements from "../components/announcements";
 import Title from "../components/title";
 import * as ETClock from "./../utils/EorzeaClock";
@@ -68,7 +67,6 @@ function Gathering({ theme, setTheme }) {
         };
 
         tgtItem = await garlandtools.item(tgtItem.id);
-        // console.log(tgtItem);
 
         items[itemName]["description"] = tgtItem.item.description;
 
@@ -80,8 +78,11 @@ function Gathering({ theme, setTheme }) {
           let nodeDetails = [""];
 
           nodeDetails = (await garlandtools.node(nodes[index])).node;
+          console.log(Data.locationIndex[nodeDetails.areaid].name);
+          // console.log(await garlandtools.data());
 
           nodeInfoList[index] = {
+            area: Data.locationIndex[nodeDetails.areaid].name,
             name: Data.locationIndex[nodeDetails.zoneid].name,
             type: nodeDetails.type,
             xcoord: nodeDetails.coords[0],
@@ -111,6 +112,8 @@ function Gathering({ theme, setTheme }) {
     let updateTime = setTimeout(function () {
       setCurrentDateTimeMs(new Date().getTime());
     }, 1000);
+
+    return () => clearTimeout(updateTime);
   }, [currentDateTimeMs]);
 
   // Search field & button event handler
@@ -198,6 +201,7 @@ function Gathering({ theme, setTheme }) {
               type: item.type,
               icon: item.icon,
               description: item.description,
+              location_area: loc.area,
               location_name: loc.name,
               location_type: loc.type,
               location_xcoord: loc.xcoord,
@@ -214,6 +218,7 @@ function Gathering({ theme, setTheme }) {
               type: item.type,
               icon: item.icon,
               description: item.description,
+              location_area: loc.area,
               location_name: loc.name,
               location_type: loc.type,
               location_xcoord: loc.xcoord,
@@ -240,6 +245,7 @@ function Gathering({ theme, setTheme }) {
     for (let index = 0; index < Object.keys(sortAlphaNumerically).length; index++) {
       let element = Object.keys(sortAlphaNumerically[index]);
       let content = Object.values(Object.values(sortAlphaNumerically)[index])[0];
+      // console.log(content);
 
       let itemName = content.name;
       let spawnTime_et = content.location_time;
@@ -255,6 +261,7 @@ function Gathering({ theme, setTheme }) {
           minute: "2-digit",
           second: "2-digit",
         }),
+        location_area: content.location_area,
         location_name: content.location_name,
         location_type: content.location_type,
         location_xcoord: content.location_xcoord,
@@ -327,15 +334,20 @@ function Gathering({ theme, setTheme }) {
                         <ListItem
                           alignItems="flex-start"
                           secondaryAction={
-                            <IconButton
-                              edge="end"
-                              aria-label="delete"
-                              id={c.uiid}
-                              onClick={onDeleteItemButtonClick}
-                              sx={{ color: "var(--light-color)" }}
-                            >
-                              <DeleteForeverIcon sx={{ color: "white", opacity: "0.1" }} />
-                            </IconButton>
+                            <>
+                              <span className={style.timer}>
+                                {ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et + 2)}
+                              </span>
+                              <IconButton
+                                edge="end"
+                                aria-label="delete"
+                                id={c.uiid}
+                                onClick={onDeleteItemButtonClick}
+                                sx={{ color: "var(--light-color)" }}
+                              >
+                                <RemoveCircleOutlineIcon sx={{ color: "indianred" }} />
+                              </IconButton>
+                            </>
                           }
                         >
                           <ListItemAvatar>
@@ -348,9 +360,6 @@ function Gathering({ theme, setTheme }) {
                                   <span className={style.itemName}>{c.name}</span>
                                   <Image src={getIcon(c.location_type)} width={30} height={30} />
                                   {/* <img src={getIcon(c.location_type)} width="30rem"></img>{" "} */}
-                                </span>
-                                <span className={style.timer}>
-                                  {ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et + 2)}
                                 </span>
                               </>
                             }
@@ -365,7 +374,7 @@ function Gathering({ theme, setTheme }) {
                                   <span className={style.location}>
                                     {c.location_xcoord ? (
                                       <>
-                                        {c.location_name} ▸ x:
+                                        🗺️ {c.location_name} 💎{c.location_area} 📍x:
                                         {c.location_xcoord}, y:{c.location_ycoord}
                                       </>
                                     ) : (
@@ -391,21 +400,31 @@ function Gathering({ theme, setTheme }) {
                 var c = Object.values(itemList)[index];
                 var end_time = c.spawnTime_et + 1 >= 24 ? c.spawnTime_et - 23 : c.spawnTime_et + 1;
 
-                if (c.spawnTime_et > ETClock.getCurrentEorzeanHour()) {
+                var tTime = ETClock.getCurrentEorzeanHour();
+
+                if (
+                  c.spawnTime_et > ETClock.getCurrentEorzeanHour() &&
+                  ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et) != 0
+                ) {
                   var row = (
                     <Stack width={"100%"} spacing={1} className={style.notSpawned}>
                       <ListItem
                         alignItems="flex-start"
                         secondaryAction={
-                          <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            id={c.uiid}
-                            onClick={onDeleteItemButtonClick}
-                            sx={{ color: "var(--light-color)" }}
-                          >
-                            <DeleteForeverIcon sx={{ color: "white", opacity: "0.1" }} />
-                          </IconButton>
+                          <>
+                            <span className={style.timer}>
+                              {ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et)}
+                            </span>
+                            <IconButton
+                              edge="end"
+                              aria-label="delete"
+                              id={c.uiid}
+                              onClick={onDeleteItemButtonClick}
+                              sx={{ color: "var(--light-color)" }}
+                            >
+                              <RemoveCircleOutlineIcon sx={{ color: "indianred" }} />
+                            </IconButton>
+                          </>
                         }
                       >
                         <ListItemAvatar>
@@ -418,9 +437,6 @@ function Gathering({ theme, setTheme }) {
                                 <span className={style.itemName}>{c.name}</span>
                                 <img src={getIcon(c.location_type)} width="30rem"></img>{" "}
                               </span>
-                              <span className={style.timer}>
-                                {ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et)}
-                              </span>
                             </>
                           }
                           secondary={
@@ -434,7 +450,7 @@ function Gathering({ theme, setTheme }) {
                                 <span className={style.location}>
                                   {c.location_xcoord ? (
                                     <>
-                                      {c.location_name} ▸ x:
+                                      🗺️ {c.location_name} 💎{c.location_area} 📍x:
                                       {c.location_xcoord}, y:{c.location_ycoord}
                                     </>
                                   ) : (
@@ -453,73 +469,83 @@ function Gathering({ theme, setTheme }) {
                 }
               }
 
-              // ------------------------------- Just Spawned ------------------------------- //
-              for (let index = 0; index < Object.keys(itemList).length; index++) {
-                var i = Object.keys(itemList)[index];
-                var c = Object.values(itemList)[index];
-                var end_time = c.spawnTime_et + 1 >= 24 ? c.spawnTime_et - 23 : c.spawnTime_et + 1;
+              // // ------------------------------- Just Spawned ------------------------------- //
+              // for (let index = 0; index < Object.keys(itemList).length; index++) {
+              //   var i = Object.keys(itemList)[index];
+              //   var c = Object.values(itemList)[index];
+              //   var end_time = c.spawnTime_et + 1 >= 24 ? c.spawnTime_et - 23 : c.spawnTime_et + 1;
+              //   var justSpawned = false;
+              //   var ETTime = ETClock.getCurrentEorzeanHour();
 
-                if (c.spawnTime_et < ETClock.getCurrentEorzeanHour()) {
-                  var row = (
-                    <Stack width={"100%"} spacing={1} className={style.notSpawned}>
-                      <ListItem
-                        alignItems="flex-start"
-                        secondaryAction={
-                          <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            id={c.uiid}
-                            onClick={onDeleteItemButtonClick}
-                            sx={{ color: "var(--light-color)" }}
-                          >
-                            <DeleteForeverIcon sx={{ color: "white", opacity: "0.1" }} />
-                          </IconButton>
-                        }
-                      >
-                        <ListItemAvatar>
-                          <Avatar src={c.icon} variant="rounded" className={style.avatar} />
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={
-                            <>
-                              <span className={style.itemNameArea}>
-                                <span className={style.itemName}>{c.name}</span>
-                                <img src={getIcon(c.location_type)} width="30rem"></img>
-                              </span>
-                              <span className={style.timer}>
-                                {ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et)}
-                              </span>
-                            </>
-                          }
-                          secondary={
-                            <>
-                              <Typography
-                                sx={{ display: "inline" }}
-                                component="span"
-                                variant="body2"
-                                color="text.primary"
-                              >
-                                <span className={style.location}>
-                                  {c.location_xcoord ? (
-                                    <>
-                                      {c.location_name} ▸ x:
-                                      {c.location_xcoord}, y:{c.location_ycoord}
-                                    </>
-                                  ) : (
-                                    "Cannot be gathered by normal means."
-                                  )}
-                                </span>
-                              </Typography>
-                            </>
-                          }
-                        />
-                      </ListItem>
-                      <Divider />
-                    </Stack>
-                  );
-                  entries.push(row);
-                }
-              }
+              //   if (ETTime == 0 || ETTime == 1 || ETTime == 2) {
+              //     if (c.spawnTime_et == 21 || c.spawnTime_et == 22 || c.spawnTime_et == 23)
+              //       justSpawned = true;
+              //   }
+
+              //   if (c.spawnTime_et < ETTime && !justSpawned) {
+              //     var row = (
+              //       <Stack width={"100%"} spacing={1} className={style.notSpawned}>
+              //         <ListItem
+              //           alignItems="flex-start"
+              //           secondaryAction={
+              //             <>
+              //               <span className={style.timer}>
+              //                 [c{c.spawnTime_et}]{" "}
+              //                 {ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et)}
+              //               </span>
+              //               <IconButton
+              //                 edge="end"
+              //                 aria-label="delete"
+              //                 id={c.uiid}
+              //                 onClick={onDeleteItemButtonClick}
+              //                 sx={{ color: "var(--light-color)" }}
+              //               >
+              //                 <RemoveCircleOutlineIcon sx={{ color: "indianred" }} />
+              //               </IconButton>
+              //             </>
+              //           }
+              //         >
+              //           <ListItemAvatar>
+              //             <Avatar src={c.icon} variant="rounded" className={style.avatar} />
+              //           </ListItemAvatar>
+              //           <ListItemText
+              //             primary={
+              //               <>
+              //                 <span className={style.itemNameArea}>
+              //                   <span className={style.itemName}>{c.name}</span>
+              //                   <img src={getIcon(c.location_type)} width="30rem"></img>
+              //                 </span>
+              //               </>
+              //             }
+              //             secondary={
+              //               <>
+              //                 <Typography
+              //                   sx={{ display: "inline" }}
+              //                   component="span"
+              //                   variant="body2"
+              //                   color="text.primary"
+              //                 >
+              //                   <span className={style.location}>
+              //                     {c.location_xcoord ? (
+              //                       <>
+              //                         {c.location_name} ▸ x:
+              //                         {c.location_xcoord}, y:{c.location_ycoord}
+              //                       </>
+              //                     ) : (
+              //                       "Cannot be gathered by normal means."
+              //                     )}
+              //                   </span>
+              //                 </Typography>
+              //               </>
+              //             }
+              //           />
+              //         </ListItem>
+              //         <Divider />
+              //       </Stack>
+              //     );
+              //     entries.push(row);
+              //   }
+              // }
 
               return entries;
             })()}
