@@ -78,12 +78,12 @@
 @media only screen and (max-width: 414px)
 {
   .timer {
-    /* align-self: flex-end; */
+    font-family: 'AzeretMono' !important;
     position: relative;
     top: -1rem;
     width: 5.1rem;
     text-align: right;
-    font-size:medium;
+    font-size:small;
   }
 }
 

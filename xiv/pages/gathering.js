@@ -315,8 +315,6 @@ function Gathering({ theme, setTheme }) {
                 var current_eorzean_hour = ETClock.getCurrentEorzeanHour();
                 var current_eorzean_minute = ETClock.getCurrentEorzeanMinute();
 
-                console.log(ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et));
-
                 if (ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et) == "00:00") {
                   let notification_sound = new Audio("/Sounds/FFXIV_Notification.mp3");
                   notification_sound.play();
@@ -387,7 +385,7 @@ function Gathering({ theme, setTheme }) {
                                     {c.location_xcoord ? (
                                       <>
                                         <img
-                                          src="/icons/Others/aetheryte.png"
+                                          src="/icons/Others/060959_hr1.png"
                                           width="20px"
                                           height="20px"
                                           className={style.aetheryte}
@@ -473,7 +471,7 @@ function Gathering({ theme, setTheme }) {
                                   {c.location_xcoord ? (
                                     <>
                                       <img
-                                        src="/icons/Others/aetheryte.png"
+                                        src="/icons/Others/060959_hr1.png"
                                         width="20px"
                                         height="20px"
                                         className={style.aetheryte}
