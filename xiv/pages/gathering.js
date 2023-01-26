@@ -47,6 +47,7 @@ function Gathering({ theme, setTheme }) {
     }
   });
   const [currentDateTimeMs, setCurrentDateTimeMs] = useState(new Date().getTime());
+  const [soundPlayed, setSoundPlayed] = useState(false);
 
   // If rows = not empty, load them
   if (rows) {
@@ -78,9 +79,6 @@ function Gathering({ theme, setTheme }) {
           let nodeDetails = [""];
 
           nodeDetails = (await garlandtools.node(nodes[index])).node;
-          console.log(Data.locationIndex[nodeDetails.areaid].name);
-          // console.log(await garlandtools.data());
-
           nodeInfoList[index] = {
             area: Data.locationIndex[nodeDetails.areaid].name,
             name: Data.locationIndex[nodeDetails.zoneid].name,
@@ -314,10 +312,19 @@ function Gathering({ theme, setTheme }) {
                 var end_time = c.spawnTime_et + 1 >= 24 ? c.spawnTime_et - 23 : c.spawnTime_et + 1;
                 var end_timeFlag =
                   c.spawnTime_et + 2 >= 24 ? c.spawnTime_et - 23 : c.spawnTime_et + 2;
+                var current_eorzean_hour = ETClock.getCurrentEorzeanHour();
+                var current_eorzean_minute = ETClock.getCurrentEorzeanMinute();
+
+                console.log(ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et));
+
+                if (ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et) == "00:00") {
+                  let notification_sound = new Audio("/Sounds/FFXIV_Notification.mp3");
+                  notification_sound.play();
+                }
 
                 var hasSpawned =
-                  ETClock.getCurrentEorzeanHour() >= c.spawnTime_et &&
-                  ETClock.getCurrentEorzeanHour() <= end_time;
+                  current_eorzean_hour >= c.spawnTime_et && current_eorzean_hour <= end_time;
+
                 var almostGone =
                   ETClock.lt_getRemainingTimeBeforeSpawn(end_timeFlag) == TIME_UP ? true : false;
 
@@ -357,9 +364,14 @@ function Gathering({ theme, setTheme }) {
                             primary={
                               <>
                                 <span className={style.itemNameArea}>
+                                  <Image
+                                    src={getIcon(c.location_type)}
+                                    width={25}
+                                    height={25}
+                                    className={style.locationType}
+                                  />
+
                                   <span className={style.itemName}>{c.name}</span>
-                                  <Image src={getIcon(c.location_type)} width={30} height={30} />
-                                  {/* <img src={getIcon(c.location_type)} width="30rem"></img>{" "} */}
                                 </span>
                               </>
                             }
@@ -374,8 +386,16 @@ function Gathering({ theme, setTheme }) {
                                   <span className={style.location}>
                                     {c.location_xcoord ? (
                                       <>
-                                        🗺️ {c.location_name} 💎{c.location_area} 📍x:
-                                        {c.location_xcoord}, y:{c.location_ycoord}
+                                        <img
+                                          src="/icons/Others/aetheryte.png"
+                                          width="20px"
+                                          height="20px"
+                                          className={style.aetheryte}
+                                        />
+                                        {c.location_name}▸{c.location_area} <br />
+                                        x:
+                                        {c.location_xcoord}, y:{c.location_ycoord} ({c.spawnTime_et}
+                                        )
                                       </>
                                     ) : (
                                       "Cannot be gathered by normal means."
@@ -402,10 +422,7 @@ function Gathering({ theme, setTheme }) {
 
                 var tTime = ETClock.getCurrentEorzeanHour();
 
-                if (
-                  c.spawnTime_et > ETClock.getCurrentEorzeanHour() &&
-                  ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et) != 0
-                ) {
+                if (ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et) != 0) {
                   var row = (
                     <Stack width={"100%"} spacing={1} className={style.notSpawned}>
                       <ListItem
@@ -434,8 +451,13 @@ function Gathering({ theme, setTheme }) {
                           primary={
                             <>
                               <span className={style.itemNameArea}>
+                                <Image
+                                  src={getIcon(c.location_type)}
+                                  width={25}
+                                  height={25}
+                                  className={style.locationType}
+                                />
                                 <span className={style.itemName}>{c.name}</span>
-                                <img src={getIcon(c.location_type)} width="30rem"></img>{" "}
                               </span>
                             </>
                           }
@@ -450,8 +472,15 @@ function Gathering({ theme, setTheme }) {
                                 <span className={style.location}>
                                   {c.location_xcoord ? (
                                     <>
-                                      🗺️ {c.location_name} 💎{c.location_area} 📍x:
-                                      {c.location_xcoord}, y:{c.location_ycoord}
+                                      <img
+                                        src="/icons/Others/aetheryte.png"
+                                        width="20px"
+                                        height="20px"
+                                        className={style.aetheryte}
+                                      />
+                                      {c.location_name}▸{c.location_area} <br />
+                                      x:
+                                      {c.location_xcoord}, y:{c.location_ycoord} ({c.spawnTime_et})
                                     </>
                                   ) : (
                                     "Cannot be gathered by normal means."
@@ -468,84 +497,6 @@ function Gathering({ theme, setTheme }) {
                   entries.push(row);
                 }
               }
-
-              // // ------------------------------- Just Spawned ------------------------------- //
-              // for (let index = 0; index < Object.keys(itemList).length; index++) {
-              //   var i = Object.keys(itemList)[index];
-              //   var c = Object.values(itemList)[index];
-              //   var end_time = c.spawnTime_et + 1 >= 24 ? c.spawnTime_et - 23 : c.spawnTime_et + 1;
-              //   var justSpawned = false;
-              //   var ETTime = ETClock.getCurrentEorzeanHour();
-
-              //   if (ETTime == 0 || ETTime == 1 || ETTime == 2) {
-              //     if (c.spawnTime_et == 21 || c.spawnTime_et == 22 || c.spawnTime_et == 23)
-              //       justSpawned = true;
-              //   }
-
-              //   if (c.spawnTime_et < ETTime && !justSpawned) {
-              //     var row = (
-              //       <Stack width={"100%"} spacing={1} className={style.notSpawned}>
-              //         <ListItem
-              //           alignItems="flex-start"
-              //           secondaryAction={
-              //             <>
-              //               <span className={style.timer}>
-              //                 [c{c.spawnTime_et}]{" "}
-              //                 {ETClock.lt_getRemainingTimeBeforeSpawn(c.spawnTime_et)}
-              //               </span>
-              //               <IconButton
-              //                 edge="end"
-              //                 aria-label="delete"
-              //                 id={c.uiid}
-              //                 onClick={onDeleteItemButtonClick}
-              //                 sx={{ color: "var(--light-color)" }}
-              //               >
-              //                 <RemoveCircleOutlineIcon sx={{ color: "indianred" }} />
-              //               </IconButton>
-              //             </>
-              //           }
-              //         >
-              //           <ListItemAvatar>
-              //             <Avatar src={c.icon} variant="rounded" className={style.avatar} />
-              //           </ListItemAvatar>
-              //           <ListItemText
-              //             primary={
-              //               <>
-              //                 <span className={style.itemNameArea}>
-              //                   <span className={style.itemName}>{c.name}</span>
-              //                   <img src={getIcon(c.location_type)} width="30rem"></img>
-              //                 </span>
-              //               </>
-              //             }
-              //             secondary={
-              //               <>
-              //                 <Typography
-              //                   sx={{ display: "inline" }}
-              //                   component="span"
-              //                   variant="body2"
-              //                   color="text.primary"
-              //                 >
-              //                   <span className={style.location}>
-              //                     {c.location_xcoord ? (
-              //                       <>
-              //                         {c.location_name} ▸ x:
-              //                         {c.location_xcoord}, y:{c.location_ycoord}
-              //                       </>
-              //                     ) : (
-              //                       "Cannot be gathered by normal means."
-              //                     )}
-              //                   </span>
-              //                 </Typography>
-              //               </>
-              //             }
-              //           />
-              //         </ListItem>
-              //         <Divider />
-              //       </Stack>
-              //     );
-              //     entries.push(row);
-              //   }
-              // }
 
               return entries;
             })()}

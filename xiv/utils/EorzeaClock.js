@@ -98,7 +98,6 @@ export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
   }
 
   var ltTargetTime = EveryETHourToLT[formatTime(spawnTime) + ":00"];
-
   if (!ltTargetTime) return 0;
   if (ltTargetTime.lt < new Date()) return 0;
 
