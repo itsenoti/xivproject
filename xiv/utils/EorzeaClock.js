@@ -76,18 +76,12 @@ export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
   let allLTHours = [];
 
   for (let index = 0; index < 100; index++) {
-    allETHours[index] = getETBaseHour(index);
     allLTHours[index] = getLTUsingETBaseHour(index);
   }
 
-  let allETLTMapping = allETHours.map((time, i) => ({
-    et: time,
-    lt: allLTHours[i],
-  }));
-
-  // **********************************************************************************
   var EveryETHourToLT = {};
   let dlastWeatherChange_LT = allLTHours[0];
+
   for (let i = 0; i < 24; i++) {
     let epoch = dlastWeatherChange_LT.getTime() / 1000;
     let newtime = epoch * E_CONSTANT;
@@ -97,9 +91,13 @@ export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
     EveryETHourToLT[getEorzeaTime(dlastWeatherChange_LT)] = { lt: dlastWeatherChange_LT };
   }
 
+  console.log(EveryETHourToLT[0]);
+
   var ltTargetTime = EveryETHourToLT[formatTime(spawnTime) + ":00"];
+
   if (!ltTargetTime) return 0;
-  if (ltTargetTime.lt < new Date()) return 0;
+
+  // if (ltTargetTime.lt < new Date()) return 0;
 
   let timeDifference = Time.getTimeDifferenceMs(ltTargetTime.lt.getTime(), new Date().getTime());
   let min = Time.getNumberOfMinutes(timeDifference);
@@ -112,6 +110,27 @@ export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
   min = formatTime(min);
 
   return `${min}:${secs}`;
+}
+
+export function getTimeRemaining(time) {
+  if (time > new Date()) {
+    let rem = time - new Date();
+
+    let min = Time.getNumberOfMinutes(rem);
+    let secs = Time.getNumberOfSeconds(rem);
+    secs = formatTime(secs);
+    min = formatTime(min);
+    return `${min}:${secs}`;
+  }
+
+  if (new Date(time.getTime() + GATHERINGWINDOW) >= new Date()) {
+    let gatheringWindow = new Date(time.getTime() + GATHERINGWINDOW) - new Date();
+    let min = Time.getNumberOfMinutes(gatheringWindow);
+    let secs = Time.getNumberOfSeconds(gatheringWindow);
+    secs = formatTime(secs);
+    min = formatTime(min);
+    return `${min}:${secs}`;
+  }
 }
 
 /**
@@ -130,12 +149,6 @@ export function convertETotLT(ETToConvert) {
     allLTHours[index] = getLTUsingETBaseHour(index);
   }
 
-  let allETLTMapping = allETHours.map((time, i) => ({
-    et: time,
-    lt: allLTHours[i],
-  }));
-
-  let lastWeatherChange_ET = allETHours[0];
   let lastWeatherChange_LT = allLTHours[0];
 
   var ltTargetTime = new Date();
@@ -156,6 +169,27 @@ export function convertETotLT(ETToConvert) {
   }
 
   return ltTargetTime;
+}
+
+export function get48HoursTimeEquivalanceList(obj) {
+  let allLTHours = [];
+
+  // Get the last XX:00 hour in Eorzea
+  for (let index = 0; index < 5; index++) {
+    allLTHours[index] = getLTUsingETBaseHour(index);
+  }
+
+  var dummyEveryETHourToLT = {};
+  let dummyAllLTHours = allLTHours[0];
+
+  for (let i = 0; i < 48; i++) {
+    dummyAllLTHours = new Date(dummyAllLTHours.getTime() + TWOMINS55SEC);
+    if (dummyAllLTHours >= new Date(new Date().getTime() - GATHERINGWINDOW)) {
+      dummyEveryETHourToLT[i] = { et: getEorzeaTime(dummyAllLTHours), lt: dummyAllLTHours };
+    }
+  }
+
+  return dummyEveryETHourToLT; // Date() type
 }
 
 export function inGatheringWindow(ETToConvert) {
