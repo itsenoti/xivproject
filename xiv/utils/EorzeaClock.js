@@ -131,6 +131,8 @@ export function getTimeRemaining(time) {
     min = formatTime(min);
     return `${min}:${secs}`;
   }
+
+  return 0;
 }
 
 /**

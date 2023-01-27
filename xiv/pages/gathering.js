@@ -210,7 +210,9 @@ function Gathering({ theme, setTheme }) {
                   var spawn_2 = `${ETClock.formatTime(items[key].location?.[0]?.spawn2)}:00`;
                   if (listAllETL48Hours[tKey].et == spawn_1) {
                     unsortedList[listAllETL48Hours[tKey].lt + "_" + items[key].name] = items[key];
-                  } else if (listAllETL48Hours[tKey].et == spawn_2) {
+                  }
+
+                  if (listAllETL48Hours[tKey].et == spawn_2) {
                     unsortedList[listAllETL48Hours[tKey].lt + "_" + items[key].name] = items[key];
                   }
                 });
@@ -223,17 +225,20 @@ function Gathering({ theme, setTheme }) {
                 })
                 .map(([key, prop]) => ({ [key]: prop }));
 
-              var length = rows ? Object.entries(rows).length : 5;
-              console.clear();
+              // Count unqie keys that are actually displayed
+              var k = Object.keys(unsortedList);
+              var uniqueKeys = [];
+              for (let i = 0; i < k.length; i++) {
+                let splitKey = k[i].split("_")[1];
+                uniqueKeys[splitKey] = i;
+              }
 
-              for (let i = 0; i < 10; i++) {
+              for (let i = 0; i < Object.keys(uniqueKeys).length; i++) {
                 var obj = sortedList?.[i];
                 if (obj) {
                   let objKeys = Object.keys(obj)[0];
                   var time = new Date(objKeys.split("_")[0]);
                   obj = obj[objKeys];
-
-                  // console.log(unsortedList);
 
                   // ********************************************************************************************** //
 
