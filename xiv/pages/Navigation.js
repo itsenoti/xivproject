@@ -129,10 +129,20 @@ function Navigation() {
               theme === "light" ? setTheme("dark") : setTheme("light");
             }}
           />
+          <Button variant="outlined" component="label" size="small" onClick={resetLocalStorage}>
+            Reset
+          </Button>
         </ListItem>
       </List>
     </Box>
   );
+
+  const resetLocalStorage = () => {
+    if (typeof window != "undefined") {
+      window.localStorage.removeItem("gatheringList");
+      window.location.reload();
+    }
+  };
 
   return (
     <>

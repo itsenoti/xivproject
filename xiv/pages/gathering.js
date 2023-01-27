@@ -287,7 +287,7 @@ function Gathering({ theme, setTheme }) {
                                   color="text.primary"
                                 >
                                   <span className={style.location}>
-                                    {obj.location[0].xcoord ? (
+                                    {obj.location[0]?.xcoord ? (
                                       <>
                                         {/* <img
                                           src="/icons/Others/060959_hr1.png"
@@ -299,6 +299,8 @@ function Gathering({ theme, setTheme }) {
                                         x:
                                         {obj.location[0].xcoord}, y:{obj.location[0].xcoord} (
                                         {time.toLocaleString("default", {
+                                          month: "short",
+                                          day: "2-digit",
                                           hour: "2-digit",
                                           minute: "2-digit",
                                         })}
