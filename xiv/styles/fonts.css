@@ -19,3 +19,9 @@
   /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Crimson';
+  src: url('../public/fonts/CrimsonPro/CrimsonPro.ttf');
+  /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
+}

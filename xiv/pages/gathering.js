@@ -240,6 +240,8 @@ function Gathering({ theme, setTheme }) {
                   var time = new Date(objKeys.split("_")[0]);
                   obj = obj[objKeys];
 
+                  var randAnimation = Math.floor(Math.random() * 4);
+
                   // ********************************************************************************************** //
 
                   if (ETClock.getTimeRemaining(time)) {
@@ -247,7 +249,17 @@ function Gathering({ theme, setTheme }) {
                       <Stack
                         width={"100%"}
                         spacing={1}
-                        className={time <= new Date() ? style.spawned : style.notSpawned}
+                        className={
+                          time <= new Date()
+                            ? style.spawned
+                            : randAnimation == 0
+                            ? style.notSpawned1
+                            : randAnimation == 1
+                            ? style.notSpawned2
+                            : randAnimation == 2
+                            ? style.notSpawned3
+                            : style.notSpawned4
+                        }
                       >
                         <ListItem
                           alignItems="flex-start"
@@ -300,16 +312,16 @@ function Gathering({ theme, setTheme }) {
                                           height="20px"
                                           className={style.aetheryte}
                                         /> */}
-                                        {obj.location[0].name} ▸ {obj.location[0].area} <br />
-                                        x:
-                                        {obj.location[0].xcoord}, y:{obj.location[0].xcoord} (
+                                        {obj.location[0].name} ▸ x:
+                                        {obj.location[0].xcoord}, y:{obj.location[0].xcoord}
+                                        {/* (
                                         {time.toLocaleString("default", {
                                           month: "short",
                                           day: "2-digit",
                                           hour: "2-digit",
                                           minute: "2-digit",
                                         })}
-                                        )
+                                        ) */}
                                       </>
                                     ) : (
                                       "Cannot be gathered by normal means."
