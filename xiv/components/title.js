@@ -6,7 +6,7 @@ function Title(props) {
       <Typography variant="subtitle1" sx={{ pl: 1 }}>
         {props.text}
       </Typography>
-      <Divider sx={{ mb: "1rem" }} />
+      <Divider className="divider" sx={{ mt: "1rem" }} />
     </>
   );
 }

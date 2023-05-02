@@ -14,7 +14,6 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Announcements from "../components/announcements";
 import Title from "../components/title";
 import GIcons from "./../pages/api/gathering.json";
 import * as ETClock from "./../utils/EorzeaClock";
@@ -169,7 +168,6 @@ function Gathering({ theme, setTheme }) {
     <>
       <Header />
       <Navigation />
-      <Announcements />
       <Container sx={{ padding: 0, pt: 8 }}>
         <Title text={"Gathering"} />
 
@@ -332,7 +330,7 @@ function Gathering({ theme, setTheme }) {
                             }
                           />
                         </ListItem>
-                        <Divider />
+                        <Divider className="divider" />
                       </Stack>
                     );
                     entries.push(__item__);

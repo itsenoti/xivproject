@@ -97,10 +97,10 @@ div > span[class*='MuiChip-labelSmall'] {
 }
 
 h6[class*="subtitle1"] {
-  font-size: 0.75rem !important;
-  font-weight: bold !important;
+  font-size: 1.15rem !important;
+  font-weight: 900 !important;
   text-transform: uppercase;
-  letter-spacing: 0.15rem;
+  /* letter-spacing: 0.15rem; */
 }
 
 [dark-theme='light'] span[class*='body1'] {
@@ -174,6 +174,9 @@ p[class*="maintenanceSchedule"] {
   font-size: 0.85rem !important;
 }
 
-
+hr.divider {
+  border-color:  rgba(138, 147, 153, 0.5);
+  margin-bottom:1rem;
+}
 
 /* MuiInputBase-colorPrimary */

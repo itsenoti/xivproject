@@ -8,34 +8,34 @@
 
 .notSpawned1 {
   color: var(--dark-color);
-  animation: gelatine;
-  animation-duration: 500ms;
+  /* animation: gelatine;
+  animation-duration: 500ms; */
 }
 
 .notSpawned2 {
   color: var(--dark-color);
-  animation: gelatine;
-  animation-duration: 750ms;
+  /* animation: gelatine;
+  animation-duration: 750ms; */
 }
 
 .notSpawned3 {
   color: var(--dark-color);
-  animation: gelatine;
-  animation-duration: 1000ms;
+  /* animation: gelatine;
+  animation-duration: 1000ms; */
 }
 
 .notSpawned4 {
   color: var(--dark-color);
-  animation: gelatine;
-  animation-duration: 1500ms;
+  /* animation: gelatine;
+  animation-duration: 1500ms; */
 }
 
 .spawned {
   background-color: #004526;
   color:greenyellow;
   /* transform: translateX(0px); */
-  animation-name: wobble;
-  animation-duration: 1000ms;
+  /* animation-name: wobble;
+  animation-duration: 1000ms; */
 }
 
 @keyframes gelatine {
@@ -121,7 +121,7 @@
   .timer {
     font-family: 'AzeretMono' !important;
     position: relative;
-    top: -1rem;
+    top: -0.5rem;
     width: 5.1rem;
     text-align: right;
     font-size:small;
