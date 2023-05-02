@@ -11,6 +11,7 @@ function Header() {
           name="google-site-verification"
           content="a1524W6X5r6oFAYwYEhxCLbzzZPgPx8-Hba_9KkweAY"
         />
+        <meta name="robots" content="noindex"></meta>
         <link rel="icon" href="/063922_hr1.png" />
       </Head>
     </>
