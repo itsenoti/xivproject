@@ -1,0 +1,16 @@
+.listHorizontal li{
+  /* background-color: aqua; */
+  /* display: inline-flex; */
+}
+
+.listHorizontal li::after {
+  content: " > ";
+}
+
+ul.listHorizontal > li:last-child::after {
+content: "";
+}
+
+h4.sub-header {
+  border-bottom: #f1f1f1 1px solid;
+}

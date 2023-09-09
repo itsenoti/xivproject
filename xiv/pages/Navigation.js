@@ -1,21 +1,8 @@
-import MenuIcon from "@mui/icons-material/Menu";
-import {
-  AppBar,
-  Box,
-  Button,
-  FormControlLabel,
-  List,
-  ListItem,
-  SwipeableDrawer,
-  Switch,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Switch, Toolbar, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Theme } from "../public/globals";
 import NavItem from "./../components/NavItem";
 
 import style from "./../pages/styles/Navigation.module.css";
@@ -91,52 +78,6 @@ function Navigation() {
     return null;
   }
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
-      return;
-    }
-
-    setDrawerState({ ...isDrawerOpen, [anchor]: open });
-  };
-
-  // These are the items inside the hamburger menu
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {" "}
-        <NavItem page="" />
-        <NavItem page="gathering" />
-        <NavItem page="crafting" />
-        <NavItem page="crafting-list" />
-        <NavItem page="eureka" />
-        <NavItem page="island-sanctuary" />
-        <NavItem page="links" />
-        <ListItem key="ThemeSwitcher">
-          {/* Theme Switcher */}
-          <FormControlLabel
-            control={
-              <MaterialUISwitch
-                sx={{ m: 1 }}
-                defaultChecked={theme === "dark" ? Theme.DARK : Theme.LIGHT}
-              />
-            }
-            onChange={() => {
-              theme === "light" ? setTheme("dark") : setTheme("light");
-            }}
-          />
-          <Button variant="outlined" component="label" size="small" onClick={resetLocalStorage}>
-            Reset
-          </Button>
-        </ListItem>
-      </List>
-    </Box>
-  );
-
   const resetLocalStorage = () => {
     if (typeof window != "undefined") {
       window.localStorage.removeItem("gatheringList");
@@ -147,34 +88,22 @@ function Navigation() {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Typography sx={{ fontFamily: "Inter !important", fontWeight: "bold" }}>FFX|V</Typography>
+        {/* <Toolbar sx={{ justifyContent: "space-between" }}> */}
+        <Toolbar>
+          <Typography sx={{ fontFamily: "Inter !important", fontWeight: "bold" }}>
+            [ FFX|V ]
+          </Typography>
           <Box className={style.navItemContainer}>
             <NavItem page="" />
-            <NavItem page="gathering" />
+            {/* <NavItem page="gathering" />
             <NavItem page="crafting" />
-            <NavItem page="crafting-list" />
+            <NavItem page="crafting-list" /> */}
             <NavItem page="eureka" />
-            <NavItem page="island-sanctuary" />
+            <NavItem page="maps" />
+            <NavItem page="island" />
             <NavItem page="links" />
+            {/* <NavItem page="weather" /> */}
           </Box>
-
-          {/* Drawer */}
-          {["right"].map((anchor) => (
-            <>
-              <Button onClick={toggleDrawer(anchor, true)}>
-                <MenuIcon sx={{ display: { xs: "block", md: "none" }, color: "Highlight" }} />
-              </Button>
-              <SwipeableDrawer
-                anchor={anchor}
-                open={isDrawerOpen[anchor]}
-                onClose={toggleDrawer(anchor, false)}
-                onOpen={toggleDrawer(anchor, true)}
-              >
-                {list(anchor)}
-              </SwipeableDrawer>
-            </>
-          ))}
         </Toolbar>
       </AppBar>
     </>

@@ -25,7 +25,8 @@
 
 * {
   font-display: swap;
-  font-family: 'Inter' !important;
+  font-family: 'DMSans' !important;
+  /* font-family: 'Inter' !important; */
   /* font-size: 0.9rem !important; */
   /* color: var(--light-color) */
 }
@@ -178,5 +179,3 @@ hr.divider {
   border-color:  rgba(138, 147, 153, 0.5);
   margin-bottom:1rem;
 }
-
-/* MuiInputBase-colorPrimary */

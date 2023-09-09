@@ -1,0 +1,26 @@
+p.nextTimeOccurence {
+  font-size: 3em;
+  color: red;
+}
+
+.ContainerBox {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.weatherInfo {
+  align-content: center;
+  text-align: center;
+  /* border: 1px dotted gray; */
+  width: 150px;
+  padding-left: auto;
+  padding-right: auto;
+}
+
+.zoneForecast {
+  background-color: var(--dark-900);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}

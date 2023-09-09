@@ -53,7 +53,7 @@ function Home({ theme, setTheme }) {
             })
           );
         } else {
-          router.push("/island-sanctuary");
+          router.push("/eureka");
         }
       });
     return;

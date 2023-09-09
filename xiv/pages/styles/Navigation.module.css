@@ -1,13 +1,4 @@
-@media only screen and (min-width: 414px)
-{
-  .navItemContainer {
-    display: flex;
-  }
-}
-
-@media only screen and (max-width: 414px)
-{
-  .navItemContainer {
-    display: none;
-  }
+.navItemContainer {
+  display: flex;
+  
 }

@@ -3,7 +3,8 @@
     "Anemos": "Anemos",
     "Pagos": "Pagos",
     "Pyros": "Pyros",
-    "Hydatos": "Hydatos"
+    "Hydatos": "Hydatos",
+    "Island":"Island Sanctuary"
   },
   "Spawns": {
     "Anemos": {
@@ -21,12 +22,29 @@
       "weather": "Heat Waves"
     }
   },
+  "Weather": {
+    "Blizzards": "Blizzards",
+    "ClearSkies": "Clear Skies",
+    "Clouds": "Clouds",
+    "FairSkies": "Fair Skies",
+    "Fog": "Fog",
+    "Gales": "Gales",
+    "Gloom": "Gloom",
+    "HeatWaves": "Heat Waves",
+    "Rain": "Rain",
+    "Showers": "Showers",
+    "Snow": "Snow",
+    "Thunder": "Thunder",
+    "UmbralWind": "Umbral Wind"
+  },
   "WeatherIcons": {
     "Gales" : "/icons/Weather/060206_hr1.png",
     "Blizzards": "/icons/Weather/060216_hr1.png",
     "Fog": "/icons/Weather/060204_hr1.png",
     "Gloom": "/icons/Weather/060218_hr1.png",
     "Heat Waves": "/icons/Weather/060214_hr1.png",
-    "Thunder": "/icons/Weather/060209_hr1.png"
+    "Thunder": "/icons/Weather/060209_hr1.png",
+    "Showers": "/icons/Weather/060208_hr1.png",
+    "Umbral Wind": "/icons/Weather/060219_hr1.png"
   }
 }

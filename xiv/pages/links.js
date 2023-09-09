@@ -67,6 +67,22 @@ function Home({ theme, setTheme }) {
               />
             </ListItemButton>
           </ListItem>
+
+          <Divider variant="inset" component="li" />
+          <ListItem alignItems="flex-start">
+            <ListItemButton component="a" target="_blank" href="https://ffxivhunt.com">
+              <ListItemText
+                primary="XIVHunt"
+                secondary={
+                  <React.Fragment>
+                    <Typography variant="caption">
+                      Guide in locating daily and weekly hunt marks
+                    </Typography>
+                  </React.Fragment>
+                }
+              />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Container>
     </>
