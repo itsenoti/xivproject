@@ -233,7 +233,7 @@ const LocationSelection = (props) => {
         >
           {TreasureHunt_Map[m_location] &&
             Object.keys(TreasureHunt_Map[m_location]).map((loc, val) => (
-              <MenuItem value={loc}>{loc}</MenuItem>
+              <MenuItem value={loc} key={loc}>{loc}</MenuItem>
             ))}
         </Select>
       </FormControl>

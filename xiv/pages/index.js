@@ -61,7 +61,7 @@ function Home({ theme, setTheme }) {
 
   useEffect(() => {
     getAnnouncements();
-  }, []);
+  });
 
   return (
     <>
