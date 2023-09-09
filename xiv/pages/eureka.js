@@ -118,20 +118,24 @@ function Eureka_() {
                   ? PyrosWeatherList
                   : HydatosWeatherList;
 
-              for (let i = 0; i < m_weatherList.length; i++) {
-                rows.push(
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar src={EUREKA.WeatherIcons[m_weatherList[i]]}></Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={m_weatherList[i]} />
-                    <Card sx={{ width: "11rem", p: 1, fontFamily: "inherit", textAlign: "center" }}>
-                      <Typography variant="body" className={styles.nextTimeOccurence}>
-                        {mb_getWeatherForecast(m_weatherList[i], zone, time)}
-                      </Typography>{" "}
-                    </Card>
-                  </ListItem>
-                );
+              if (m_weatherList) {
+                for (let i = 0; i < m_weatherList.length; i++) {
+                  rows.push(
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar src={EUREKA.WeatherIcons[m_weatherList[i]]}></Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={m_weatherList[i]} />
+                      <Card
+                        sx={{ width: "11rem", p: 1, fontFamily: "inherit", textAlign: "center" }}
+                      >
+                        <Typography variant="body" className={styles.nextTimeOccurence}>
+                          {mb_getWeatherForecast(m_weatherList[i], zone, time)}
+                        </Typography>{" "}
+                      </Card>
+                    </ListItem>
+                  );
+                }
               }
               return rows;
             })()}
