@@ -131,7 +131,7 @@ function G15({ theme, setTheme }) {
           </Grid>
           {/* Guide map display */}
           <Grid xs={4}>
-            <Image src="/maps/TreasureMap_G15_Elpis.png" width={420} height={420}></Image>
+            <Image src="/maps/TreasureMap_G15_Elpis.png" width={420} height={420} alt=""></Image>
           </Grid>
           <Grid xs={1}></Grid>
         </Grid>
@@ -174,7 +174,7 @@ function getRoute(info) {
   return (
     <>
       {Object.keys(TreasureHunt_Map).map((map, i) => (
-        <h5>{map}</h5>
+        <h5 key="map">{map}</h5>
       ))}
     </>
   );
@@ -206,7 +206,9 @@ const MapSelection = (props) => {
           onChange={(event) => props.handler(event, props)}
         >
           {Object.keys(TreasureHunt_Map).map((loc, val) => (
-            <MenuItem value={loc}>{loc}</MenuItem>
+            <MenuItem value={loc} key={loc}>
+              {loc}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -233,7 +235,9 @@ const LocationSelection = (props) => {
         >
           {TreasureHunt_Map[m_location] &&
             Object.keys(TreasureHunt_Map[m_location]).map((loc, val) => (
-              <MenuItem value={loc} key={loc}>{loc}</MenuItem>
+              <MenuItem value={loc} key={loc}>
+                {loc}
+              </MenuItem>
             ))}
         </Select>
       </FormControl>
