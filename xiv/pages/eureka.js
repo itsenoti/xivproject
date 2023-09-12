@@ -29,14 +29,22 @@ function getTimeRemaining(zoneObj, currentTime) {
   if (new Date() >= zoneObj.LT_Start) {
     hr = getTimeDuration(zoneObj.LT_End, currentTime, "hr");
     mn = getTimeDuration(zoneObj.LT_End, currentTime, "min");
+
+    if (hr == 0 && mn == 0) return null;
+
     return (
-      <span className={styles.activeWeather}>
-        ends in {hr} {mn}
-      </span>
+      <>
+        <span className={styles.activeWeather}>
+          ends in {hr} {mn}
+        </span>
+      </>
     );
   } else {
     hr = getTimeDuration(zoneObj.LT_Start, currentTime, "hr");
     mn = getTimeDuration(zoneObj.LT_Start, currentTime, "min");
+
+    if (hr == 0 && mn == 0) return null;
+
     return `starts in ${hr} ${mn}`;
   }
 }
@@ -103,6 +111,7 @@ function Eureka_() {
         for (let i = 0; ; i++) {
           if (
             weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Anemos) &&
+            (getHourWeatherChanges(i) === "00:00" || getHourWeatherChanges(i) === "16:00") &&
             currentTime < convertEorzeanTimeToLocalTime(i + 1)
           ) {
             zoneObj = {
@@ -111,10 +120,11 @@ function Eureka_() {
               LT_End: convertEorzeanTimeToLocalTime(i + 1),
               Anemos: getWeatherByZone(i, EUREKA.Zones.Anemos),
             };
-            break;
+
+            const result = getTimeRemaining(zoneObj, currentTime);
+            if (result) return result;
           }
         }
-        return getTimeRemaining(zoneObj, currentTime);
       }
       case EUREKA.Zones.Pagos: {
         for (let i = 0; ; i++) {
@@ -129,10 +139,10 @@ function Eureka_() {
               Pagos: getWeatherByZone(i, EUREKA.Zones.Pagos),
             };
 
-            break;
+            const result = getTimeRemaining(zoneObj, currentTime);
+            if (result) return result;
           }
         }
-        return getTimeRemaining(zoneObj, currentTime);
       }
       case EUREKA.Zones.Pyros: {
         for (let i = 0; ; i++) {
@@ -147,10 +157,10 @@ function Eureka_() {
               Pyros: getWeatherByZone(i, EUREKA.Zones.Pyros),
             };
 
-            break;
+            const result = getTimeRemaining(zoneObj, currentTime);
+            if (result) return result;
           }
         }
-        return getTimeRemaining(zoneObj, currentTime);
       }
       case EUREKA.Zones.Hydatos: {
         for (let i = 0; ; i++) {
@@ -165,10 +175,10 @@ function Eureka_() {
               Hydatos: getWeatherByZone(i, EUREKA.Zones.Hydatos),
             };
 
-            break;
+            const result = getTimeRemaining(zoneObj, currentTime);
+            if (result) return result;
           }
         }
-        return getTimeRemaining(zoneObj, currentTime);
       }
     }
   }

@@ -1,8 +1,10 @@
 
 .ContainerBox {
-  width: 500px;
+  max-width: 40rem;
+  margin: 0;
   margin-left: auto;
   margin-right: auto;
+  padding:0;
 }
 
 .weatherInfo {
@@ -27,7 +29,7 @@
 
 .timeCard {
   width: 11rem;
-  padding: 1rem; 
+  padding: 0.5rem; 
   font-family: inherit;
   text-align: center;
   margin: 0;
