@@ -24,125 +24,6 @@ import {
   getWeatherByZone,
 } from "./api/utilities";
 
-/**
- *
- * @param {*} weatherToTrack Weather that spawns speacial NM
- * @param {*} zone Which Eurekan area to inquiry
- * @param {*} currentLocalTime_ms Earth Time (ms format)
- * @returns Earth time that the weather happens in
- */
-function mb_getWeatherForecast(weatherToTrack = "", zone = "", currentLocalTime_ms) {
-  const [anemos, setAnemos] = useState({
-    ET: getHourWeatherChanges(0),
-    LT_Start: convertEorzeanTimeToLocalTime(0),
-    LT_End: convertEorzeanTimeToLocalTime(0 + 1),
-    Anemos: getWeatherByZone(0, EUREKA.Zones.Anemos),
-  });
-  const [pagos, setPagos] = useState({
-    ET: getHourWeatherChanges(0),
-    LT_Start: convertEorzeanTimeToLocalTime(0),
-    LT_End: convertEorzeanTimeToLocalTime(0 + 1),
-    Pagos: getWeatherByZone(0, EUREKA.Zones.Pagos),
-  });
-  const [pyros, setPyros] = useState({
-    ET: getHourWeatherChanges(0),
-    LT_Start: convertEorzeanTimeToLocalTime(0),
-    LT_End: convertEorzeanTimeToLocalTime(0 + 1),
-    Pyros: getWeatherByZone(0, EUREKA.Zones.Pyros),
-  });
-  const [hydatos, setHydatos] = useState({
-    ET: getHourWeatherChanges(0),
-    LT_Start: convertEorzeanTimeToLocalTime(0),
-    LT_End: convertEorzeanTimeToLocalTime(0 + 1),
-    Hydatos: getWeatherByZone(0, EUREKA.Zones.Hydatos),
-  });
-
-  var LIMIT = 50;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (zone === EUREKA.Zones.Anemos) {
-        for (let i = 0; i < LIMIT; i++) {
-          if (
-            weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Anemos) &&
-            (getHourWeatherChanges(i) == CONSTANT.DAWN ||
-              getHourWeatherChanges(i) == CONSTANT.DUSK) &&
-            new Date() < convertEorzeanTimeToLocalTime(i + 1)
-          ) {
-            setAnemos({
-              ET: getHourWeatherChanges(i),
-              LT_Start: convertEorzeanTimeToLocalTime(i),
-              LT_End: convertEorzeanTimeToLocalTime(i + 1),
-              Anemos: getWeatherByZone(i, EUREKA.Zones.Anemos),
-            });
-            break;
-          }
-        }
-      } else if (zone === EUREKA.Zones.Pagos) {
-        for (let i = 0; i < LIMIT; i++) {
-          if (
-            weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Pagos) &&
-            new Date() < convertEorzeanTimeToLocalTime(i + 1)
-          ) {
-            setPagos({
-              ET: getHourWeatherChanges(i),
-              LT_Start: convertEorzeanTimeToLocalTime(i),
-              LT_End: convertEorzeanTimeToLocalTime(i + 1),
-              Pagos: getWeatherByZone(i, EUREKA.Zones.Pagos),
-            });
-            break;
-          }
-        }
-      } else if (zone === EUREKA.Zones.Pyros) {
-        for (let i = 0; i < LIMIT; i++) {
-          if (
-            weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Pyros) &&
-            new Date() < convertEorzeanTimeToLocalTime(i + 1)
-          ) {
-            setPyros({
-              ET: getHourWeatherChanges(i),
-              LT_Start: convertEorzeanTimeToLocalTime(i),
-              LT_End: convertEorzeanTimeToLocalTime(i + 1),
-              Pyros: getWeatherByZone(i, EUREKA.Zones.Pyros),
-            });
-            break;
-          }
-        }
-      } else if (zone === EUREKA.Zones.Hydatos) {
-        for (let i = 0; i < LIMIT; i++) {
-          if (
-            weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Hydatos) &&
-            new Date() < convertEorzeanTimeToLocalTime(i + 1)
-          ) {
-            setHydatos({
-              ET: getHourWeatherChanges(i),
-              LT_Start: convertEorzeanTimeToLocalTime(i),
-              LT_End: convertEorzeanTimeToLocalTime(i + 1),
-              Hydatos: getWeatherByZone(i, EUREKA.Zones.Hydatos),
-            });
-            break;
-          }
-        }
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  var hr;
-  var mn;
-
-  switch (zone) {
-    case EUREKA.Zones.Anemos:
-      return getTimeSpawn(anemos, new Date());
-    case EUREKA.Zones.Pagos:
-      return getTimeSpawn(pagos, new Date());
-    case EUREKA.Zones.Pyros:
-      return getTimeSpawn(pyros, new Date());
-    case EUREKA.Zones.Hydatos:
-      return getTimeSpawn(hydatos, new Date());
-  }
-}
-
 function getTimeSpawn(zoneObj, currentTime) {
   var hr;
   var mn;
@@ -180,6 +61,122 @@ function Eureka_() {
       setTime(new Date().getTime());
     }, CONSTANT.ONE_MINUTE);
   }, [time]);
+
+  /**
+   *
+   * @param {*} weatherToTrack Weather that spawns speacial NM
+   * @param {*} zone Which Eurekan area to inquiry
+   * @param {*} currentLocalTime_ms Earth Time (ms format)
+   * @returns Earth time that the weather happens in
+   */
+  function mb_getWeatherForecast(weatherToTrack = "", zone = "", currentLocalTime_ms) {
+    const [anemos, setAnemos] = useState({
+      ET: getHourWeatherChanges(0),
+      LT_Start: convertEorzeanTimeToLocalTime(0),
+      LT_End: convertEorzeanTimeToLocalTime(0 + 1),
+      Anemos: getWeatherByZone(0, EUREKA.Zones.Anemos),
+    });
+    const [pagos, setPagos] = useState({
+      ET: getHourWeatherChanges(0),
+      LT_Start: convertEorzeanTimeToLocalTime(0),
+      LT_End: convertEorzeanTimeToLocalTime(0 + 1),
+      Pagos: getWeatherByZone(0, EUREKA.Zones.Pagos),
+    });
+    const [pyros, setPyros] = useState({
+      ET: getHourWeatherChanges(0),
+      LT_Start: convertEorzeanTimeToLocalTime(0),
+      LT_End: convertEorzeanTimeToLocalTime(0 + 1),
+      Pyros: getWeatherByZone(0, EUREKA.Zones.Pyros),
+    });
+    const [hydatos, setHydatos] = useState({
+      ET: getHourWeatherChanges(0),
+      LT_Start: convertEorzeanTimeToLocalTime(0),
+      LT_End: convertEorzeanTimeToLocalTime(0 + 1),
+      Hydatos: getWeatherByZone(0, EUREKA.Zones.Hydatos),
+    });
+
+    var LIMIT = 50;
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        if (zone === EUREKA.Zones.Anemos) {
+          for (let i = 0; i < LIMIT; i++) {
+            if (
+              weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Anemos) &&
+              (getHourWeatherChanges(i) == CONSTANT.DAWN ||
+                getHourWeatherChanges(i) == CONSTANT.DUSK) &&
+              new Date() < convertEorzeanTimeToLocalTime(i + 1)
+            ) {
+              setAnemos({
+                ET: getHourWeatherChanges(i),
+                LT_Start: convertEorzeanTimeToLocalTime(i),
+                LT_End: convertEorzeanTimeToLocalTime(i + 1),
+                Anemos: getWeatherByZone(i, EUREKA.Zones.Anemos),
+              });
+              break;
+            }
+          }
+        } else if (zone === EUREKA.Zones.Pagos) {
+          for (let i = 0; i < LIMIT; i++) {
+            if (
+              weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Pagos) &&
+              new Date() < convertEorzeanTimeToLocalTime(i + 1)
+            ) {
+              setPagos({
+                ET: getHourWeatherChanges(i),
+                LT_Start: convertEorzeanTimeToLocalTime(i),
+                LT_End: convertEorzeanTimeToLocalTime(i + 1),
+                Pagos: getWeatherByZone(i, EUREKA.Zones.Pagos),
+              });
+              break;
+            }
+          }
+        } else if (zone === EUREKA.Zones.Pyros) {
+          for (let i = 0; i < LIMIT; i++) {
+            if (
+              weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Pyros) &&
+              new Date() < convertEorzeanTimeToLocalTime(i + 1)
+            ) {
+              setPyros({
+                ET: getHourWeatherChanges(i),
+                LT_Start: convertEorzeanTimeToLocalTime(i),
+                LT_End: convertEorzeanTimeToLocalTime(i + 1),
+                Pyros: getWeatherByZone(i, EUREKA.Zones.Pyros),
+              });
+              break;
+            }
+          }
+        } else if (zone === EUREKA.Zones.Hydatos) {
+          for (let i = 0; i < LIMIT; i++) {
+            if (
+              weatherToTrack === getWeatherByZone(i, EUREKA.Zones.Hydatos) &&
+              new Date() < convertEorzeanTimeToLocalTime(i + 1)
+            ) {
+              setHydatos({
+                ET: getHourWeatherChanges(i),
+                LT_Start: convertEorzeanTimeToLocalTime(i),
+                LT_End: convertEorzeanTimeToLocalTime(i + 1),
+                Hydatos: getWeatherByZone(i, EUREKA.Zones.Hydatos),
+              });
+              break;
+            }
+          }
+        }
+      }, 1000);
+      return () => clearInterval(interval);
+    }, []);
+
+    switch (zone) {
+      case EUREKA.Zones.Anemos:
+        return getTimeSpawn(anemos, new Date());
+      case EUREKA.Zones.Pagos:
+        return getTimeSpawn(pagos, new Date());
+      case EUREKA.Zones.Pyros:
+        return getTimeSpawn(pyros, new Date());
+      case EUREKA.Zones.Hydatos:
+        return getTimeSpawn(hydatos, new Date());
+    }
+  }
 
   // These are the weathers needed to track
   var AnemosWeatherList = ["Gales"];
