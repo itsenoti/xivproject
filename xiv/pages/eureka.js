@@ -56,6 +56,30 @@ function getTimeDuration(futureTime, currentTime, unit) {
 
 function Eureka_() {
   const [time, setTime] = useState(new Date().getTime());
+  const [anemos, setAnemos] = useState({
+    ET: getHourWeatherChanges(0),
+    LT_Start: convertEorzeanTimeToLocalTime(0),
+    LT_End: convertEorzeanTimeToLocalTime(0 + 1),
+    Anemos: getWeatherByZone(0, EUREKA.Zones.Anemos),
+  });
+  const [pagos, setPagos] = useState({
+    ET: getHourWeatherChanges(0),
+    LT_Start: convertEorzeanTimeToLocalTime(0),
+    LT_End: convertEorzeanTimeToLocalTime(0 + 1),
+    Pagos: getWeatherByZone(0, EUREKA.Zones.Pagos),
+  });
+  const [pyros, setPyros] = useState({
+    ET: getHourWeatherChanges(0),
+    LT_Start: convertEorzeanTimeToLocalTime(0),
+    LT_End: convertEorzeanTimeToLocalTime(0 + 1),
+    Pyros: getWeatherByZone(0, EUREKA.Zones.Pyros),
+  });
+  const [hydatos, setHydatos] = useState({
+    ET: getHourWeatherChanges(0),
+    LT_Start: convertEorzeanTimeToLocalTime(0),
+    LT_End: convertEorzeanTimeToLocalTime(0 + 1),
+    Hydatos: getWeatherByZone(0, EUREKA.Zones.Hydatos),
+  });
   useEffect(() => {
     setTimeout(function () {
       setTime(new Date().getTime());
@@ -70,31 +94,6 @@ function Eureka_() {
    * @returns Earth time that the weather happens in
    */
   function mb_getWeatherForecast(weatherToTrack = "", zone = "", currentLocalTime_ms) {
-    const [anemos, setAnemos] = useState({
-      ET: getHourWeatherChanges(0),
-      LT_Start: convertEorzeanTimeToLocalTime(0),
-      LT_End: convertEorzeanTimeToLocalTime(0 + 1),
-      Anemos: getWeatherByZone(0, EUREKA.Zones.Anemos),
-    });
-    const [pagos, setPagos] = useState({
-      ET: getHourWeatherChanges(0),
-      LT_Start: convertEorzeanTimeToLocalTime(0),
-      LT_End: convertEorzeanTimeToLocalTime(0 + 1),
-      Pagos: getWeatherByZone(0, EUREKA.Zones.Pagos),
-    });
-    const [pyros, setPyros] = useState({
-      ET: getHourWeatherChanges(0),
-      LT_Start: convertEorzeanTimeToLocalTime(0),
-      LT_End: convertEorzeanTimeToLocalTime(0 + 1),
-      Pyros: getWeatherByZone(0, EUREKA.Zones.Pyros),
-    });
-    const [hydatos, setHydatos] = useState({
-      ET: getHourWeatherChanges(0),
-      LT_Start: convertEorzeanTimeToLocalTime(0),
-      LT_End: convertEorzeanTimeToLocalTime(0 + 1),
-      Hydatos: getWeatherByZone(0, EUREKA.Zones.Hydatos),
-    });
-
     var LIMIT = 50;
 
     useEffect(() => {
