@@ -1,6 +1,10 @@
 {
   "ONE_SECOND": 1000,
   "ONE_MINUTE": 60000,
+  "FIRST_OCCURENCE": 0,
+  "INIT_END_TIME": 1,
   "DUSK": "16:00",
-  "DAWN": "00:00"
+  "DAWN": "00:00",
+  "HOUR_LABEL": "hr",
+  "MINUTE_LABEL": "mn"
 }

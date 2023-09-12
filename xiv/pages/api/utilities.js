@@ -77,7 +77,7 @@ export function getWeatherEndTime(localTime) {
   return new Date(localTime + (70 / 3) * 60000);
 }
 
-export function getTimeDifference_Hour(timeStart, timeEnd) {
+export function getTimeDifference_Hour(timeEnd, timeStart) {
   return Math.floor(Math.floor((timeEnd - timeStart) / 60000) / 60);
 }
 
