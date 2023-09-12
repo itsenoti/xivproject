@@ -68,6 +68,23 @@ export function getWeatherByZone(futureWeather, zone) {
   return weather;
 }
 
+/**
+ * Function to get when a weather ends
+ * @param {*} localTime
+ * @returns Date
+ */
+export function getWeatherEndTime(localTime) {
+  return new Date(localTime + (70 / 3) * 60000);
+}
+
+export function getTimeDifference_Hour(timeStart, timeEnd) {
+  return Math.floor(Math.floor((timeEnd - timeStart) / 60000) / 60);
+}
+
+export function getTimeDifference_Minute(timeEnd, timeStart) {
+  return Math.floor(Math.floor((timeEnd - timeStart) / 60000) % 60);
+}
+
 function computeChance(tMillisecond) {
   var unixSeconds = parseInt(tMillisecond / 1000);
   var eorzeanHours = unixSeconds / 175;

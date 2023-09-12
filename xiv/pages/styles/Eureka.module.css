@@ -1,7 +1,3 @@
-p.nextTimeOccurence {
-  font-size: 3em;
-  color: red;
-}
 
 .ContainerBox {
   width: 500px;
@@ -23,4 +19,34 @@ p.nextTimeOccurence {
   padding: 0.2rem 0.5rem;
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
+}
+
+.activeWeather {
+  color: greenyellow;
+}
+
+.timeCard {
+  width: 11rem;
+  padding: 1rem; 
+  font-family: inherit;
+  text-align: center;
+  margin: 0;
+}
+
+.weatherRow {
+  padding: 0 1rem 1rem 0;
+}
+
+.list {
+  /* sx={{ width: "100%", color: "inherit" }} */
+  width: 100%;
+  color:inherit;
+}
+
+.container {
+  /* sx={{ height: "100vh", padding: 0, pt: 8 }} */
+  margin-top: 5rem;
+  height: 100vh;
+  padding: 0;
+  padding-top: 8;
 }
