@@ -1,6 +1,7 @@
 /***************************************
  * Imports
  **************************************/
+import * as dayjs from "dayjs";
 import INSTANCE from "./foray.json";
 
 /***************************************
@@ -78,11 +79,33 @@ export function getWeatherEndTime(localTime) {
 }
 
 export function getTimeDifference_Hour(timeEnd, timeStart) {
-  return Math.floor(Math.floor((timeEnd - timeStart) / 60000) / 60);
+  const date_future = dayjs(timeEnd);
+  return date_future.diff(timeStart, "h");
+
+  const sec = Math.abs(timeEnd - timeStart) / 1000;
+  return Math.floor(sec / 3600) % 24;
 }
 
 export function getTimeDifference_Minute(timeEnd, timeStart) {
-  return Math.floor(Math.floor((timeEnd - timeStart) / 60000) % 60);
+  const date_future = dayjs(timeEnd);
+  return date_future.diff(timeStart, "s");
+
+  var sec = Math.abs(timeEnd - timeStart) / 1000;
+  const min = Math.floor(sec / 60) % 60;
+  // sec -= min * 60;
+  return min; // Convert to minutes, the get modulo
+}
+
+export function getTimeDifference_Seconds(timeEnd, timeStart) {
+  var sec = Math.floor((timeEnd - timeStart) / 1000);
+  var min = Math.floor(sec / 60);
+  var hour = Math.floor(min / 60);
+  var days = Math.floor(hour / 24);
+
+  hour = hour - days * 24;
+  min = min - days * 24 * 60 - hour * 60;
+  sec = sec - days * 24 * 60 * 60 - hour * 60 * 60 - min * 60;
+  return sec;
 }
 
 function computeChance(tMillisecond) {

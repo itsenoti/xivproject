@@ -38,6 +38,11 @@
 
 .weatherRow {
   padding: 0 1rem 1rem 0;
+  font-size: 0.8rem;
+}
+
+.weatherRowLabel {
+  font-size: 8rem !important;
 }
 
 .list {

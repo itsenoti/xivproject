@@ -18,60 +18,31 @@ import Navigation from "./Navigation";
 import {
   convertEorzeanTimeToLocalTime,
   getHourWeatherChanges,
-  getTimeDifference_Hour,
-  getTimeDifference_Minute,
   getWeatherByZone,
 } from "./api/utilities";
 
+import * as dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 function getTimeRemaining(zoneObj, currentTime) {
-  var hr;
-  var mn;
   if (new Date() >= zoneObj.LT_Start) {
-    hr = getTimeDuration(zoneObj.LT_End, currentTime, "hr");
-    mn = getTimeDuration(zoneObj.LT_End, currentTime, "min");
-
-    if (hr == 0 && mn == 0) return null;
-
     return (
-      <>
-        <span className={styles.activeWeather}>
-          ends in {hr} {mn}
-        </span>
-      </>
+      <span className={styles.activeWeather}>
+        ends in {getTimeDuration(zoneObj.LT_End, currentTime, "hr")}
+      </span>
     );
   } else {
-    hr = getTimeDuration(zoneObj.LT_Start, currentTime, "hr");
-    mn = getTimeDuration(zoneObj.LT_Start, currentTime, "min");
-
-    if (hr == 0 && mn == 0) return null;
-
-    return `starts in ${hr} ${mn}`;
+    return `starts in ${getTimeDuration(zoneObj.LT_Start, currentTime, "hr")}`;
   }
 }
 
 function getTimeDuration(futureTime, currentTime, unit) {
-  if (unit == "hr") {
-    return getTimeDifference_Hour(futureTime, currentTime) > 0
-      ? `${getTimeDifference_Hour(futureTime, currentTime)} ${unit}`
-      : "";
-  } else {
-    return getTimeDifference_Minute(futureTime, currentTime) > 0
-      ? `${getTimeDifference_Minute(futureTime, currentTime)} ${unit}`
-      : "";
-  }
+  dayjs.extend(relativeTime);
+  return dayjs(futureTime).fromNow(true);
 }
 
 function Eureka_() {
-  const [anemos, setAnemos] = useState([]);
-  const [pagos, setPagos] = useState([]);
-  const [pyros, setPyros] = useState([]);
-  const [hydatos, setHydatos] = useState([]);
-
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [currentTracked, setCurrentTracked] = useState(EUREKA.Zones.Anemos);
-  const [currentWeatherTracked, setCurrentWeatherTracked] = useState(EUREKA.Weather.Gales);
-
-  var LIMIT = 50;
 
   // These are the weathers needed to track
   var AnemosWeatherList = ["Gales"];
@@ -89,10 +60,6 @@ function Eureka_() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // updateZoneStatus(EUREKA.Zones.Anemos);
-      // updateZoneStatus(EUREKA.Zones.Pagos);
-      // updateZoneStatus(EUREKA.Zones.Pyros);
-      // updateZoneStatus(EUREKA.Zones.Hydatos);
       setCurrentTime(new Date());
     }, 1000);
     return () => clearInterval(interval);
@@ -121,8 +88,7 @@ function Eureka_() {
               Anemos: getWeatherByZone(i, EUREKA.Zones.Anemos),
             };
 
-            const result = getTimeRemaining(zoneObj, currentTime);
-            if (result) return result;
+            return getTimeRemaining(zoneObj, currentTime);
           }
         }
       }
@@ -139,8 +105,7 @@ function Eureka_() {
               Pagos: getWeatherByZone(i, EUREKA.Zones.Pagos),
             };
 
-            const result = getTimeRemaining(zoneObj, currentTime);
-            if (result) return result;
+            return getTimeRemaining(zoneObj, currentTime);
           }
         }
       }
@@ -157,8 +122,7 @@ function Eureka_() {
               Pyros: getWeatherByZone(i, EUREKA.Zones.Pyros),
             };
 
-            const result = getTimeRemaining(zoneObj, currentTime);
-            if (result) return result;
+            return getTimeRemaining(zoneObj, currentTime);
           }
         }
       }
@@ -175,8 +139,7 @@ function Eureka_() {
               Hydatos: getWeatherByZone(i, EUREKA.Zones.Hydatos),
             };
 
-            const result = getTimeRemaining(zoneObj, currentTime);
-            if (result) return result;
+            return getTimeRemaining(zoneObj, currentTime);
           }
         }
       }
@@ -205,17 +168,26 @@ function Eureka_() {
                   rows.push(
                     <ListItem className={styles.weatherRow}>
                       <ListItemAvatar>
-                        <Avatar src={EUREKA.WeatherIcons[m_weatherList[i]]}></Avatar>
+                        <Avatar
+                          src={EUREKA.WeatherIcons[m_weatherList[i]]}
+                          sx={{ width: "2rem", height: "2rem", marginRight: "-3" }}
+                        ></Avatar>
                       </ListItemAvatar>
                       <ListItemText
+                        disableTypography
                         primary={
-                          zone === EUREKA.Zones.Anemos
-                            ? AnemosSpawn[i]
-                            : zone === EUREKA.Zones.Pagos
-                            ? PagosSpawn[i]
-                            : zone === EUREKA.Zones.Pyros
-                            ? PyrosSpawn[i]
-                            : HydatosSpawn[i]
+                          <Typography
+                            variant="body2"
+                            style={{ fontSize: "0.8rem", marginLeft: "-1rem" }}
+                          >
+                            {zone === EUREKA.Zones.Anemos
+                              ? AnemosSpawn[i]
+                              : zone === EUREKA.Zones.Pagos
+                              ? PagosSpawn[i]
+                              : zone === EUREKA.Zones.Pyros
+                              ? PyrosSpawn[i]
+                              : HydatosSpawn[i]}
+                          </Typography>
                         }
                       />
                       <Card className={styles.timeCard}>
