@@ -1,3 +1,4 @@
+import HandymanIcon from "@mui/icons-material/Handyman";
 import { Container } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -9,6 +10,7 @@ import Announcements from "../components/announcements";
 import Header from "./Header";
 import Navigation from "./Navigation";
 
+import Link from "next/link";
 import styles from "./styles/Index.module.css";
 
 function Home({ theme, setTheme }) {
@@ -56,6 +58,7 @@ function Home({ theme, setTheme }) {
               minute: "2-digit",
             })
           );
+          setUrl(responseData["game"][0]["url"]);
         } else {
           // Redirect to this page if there are no news
           router.push("/eureka");
@@ -81,14 +84,24 @@ function Home({ theme, setTheme }) {
               image="https://img.finalfantasyxiv.com/lds/h/V/LxdIbtYNrILWLB7Gojul6q7OZw.jpg"
               title="Maintenance"
             /> */}
+            {/* #CC2944 */}
             <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
-                {title}
-              </Typography>
+              {/* <Typography gutterBottom variant="h6" component="div"> */}
+              <div className={styles.titleContainer}>
+                <div>
+                  <HandymanIcon className={styles.titleIcon} />
+                </div>
+                <div className={styles.titleText}>{title}</div>
+              </div>
+              {/* </Typography> */}
               <Typography variant="body2" color="text.secondary" className="maintenanceSchedule">
                 <code className={styles.maintenanceTime}>{startTime}</code> ({timeZone}) until{" "}
                 <code className={styles.maintenanceTime}>{endTime}</code> ({timeZone})
               </Typography>
+              <br />
+              <Link href={url} target="_blank">
+                Details
+              </Link>
             </CardContent>
             <CardActions></CardActions>
           </Card>

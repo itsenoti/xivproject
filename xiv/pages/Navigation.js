@@ -90,9 +90,7 @@ function Navigation() {
       <AppBar position="fixed">
         {/* <Toolbar sx={{ justifyContent: "space-between" }}> */}
         <Toolbar>
-          <Typography sx={{ fontFamily: "Inter !important", fontWeight: "bold" }}>
-            [ FFX|V ]
-          </Typography>
+          <Typography sx={{ fontWeight: "bold" }}>FFX|V</Typography>
           <Box className={style.navItemContainer}>
             <NavItem page="" />
             {/* <NavItem page="gathering" />
@@ -100,8 +98,8 @@ function Navigation() {
             <NavItem page="crafting-list" /> */}
             <NavItem page="eureka" />
             <NavItem page="maps" />
-            <NavItem page="island" />
-            <NavItem page="links" />
+            {/* <NavItem page="island" /> */}
+            {/* <NavItem page="links" /> */}
             {/* <NavItem page="weather" /> */}
           </Box>
         </Toolbar>

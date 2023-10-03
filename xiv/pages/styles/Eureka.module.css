@@ -18,13 +18,13 @@
 
 .zoneForecast {
   background-color: var(--dark-900);
-  padding: 0.2rem 0.5rem;
+  padding: 0rem 0.5rem;
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
 }
 
 .activeWeather {
-  color: greenyellow;
+  color: #008080;
 }
 
 .timeCard {

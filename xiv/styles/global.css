@@ -1,8 +1,15 @@
+body {
+  background-image: url("../public/bg/bg.png");
+  background-attachment: fixed;
+  font-family: 'Inter';
+}
 
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+h2 {
+  font-size: 1rem;
+}
+
+/* Global Overrides */
+.MuiTypography-root {
+  font-family: 'Inter';
+}
