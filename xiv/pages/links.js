@@ -29,7 +29,7 @@ function Home({ theme, setTheme }) {
                 primary="Polar Parrot"
                 secondary={
                   <React.Fragment>
-                    <Typography variant="caption">
+                    <Typography variant="caption" className="text-pink-700">
                       Best recommmendations for daily Island Sanctuary agendas!
                     </Typography>
                   </React.Fragment>

@@ -15,6 +15,7 @@ export default function NavItem(props) {
             router.push(`/${props.page}`);
           }}
           sx={{ width: "100%", justifyContent: "left" }}
+          className="bg-green-900"
         >
           {props.page == "" ? "Home" : props.page}
         </Button>

@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Card,
   Container,
   ListItem,
   ListItemAvatar,
@@ -10,7 +9,6 @@ import {
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import { useEffect, useState } from "react";
-import Title from "../components/title";
 import EUREKA from "../pages/api/foray.json";
 import styles from "../pages/styles/Eureka.module.css";
 import Header from "./Header";
@@ -150,7 +148,7 @@ function Eureka_() {
     return (
       <>
         <Box className={styles.zoneForecast}>
-          <Title text={zone} />
+          <h2 className="text-2xl">{zone}</h2>
           <List className={styles.list}>
             {(() => {
               const rows = [];
@@ -190,11 +188,11 @@ function Eureka_() {
                           </Typography>
                         }
                       />
-                      <Card className={styles.timeCard}>
-                        <Typography variant="body" className={styles.nextTimeOccurence}>
-                          {mb_getWeatherForecast(zone, m_weatherList[i])}
-                        </Typography>{" "}
-                      </Card>
+                      {/* <Card className={styles.timeCard}> */}
+                      <span className="italic">
+                        {mb_getWeatherForecast(zone, m_weatherList[i])}
+                      </span>{" "}
+                      {/* </Card> */}
                     </ListItem>
                   );
                 }
