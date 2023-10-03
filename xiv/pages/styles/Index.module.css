@@ -1,3 +1,5 @@
 .maintenanceTime {
   border-bottom: 0.1rem dotted whitesmoke;
+  font-family: 'Inter';
+  color: blueviolet;
 }

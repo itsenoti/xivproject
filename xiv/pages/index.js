@@ -2,7 +2,6 @@ import { Container } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -20,6 +19,10 @@ function Home({ theme, setTheme }) {
 
   const router = useRouter();
 
+  // const { timeZone } = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  const timeZone = new Date().toTimeString().slice(9, 17);
+
   var date;
 
   const newsUrl = "https://lodestonenews.com/news/maintenance/current?locale=na";
@@ -30,7 +33,8 @@ function Home({ theme, setTheme }) {
       .then((responseData) => {
         console.log(Object.values(responseData["game"]) == "");
         if (Object.values(responseData["game"]) != "") {
-          setTitle(responseData["game"][0]["title"].slice(0, -9));
+          setTitle(responseData["game"][0]["title"].slice(0, 22));
+          // setTitle(responseData["game"][0]["title"].slice(0, -9));
           setUrl(responseData["game"][0]["url"]);
           date = new Date(responseData["game"][0]["start"]);
           setStartTime(
@@ -53,6 +57,7 @@ function Home({ theme, setTheme }) {
             })
           );
         } else {
+          // Redirect to this page if there are no news
           router.push("/eureka");
         }
       });
@@ -71,18 +76,18 @@ function Home({ theme, setTheme }) {
       <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
         {title && (
           <Card sx={{}}>
-            <CardMedia
+            {/* <CardMedia
               sx={{ height: 100 }}
               image="https://img.finalfantasyxiv.com/lds/h/V/LxdIbtYNrILWLB7Gojul6q7OZw.jpg"
               title="Maintenance"
-            />
+            /> */}
             <CardContent>
               <Typography gutterBottom variant="h6" component="div">
                 {title}
               </Typography>
               <Typography variant="body2" color="text.secondary" className="maintenanceSchedule">
-                <code className={styles.maintenanceTime}>{startTime}</code> until{" "}
-                <code className={styles.maintenanceTime}>{endTime}</code> (your local time)
+                <code className={styles.maintenanceTime}>{startTime}</code> ({timeZone}) until{" "}
+                <code className={styles.maintenanceTime}>{endTime}</code> ({timeZone})
               </Typography>
             </CardContent>
             <CardActions></CardActions>
