@@ -1,233 +1,262 @@
-import * as Time from "./../utils/TimeConverter";
+/**
+ * @ Author: F.Villanueva
+ * @ Create Time: 2023-09-18 10:36:04
+ * @ Modified by: F.Villanueva
+ * @ Modified time: 2023-10-08 09:41:37
+ * @ Description:
+ */
 
+/************************************************************
+ * Imports
+ ************************************************************/
+import * as dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { formatTime } from "../utils/formatNumber";
+
+/************************************************************
+ * Constants
+ ************************************************************/
+const EPOCH = new Date().getTime() / 1000;
 const E_CONSTANT = 3600 / 175;
-const HOUR = 3600;
-const MIN = 60;
-const TWOMINS55SEC = 175000;
-const GATHERINGWINDOW = 360000;
+const CURRENT_WEATHER = 0;
 
-const MIDNIGHT = 0;
-const MORNING = 8;
-const AFTERNOON = 16;
+export const Zones = {
+  Anemos: "Anemos",
+  Pagos: "Pagos",
+  Pyros: "Pyros",
+  Hydatos: "Hydatos",
+  Island: "Sanctuary Island",
+  Bozja: "Bozjan Southern Front",
+};
 
-export function getCurrentEorzeanHour() {
-  var E_CONSTANT = 3600 / 175;
-  var epoch = new Date().getTime() / 1000;
-  var newtime = epoch * E_CONSTANT;
+const Weather = {
+  Blizzards: "Blizzards",
+  ClearSkies: "Clear Skies",
+  Clouds: "Clouds",
+  FairSkies: "Fair Skies",
+  Fog: "Fog",
+  Gales: "Gales",
+  Gloom: "Gloom",
+  HeatWaves: "Heat Waves",
+  Rain: "Rain",
+  Showers: "Showers",
+  Snow: "Snow",
+  Thunder: "Thunder",
+  UmbralWind: "Umbral Wind",
+};
 
-  var hh = Math.floor((newtime / 3600) % 24);
+export function getCurrentEorzeaTime() {
+  var newtime = EPOCH * E_CONSTANT;
 
-  return hh;
+  var hour = Math.floor((newtime / 3600) % 24);
+  var minute = Math.floor((newtime / 60) % 60);
+
+  return `${formatTime(hour)}:${formatTime(minute)}`;
 }
 
-export function getCurrentEorzeanMinute() {
-  var E_CONSTANT = 3600 / 175;
-  var epoch = new Date().getTime() / 1000;
-  var newtime = epoch * E_CONSTANT;
-
-  let mm = Math.floor((newtime / 60) % 60);
-
-  return mm;
+export function getHourWeatherChanges(time) {
+  var epoch = getNewWeatherStartTimeInMilliseconds() / 1000 + 1400000 * time;
+  return formatTime(Math.floor(epoch / 175) % 24) + ":00";
 }
 
-export function lt_getLtByET(et) {
-  let epoch = new Date().getTime() / 1000;
-  let newtime = epoch * E_CONSTANT;
+/************************************************************
+ * Function to compute weather chance given time in milliseconds
+ * @returns Chance (int)
+ ************************************************************/
+function computeWeatherChance(timeMs) {
+  var unixSeconds = parseInt(timeMs / 1000);
 
-  return new Date(newtime);
+  var eorzeanHours = unixSeconds / 175;
+
+  var timeChunk = parseInt(eorzeanHours + 8) % 24; // Check if eorzeanHours false between 00:00~07:59, 08:00~15:59, 16:00~11:59
+
+  var eorzeanDays = parseInt(unixSeconds) / 4200; // Take Eorzea days since unix epoch
+
+  eorzeanDays = (eorzeanDays << 32) >>> 0; // Convert to `uint`
+
+  var calcBase = eorzeanDays * 100 + timeChunk; // Hash time
+
+  var step1 = ((calcBase << 11) ^ calcBase) >>> 0;
+
+  var step2 = ((step1 >>> 8) ^ step1) >>> 0;
+
+  return parseInt(step2) % 100;
 }
-function generateNewStartTime() {
-  let EPOCH = new Date().getTime() / 1000;
-  let bell = (EPOCH / 175) % 24;
-  let startBell = bell - (bell % 8);
-  let startUnixSeconds = EPOCH - 175 * (bell - startBell);
-  let newDate = new Date(startUnixSeconds * 1000).getTime();
+
+export function convertEorzeanTimeToLocalTime(time) {
+  return new Date(getNewWeatherStartTimeInMilliseconds() + 1400000 * time);
+}
+
+export function getCurrentWeather(zone) {
+  switch (zone) {
+    case Zones.Anemos:
+      return getWeatherByZone(CURRENT_WEATHER, Zones.Anemos);
+    case Zones.Pagos:
+      return getWeatherByZone(CURRENT_WEATHER, Zones.Pagos);
+    case Zones.Pyros:
+      return getWeatherByZone(CURRENT_WEATHER, Zones.Pyros);
+    case Zones.Hydatos:
+      return getWeatherByZone(CURRENT_WEATHER, Zones.Hydatos);
+  }
+}
+
+/************************************************************
+ * Get time when the current weather ends
+ * @returns Date (Date())
+ ************************************************************/
+export function getWeatherEndTime(localTime) {
+  return new Date(localTime + (70 / 3) * 60000);
+}
+
+export function getWeatherByZone(futureWeather, zone) {
+  return getWeatherForecastByZone(
+    computeWeatherChance(getNewWeatherStartTimeInMilliseconds() + 1400000 * futureWeather, zone),
+    zone
+  );
+}
+
+function getNewWeatherStartTimeInMilliseconds() {
+  var bell = (EPOCH / 175) % 24;
+  var startBell = bell - (bell % 8);
+  var startUnixSeconds = EPOCH - 175 * (bell - startBell);
+  var newDate = new Date(startUnixSeconds * 1000).getTime();
+
   return newDate % 10 == 0 ? newDate : newDate + 1;
 }
 
-function getETBaseHour(iteration) {
-  var base = generateNewStartTime() / 1000 + 1400000 * (iteration - 1);
-  return formatTime(Math.floor(base / 175) % 24) + ":00";
+/************************************************************
+ * Get the weather for the specific zone
+ * @returns Weather (string)
+ ************************************************************/
+function getWeatherForecastByZone(chance, zone) {
+  switch (zone) {
+    case Zones.Anemos:
+      if (chance < 30) return Weather.FairSkies;
+      else if (chance < 60) return Weather.Gales;
+      else if (chance < 90) return Weather.Showers;
+      else return Weather.Snow;
+    case Zones.Pagos:
+      if (chance < 10) return Weather.FairSkies;
+      else if (chance < 28) return Weather.Fog;
+      else if (chance < 46) return Weather.HeatWaves;
+      else if (chance < 64) return Weather.Snow;
+      else if (chance < 82) return Weather.Thunder;
+      else return Weather.Blizzards;
+    case Zones.Pyros:
+      if (chance < 10) return Weather.FairSkies;
+      else if (chance < 28) return Weather.HeatWaves;
+      else if (chance < 46) return Weather.Thunder;
+      else if (chance < 64) return Weather.Blizzards;
+      else if (chance < 82) return Weather.UmbralWind;
+      else return Weather.Snow;
+    case Zones.Hydatos:
+      if (chance < 12) return Weather.FairSkies;
+      else if (chance < 34) return Weather.Showers;
+      else if (chance < 56) return Weather.Gloom;
+      else if (chance < 78) return Weather.Thunder;
+      else return Weather.Snow;
+    case Zones.Island:
+      if ((chance -= 25) < 0) return Weather.ClearSkies;
+      else if ((chance -= 45) < 0) return Weather.FairSkies;
+      else if ((chance -= 10) < 0) return Weather.Clouds;
+      else if ((chance -= 10) < 0) return Weather.Rain;
+      else if ((chance -= 5) < 0) return Weather.Fog;
+      else return Weather.Showers;
+    default:
+      return null;
+  }
 }
 
-function getLTUsingETBaseHour(iteration) {
-  var lt = new Date(generateNewStartTime() + 1400000 * (iteration - 1));
-  return lt;
-}
+export function mb_getWeatherForecast(zone = "", weatherToTrack = "", mobName = "") {
+  var zoneObj = {};
+  var currentTime = new Date();
 
-function getEorzeaTime(ET_Date) {
-  let E_CONSTANT = 3600 / 175;
-  let epoch = new Date(ET_Date).getTime() / 1000;
-  let newtime = epoch * E_CONSTANT;
+  switch (zone) {
+    case Zones.Anemos: {
+      for (let i = 0; ; i++) {
+        if (
+          weatherToTrack === getWeatherByZone(i, Zones.Anemos) &&
+          (getHourWeatherChanges(i) === "00:00" || getHourWeatherChanges(i) === "16:00") &&
+          currentTime < convertEorzeanTimeToLocalTime(i + 1)
+        ) {
+          zoneObj = {
+            ET: getHourWeatherChanges(i),
+            LT_Start: convertEorzeanTimeToLocalTime(i),
+            LT_End: convertEorzeanTimeToLocalTime(i + 1),
+            Anemos: getWeatherByZone(i, Zones.Anemos),
+          };
 
-  let hh = Math.floor((newtime / 3600) % 24);
-  let mm = Math.floor((newtime / 60) % 60);
-
-  return formatTime(hh) + ":" + formatTime(mm);
-}
-
-export function lt_getRemainingTimeBeforeSpawn(spawnTime) {
-  // console.log(`spawnTime ${formatTime(spawnTime)}`);
-  if (isAvailableAnytime(spawnTime)) {
-    return `--:--`;
-  }
-
-  let allETHours = [];
-  let allLTHours = [];
-
-  for (let index = 0; index < 100; index++) {
-    allLTHours[index] = getLTUsingETBaseHour(index);
-  }
-
-  var EveryETHourToLT = {};
-  let dlastWeatherChange_LT = allLTHours[0];
-
-  for (let i = 0; i < 24; i++) {
-    let epoch = dlastWeatherChange_LT.getTime() / 1000;
-    let newtime = epoch * E_CONSTANT;
-    let current_hh = Math.floor((newtime / 3600) % 24);
-
-    dlastWeatherChange_LT = new Date(dlastWeatherChange_LT.getTime() + TWOMINS55SEC);
-    EveryETHourToLT[getEorzeaTime(dlastWeatherChange_LT)] = { lt: dlastWeatherChange_LT };
-  }
-
-  console.log(EveryETHourToLT[0]);
-
-  var ltTargetTime = EveryETHourToLT[formatTime(spawnTime) + ":00"];
-
-  if (!ltTargetTime) return 0;
-
-  // if (ltTargetTime.lt < new Date()) return 0;
-
-  let timeDifference = Time.getTimeDifferenceMs(ltTargetTime.lt.getTime(), new Date().getTime());
-  let min = Time.getNumberOfMinutes(timeDifference);
-
-  if (min > 28) return 0;
-
-  let secs = Time.getNumberOfSeconds(timeDifference);
-
-  secs = formatTime(secs);
-  min = formatTime(min);
-
-  return `${min}:${secs}`;
-}
-
-export function getTimeRemaining(time) {
-  if (time > new Date()) {
-    let rem = time - new Date();
-
-    let min = Time.getNumberOfMinutes(rem);
-    let secs = Time.getNumberOfSeconds(rem);
-    secs = formatTime(secs);
-    min = formatTime(min);
-    return `${min}:${secs}`;
-  }
-
-  if (new Date(time.getTime() + GATHERINGWINDOW) >= new Date()) {
-    let gatheringWindow = new Date(time.getTime() + GATHERINGWINDOW) - new Date();
-    let min = Time.getNumberOfMinutes(gatheringWindow);
-    let secs = Time.getNumberOfSeconds(gatheringWindow);
-    secs = formatTime(secs);
-    min = formatTime(min);
-    return `${min}:${secs}`;
-  }
-
-  return 0;
-}
-
-/**
- *
- * @param {int} ETToConvert Eorzean hour to convert
- * @returns equivalent time in earth in ms
- */
-export function convertETotLT(ETToConvert) {
-  // if (!ETToConvert) return;
-
-  let allETHours = [];
-  let allLTHours = [];
-
-  for (let index = 0; index < 1000; index++) {
-    allETHours[index] = getETBaseHour(index);
-    allLTHours[index] = getLTUsingETBaseHour(index);
-  }
-
-  let lastWeatherChange_LT = allLTHours[0];
-
-  var ltTargetTime = new Date();
-  for (let index = 0; index < 1000; index++) {
-    let epoch = lastWeatherChange_LT.getTime() / 1000;
-    let newtime = epoch * E_CONSTANT;
-
-    let current_hh = Math.floor((newtime / 3600) % 24);
-
-    if (current_hh == ETToConvert) {
-      if (new Date() <= lastWeatherChange_LT) {
-        ltTargetTime = lastWeatherChange_LT;
-        break;
+          return computeRemainingTime(zoneObj, currentTime);
+        }
       }
     }
+    case Zones.Pagos: {
+      for (let i = 0; ; i++) {
+        if (
+          weatherToTrack === getWeatherByZone(i, Zones.Pagos) &&
+          currentTime < convertEorzeanTimeToLocalTime(i + 1)
+        ) {
+          zoneObj = {
+            ET: getHourWeatherChanges(i),
+            LT_Start: convertEorzeanTimeToLocalTime(i),
+            LT_End: convertEorzeanTimeToLocalTime(i + 1),
+            Pagos: getWeatherByZone(i, Zones.Pagos),
+          };
 
-    lastWeatherChange_LT = new Date(lastWeatherChange_LT.getTime() + TWOMINS55SEC);
-  }
+          return computeRemainingTime(zoneObj, currentTime);
+        }
+      }
+    }
+    case Zones.Pyros: {
+      for (let i = 0; ; i++) {
+        if (
+          weatherToTrack === getWeatherByZone(i, Zones.Pyros) &&
+          currentTime < convertEorzeanTimeToLocalTime(i + 1)
+        ) {
+          zoneObj = {
+            ET: getHourWeatherChanges(i),
+            LT_Start: convertEorzeanTimeToLocalTime(i),
+            LT_End: convertEorzeanTimeToLocalTime(i + 1),
+            Pyros: getWeatherByZone(i, Zones.Pyros),
+          };
 
-  return ltTargetTime;
-}
+          return computeRemainingTime(zoneObj, currentTime);
+        }
+      }
+    }
+    case Zones.Hydatos: {
+      for (let i = 0; ; i++) {
+        if (
+          weatherToTrack === getWeatherByZone(i, Zones.Hydatos) &&
+          currentTime < convertEorzeanTimeToLocalTime(i + 1)
+        ) {
+          zoneObj = {
+            ET: getHourWeatherChanges(i),
+            LT_Start: convertEorzeanTimeToLocalTime(i),
+            LT_End: convertEorzeanTimeToLocalTime(i + 1),
+            Hydatos: getWeatherByZone(i, Zones.Hydatos),
+          };
 
-export function get48HoursTimeEquivalanceList(obj) {
-  let allLTHours = [];
-
-  // Get the last XX:00 hour in Eorzea
-  for (let index = 0; index < 5; index++) {
-    allLTHours[index] = getLTUsingETBaseHour(index);
-  }
-
-  var dummyEveryETHourToLT = {};
-  let dummyAllLTHours = allLTHours[0];
-
-  for (let i = 0; i < 48; i++) {
-    dummyAllLTHours = new Date(dummyAllLTHours.getTime() + TWOMINS55SEC);
-    if (dummyAllLTHours >= new Date(new Date().getTime() - GATHERINGWINDOW)) {
-      dummyEveryETHourToLT[i] = { et: getEorzeaTime(dummyAllLTHours), lt: dummyAllLTHours };
+          return computeRemainingTime(zoneObj, currentTime);
+        }
+      }
     }
   }
-
-  return dummyEveryETHourToLT; // Date() type
 }
 
-export function inGatheringWindow(ETToConvert) {
-  let endtime = ETToConvert + 1 >= 24 ? ETToConvert - 23 : ETToConvert + 1;
-
-  let timeDifference = Time.getTimeDifferenceMs(convertETotLT(endtime), new Date().getTime());
-  let min = Time.getNumberOfMinutes(timeDifference);
-  let secs = Time.getNumberOfSeconds(timeDifference);
-
-  secs = formatTime(secs);
-  min = formatTime(min);
-  return `@${min}:${secs}`;
+export function computeRemainingTime(zoneObj, currentTimeDate) {
+  if (new Date() >= zoneObj.LT_Start) {
+    return (
+      <span className="text-green-500">
+        ends in {computeRelativeTime(zoneObj.LT_End, currentTimeDate, "hr")}
+      </span>
+    );
+  } else {
+    return `starts in ${computeRelativeTime(zoneObj.LT_Start, currentTimeDate, "hr")}`;
+  }
 }
 
-function isPastMidnight(time) {
-  if (time >= 0 && time < 8) return true;
-  return false;
-}
-
-function isMorning(time) {
-  if (time >= 8 && time < 16) return true;
-  return false;
-}
-
-function isAfternoon(time) {
-  if (time >= 16 && time < 24) return true;
-  return false;
-}
-
-function isAvailableAnytime(am, pm) {
-  if (am === undefined) return true;
-  return false;
-}
-
-export function formatTime(time) {
-  if (time < 10) return `0${time}`;
-
-  return time;
-}
+export const computeRelativeTime = (futureTime) => {
+  dayjs.extend(relativeTime);
+  return dayjs(futureTime).fromNow(true);
+};

@@ -2,6 +2,7 @@ body {
   background-image: url("../public/bg/bg.png");
   background-attachment: fixed;
   font-family: 'Inter';
+  font-size: 14px;
 }
 
 
@@ -12,4 +13,26 @@ h2 {
 /* Global Overrides */
 .MuiTypography-root {
   font-family: 'Inter';
+}
+
+/* Containers */
+.containerBody {
+  margin-top: 5rem;
+  height: 100vh;
+  padding: 0;
+  padding-top: 8;
+}
+
+.containerBody > div {
+  margin-bottom: 1rem;
+}
+
+.containerBody small {
+  font-style: italic;
+}
+
+.containerBody small::before {
+  content: "\a";
+  white-space: pre;
+  margin-top: 1rem;
 }
