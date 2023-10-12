@@ -42,7 +42,7 @@ function Navigation() {
             <NavItem page="crafting-list" /> */}
             <NavItem page="eureka" />
             <NavItem page="pvp" />
-            {/* <NavItem page="maps" /> */}
+            <NavItem page="maps" />
             {/* <NavItem page="island" /> */}
             {/* <NavItem page="links" /> */}
             {/* <NavItem page="weather" /> */}

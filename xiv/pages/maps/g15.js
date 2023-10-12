@@ -1,248 +1,161 @@
-import {
-  Container,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-} from "@mui/material";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import Announcements from "../../components/announcements";
+import { Container, Select, TextField } from "@mui/material";
+import { useState } from "react";
 import Title from "../../components/title";
 import Header from "../Header";
 import Navigation from "../Navigation";
-import * as MapsLocation from "./maps.json";
 
-// Initialize players profile
-const TreasureHunt_Players = MapsLocation.Players;
+const MAPNAME = "Ophiotauroskin (G15)";
 
-// Update according to which map
-const TreasureHunt_Map = MapsLocation.g14;
+const zonesCount = 1;
+const zoneNames = ["Elpis"];
+
+const coordinatesTbl = [
+  { id: 0, zone: zoneNames[0], coordinates: "11.8, 33.1" }, // ← Starts in 'The Twelve Wonders'
+  { id: 1, zone: zoneNames[0], coordinates: "16.8, 31.0" },
+  { id: 2, zone: zoneNames[0], coordinates: "22.5, 24.6" },
+  { id: 3, zone: zoneNames[0], coordinates: "27.2, 24.3" },
+  { id: 4, zone: zoneNames[0], coordinates: "29.0, 17.5" },
+  { id: 5, zone: zoneNames[0], coordinates: "37.1, 18.5" },
+  { id: 6, zone: zoneNames[0], coordinates: "29.9, 9.5" },
+  { id: 7, zone: zoneNames[0], coordinates: "13.0, 8.7" },
+];
 
 function G15({ theme, setTheme }) {
-  const [playerInfo, setPlayerInfo] = useState(Object.values(TreasureHunt_Players)); // Array containing the players info
-  const [selectedMap, setSelectedMap] = useState(null);
+  const [playerInfo, setPlayerInfo] = useState([
+    { id: 0, name: "", zone: "", coordinates: "" },
+    { id: 1, name: "", zone: "", coordinates: "" },
+    { id: 2, name: "", zone: "", coordinates: "" },
+    { id: 3, name: "", zone: "", coordinates: "" },
+    { id: 4, name: "", zone: "", coordinates: "" },
+    { id: 5, name: "", zone: "", coordinates: "" },
+    { id: 6, name: "", zone: "", coordinates: "" },
+    { id: 7, name: "", zone: "", coordinates: "" },
+  ]);
 
-  useEffect(() => {
-    // console.log(JSON.stringify(playerInfo, null, 2));
-    // console.log(JSON.stringify(TreasureHuntersArray["" + 1], null, 2));
-  }, [playerInfo]);
-
-  const playerNameChangeHandler = (event, props) => {
-    // Check if props.id exists in the array
-    const index = playerInfo.findIndex((e) => e.id === props.id);
-    // Create copy of the existing playerInfo
-    const newState = [...playerInfo];
-
-    const newData = {
-      id: playerInfo[index].id,
-      name: event.target.value,
-      map: playerInfo[index].map,
-      coordinates: playerInfo[index].coordinates,
-    };
-
-    if (index != -1) {
-      newState[index] = newData;
-      setPlayerInfo(newState);
-    }
+  const playerNameChangeHandler = (id, name) => {
+    const newPlayerInfo = playerInfo.map((player) => {
+      if (player.id === id) return { ...player, name: name };
+      else return player;
+    });
+    setPlayerInfo(newPlayerInfo);
   };
 
-  const mapLocationChangeHandler = (event, props) => {
-    // Check if props.id exists in the array
-    const index = playerInfo.findIndex((e) => e.id === props.id);
-    // Create copy of the existing playerInfo
-    const newState = [...playerInfo];
+  const coordinateChangeHandler = (id, zoneCoord) => {
+    const zoneName = coordinatesTbl.map((zone) => {
+      if (zone.id === id) {
+        return zone.zone;
+      }
+    });
 
-    const newData = {
-      id: playerInfo[index].id,
-      name: playerInfo[index].name,
-      map: event.target.value,
-      coordinates: playerInfo[index].coordinates,
-    };
+    const newPlayerInfo = playerInfo.map((player) => {
+      if (player.id === id)
+        return { ...player, zone: cleanString(zoneName), coordinates: zoneCoord };
 
-    if (index != -1) {
-      newState[index] = newData;
-      setPlayerInfo(newState);
-    }
+      return player;
+    });
 
-    setSelectedMap(event.target.value);
+    setPlayerInfo(newPlayerInfo);
   };
 
-  const mapCoordinateChangeHandle = (event, id) => {
-    // Check if props.id exists in the array
-    const index = playerInfo.findIndex((e) => e.id === id);
-    const newState = [...playerInfo];
-
-    const newData = {
-      id: playerInfo[index].id,
-      name: playerInfo[index].name,
-      map: playerInfo[index].map,
-      coordinates: event.target.value,
-    };
-
-    if (index >= 0) {
-      // console.log(newState[index].name);
-      newState[index] = newData;
-      setPlayerInfo(newState);
-    }
+  const coordSelection = (playerId) => {
+    return (
+      <>
+        <Select
+          native
+          defaultValue=""
+          id="grouped-native-select"
+          sx={{ minWidth: "60%" }}
+          size="small"
+          onChange={(e) => coordinateChangeHandler(playerId, e.target.value)}
+        >
+          {(() => {
+            const options = [];
+            options.push(<option value=""></option>);
+            for (let index = 0; index < coordinatesTbl.length; index++) {
+              options.push(
+                <option value={coordinatesTbl[index].id}>
+                  {coordinatesTbl[index].zone} ({coordinatesTbl[index].coordinates})
+                </option>
+              );
+            }
+            return options;
+          })()}
+        </Select>
+      </>
+    );
   };
+
+  function cleanString(text) {
+    return text.toString().replace(/,/g, "");
+  }
+
+  function getRoute(zoneName) {
+    return (
+      <div>
+        <Title text={zoneName} />
+        {(() => {
+          const filteredByZone = [];
+          const sequence = [];
+
+          playerInfo
+            .filter(
+              (player) =>
+                cleanString(player.zone) == zoneName &&
+                cleanString(player.coordinates) != "" &&
+                player.name != ""
+            )
+            .map((i) => {
+              filteredByZone.push(i);
+            });
+
+          for (let i = 0; i < coordinatesTbl.length; i++) {
+            for (let index = 0; index < filteredByZone.length; index++) {
+              if (filteredByZone[index].coordinates == i.toString()) {
+                sequence.push(filteredByZone[index].name);
+
+                if (sequence.length < filteredByZone.length) sequence.push(" > ");
+              }
+            }
+          }
+
+          return sequence;
+        })()}
+      </div>
+    );
+  }
 
   return (
     <>
       <Header />
       <Navigation />
-      <Announcements />
       <Container sx={{ padding: 0, pt: 8 }}>
-        <Title text={"Ophiotauroskin (G15)"} />
-        {/* Player Name and Map Location */}
-        <Grid container spacing={0}>
-          <Grid xs={7}>
-            <h4>Player names and Map Location</h4>
-            {/* Player name and map input area */}
-            <Stack marginTop={2}>
-              {(() => {
-                var entries = [];
-                for (var i = 0; i < 8; i++) {
-                  let entry = (
-                    <>
-                      <Stack direction={"row"} spacing={1} marginBottom={1}>
-                        <PlayerName id={playerInfo[i].id} handler={playerNameChangeHandler} />
-                        <MapSelection
-                          id={playerInfo[i].id}
-                          name={playerInfo[i].name}
-                          handler={mapLocationChangeHandler}
-                        />
-                        <LocationSelection
-                          player={playerInfo[i]}
-                          handler={mapCoordinateChangeHandle}
-                        />
-                      </Stack>
-                    </>
-                  );
+        <Title text={MAPNAME} />
+        {(() => {
+          const elements = [];
 
-                  entries.push(entry);
-                }
-                return entries;
-              })()}
-            </Stack>
-          </Grid>
-          {/* Guide map display */}
-          <Grid xs={4}>
-            <Image src="/maps/TreasureMap_G15_Elpis.png" width={420} height={420} alt=""></Image>
-          </Grid>
-          <Grid xs={1}></Grid>
-        </Grid>
-        {
-          <>
-            <h4 className="sub-header">Route</h4>
-            {getRoute(playerInfo)}
-          </>
-        }
-      </Container>
-    </>
-  );
-}
-
-function getRoute(info) {
-  // const textRef = useRef(null); // To be used for copy-to-clipboard function
-
-  const maps = Object.keys(TreasureHunt_Map);
-
-  var map_new = new Map();
-
-  for (var index in maps) {
-    map_new[Object.keys(TreasureHunt_Map)[index]] = [];
-
-    // console.log(map_new);
-
-    for (var i in info) {
-      // If player's map == "Labyrinthos"
-      if (info[i].map == maps[i]) {
-        // Run through the coordinate - nearest to farthest
-        for (var coord in Object.keys(Object.values(TreasureHunt_Map)[index])) {
-          if (info[i].coordinates == Object.keys(Object.values(TreasureHunt_Map)[index])[coord]) {
-            map_new[info[i].map].push(info[i].name);
+          for (let playerId = 0; playerId < 8; playerId++) {
+            elements.push(
+              <Container sx={{ marginBottom: "2px" }}>
+                <TextField
+                  id="outlined-basic"
+                  InputLabelProps={{ shrink: false }}
+                  placeholder={playerInfo[playerId].name}
+                  size="small"
+                  variant="outlined"
+                  sx={{ maxWidth: "35%", marginRight: "2px" }}
+                  onChange={(e) => playerNameChangeHandler(playerId, e.target.value)}
+                />
+                {coordSelection(playerId)}
+              </Container>
+            );
           }
-        }
-      }
-    }
-  }
+          return elements;
+        })()}
+      </Container>
 
-  return (
-    <>
-      {Object.keys(TreasureHunt_Map).map((map, i) => (
-        <h5 key="map">{map}</h5>
-      ))}
+      {getRoute("Elpis")}
     </>
   );
 }
-
-const PlayerName = (props) => {
-  return (
-    <TextField
-      id={props.id}
-      onChange={(event) => props.handler(event, props)}
-      InputLabelProps={{ shrink: false }}
-      size="small"
-      placeholder={"Player " + props.id}
-      sx={{ width: 150 }}
-    />
-  );
-};
-
-const MapSelection = (props) => {
-  return (
-    <>
-      <FormControl style={{ width: 160 }} size="small">
-        <InputLabel id="demo-simple-select-standard-label"></InputLabel>
-        <Select
-          disabled={props.name == "" ? true : false}
-          labelId="demo-select-small-label"
-          id="demo-select-small"
-          label=""
-          onChange={(event) => props.handler(event, props)}
-        >
-          {Object.keys(TreasureHunt_Map).map((loc, val) => (
-            <MenuItem value={loc} key={loc}>
-              {loc}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </>
-  );
-};
-
-// Updated depending on which map is selected
-const LocationSelection = (props) => {
-  // var m_playerId = props.
-  var m_location = props.player.map;
-  console.log(props.player.id + props.player.name + m_location);
-  return (
-    <>
-      <FormControl style={{ width: 160 }} size="small">
-        <InputLabel id="demo-simple-select-standard-label"></InputLabel>
-        <Select
-          disabled={props.name == "" ? true : false}
-          labelId="demo-select-small-label"
-          id="demo-select-small"
-          // value={props.coord ? props.coord : "ok"}
-          label=""
-          onChange={(event) => props.handler(event, props.player.id)}
-        >
-          {TreasureHunt_Map[m_location] &&
-            Object.keys(TreasureHunt_Map[m_location]).map((loc, val) => (
-              <MenuItem value={loc} key={loc}>
-                {loc}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-    </>
-  );
-};
 
 export default G15;
