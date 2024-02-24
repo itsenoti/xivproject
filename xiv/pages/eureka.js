@@ -148,7 +148,7 @@ function Eureka_() {
     return (
       <>
         <Box className={styles.zoneForecast}>
-          <h2 className="">{zone}</h2>
+          <h2 className={styles.headerText}>{zone}</h2>
           <List className={styles.list}>
             {(() => {
               const rows = [];

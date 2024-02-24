@@ -10,6 +10,7 @@ function Navigation() {
   /* Set theme to Dark Mode */
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isMenuClicked, setIsMenuClicked] = useState(false);
 
   const router = useRouter();
 
@@ -22,6 +23,10 @@ function Navigation() {
     return null;
   }
 
+  const MenuItemClicked = () => {
+    setIsMenuClicked(!isMenuClicked);
+  };
+
   const resetLocalStorage = () => {
     if (typeof window != "undefined") {
       window.localStorage.removeItem("gatheringList");
@@ -31,23 +36,25 @@ function Navigation() {
 
   return (
     <>
-      <AppBar position="fixed">
-        {/* <Toolbar sx={{ justifyContent: "space-between" }}> */}
-        <Toolbar>
-          <Typography sx={{ fontWeight: "bold" }}>FFX|V</Typography>
+      <AppBar position="fixed" sx={{ backgroundColor: "#67655c" }}>
+        {/* The navigation header */}
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography sx={{ fontWeight: "bold" }}>FF14</Typography>
+          <Typography sx={{ fontWeight: "" }} onClick={MenuItemClicked}>
+            Menu
+          </Typography>
+        </Toolbar>
+
+        {/* The menu items */}
+        {isMenuClicked && (
           <Box className={style.navItemContainer}>
             <NavItem page="" />
-            {/* <NavItem page="gathering" />
-            <NavItem page="crafting" />
-            <NavItem page="crafting-list" /> */}
             <NavItem page="eureka" />
             <NavItem page="pvp" />
             <NavItem page="maps" />
-            {/* <NavItem page="island" /> */}
-            {/* <NavItem page="links" /> */}
-            {/* <NavItem page="weather" /> */}
+            <NavItem page="FelicitousFavors" />
           </Box>
-        </Toolbar>
+        )}
       </AppBar>
     </>
   );

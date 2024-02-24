@@ -1,3 +1,9 @@
 .navItemContainer {
-  display: flex;
+  /* background-color: red;
+  display: flex; */
+  display: block;
+}
+
+.backgroundColor {
+  background-color: var(--color-surface-mixed-400);
 }

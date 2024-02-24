@@ -1,5 +1,40 @@
+:root {
+   /** CSS DARK THEME PRIMARY COLORS */
+   --color-primary-100: #ffeb3b;
+   --color-primary-200: #ffed58;
+   --color-primary-300: #ffef70;
+   --color-primary-400: #fff186;
+   --color-primary-500: #fff49b;
+   --color-primary-600: #fff6af;
+   /** CSS DARK THEME SURFACE COLORS */
+   --color-surface-100: #121212;
+   --color-surface-200: #282828;
+   --color-surface-300: #3f3f3f;
+   --color-surface-400: #575757;
+   --color-surface-500: #717171;
+   --color-surface-600: #8b8b8b;
+   /** CSS DARK THEME MIXED SURFACE COLORS */
+   --color-surface-mixed-100: #262419;
+   --color-surface-mixed-200: #3b382e;
+   --color-surface-mixed-300: #504e45;
+   --color-surface-mixed-400: #67655c;
+   --color-surface-mixed-500: #7e7d75;
+   --color-surface-mixed-600: #97958f;
+
+/**
+Dark/Mixed - 100: For body background color
+Dark/Mixed - 200: For cards background color
+Dark/Mixed - 300: For chips buttons, dropdowns background color
+Dark/Mixed - 400: For sidebars, navbar background color
+Dark/Mixed - 500: For modal, dialogs background color
+Dark/Mixed - 600: For on background texts color
+**/
+}
+
 body {
-  background-image: url("../public/bg/bg.png");
+  /* background-image: url("../public/bg/bg.png"); */
+  background-color: var(--color-surface-mixed-100);
+  color: var(--color-surface-mixed-600);
   background-attachment: fixed;
   font-family: 'Inter';
   font-size: 14px;
@@ -8,6 +43,7 @@ body {
 
 h2 {
   font-size: 1rem;
+  font: #fff;
 }
 
 /* Global Overrides */

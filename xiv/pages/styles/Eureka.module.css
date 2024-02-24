@@ -19,12 +19,12 @@
 .zoneForecast {
   background-color: var(--dark-900);
   padding: 0rem 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
   border-radius: 0.5rem;
 }
 
 .activeWeather {
-  color: #008080;
+  color:var(--color-primary-500);
 }
 
 .timeCard {
@@ -37,7 +37,7 @@
 }
 
 .weatherRow {
-  padding: 0 1rem 1rem 0;
+  padding: 0;
   font-size: 0.8rem;
 }
 
@@ -47,8 +47,9 @@
 
 .list {
   /* sx={{ width: "100%", color: "inherit" }} */
-  width: 100%;
+  padding: 1rem;
   color:inherit;
+  background-color: #3b382e;
 }
 
 .container {
@@ -57,4 +58,9 @@
   height: 100vh;
   padding: 0;
   padding-top: 8;
+}
+
+.headerText {
+  color: #fff;
+  letter-spacing: 0.1rem;
 }
