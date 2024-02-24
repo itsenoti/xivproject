@@ -163,21 +163,21 @@ function FelicitousFavors() {
         <select onChange={SetFavour4Selected}>
           <option>--Select 4-hour favour--</option>
           {FavoursList.filter((item) => item.duration == 4).map((filteredFavours) => (
-            <option>{filteredFavours.name}</option>
+            <option key={filteredFavours.name}>{filteredFavours.name}</option>
           ))}
         </select>
         <br />
         <select onChange={SetFavour6Selected}>
           <option>--Select 6-hour favour--</option>
           {FavoursList.filter((item) => item.duration == 6).map((filteredFavours) => (
-            <option>{filteredFavours.name}</option>
+            <option key={filteredFavours.name}>{filteredFavours.name}</option>
           ))}
         </select>
         <br />
         <select onChange={SetFavour8Selected}>
           <option>--Select 8-hour favour--</option>
           {FavoursList.filter((item) => item.duration == 8).map((filteredFavours) => (
-            <option>{filteredFavours.name}</option>
+            <option key={filteredFavours.name}>{filteredFavours.name}</option>
           ))}
         </select>
       </Container>
