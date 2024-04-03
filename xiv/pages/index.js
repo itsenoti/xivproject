@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Announcements from "../components/announcements";
+import GetCurrentDate from "../utils/CurrentDate";
+import { GetTodayMap } from "../utils/Frontlines";
 import Header from "./Header";
 import Navigation from "./Navigation";
 
@@ -33,7 +35,7 @@ function Home({ theme, setTheme }) {
     fetch(newsUrl)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(Object.values(responseData["game"]) == "");
+        // console.log(Object.values(responseData["game"]) == "");
         if (Object.values(responseData["game"]) != "") {
           setTitle(responseData["game"][0]["title"].slice(0, 22));
           // setTitle(responseData["game"][0]["title"].slice(0, -9));
@@ -61,7 +63,7 @@ function Home({ theme, setTheme }) {
           setUrl(responseData["game"][0]["url"]);
         } else {
           // Redirect to this page if there are no news
-          router.push("/eureka");
+          // router.push("/eureka");
         }
       });
     return;
@@ -77,23 +79,23 @@ function Home({ theme, setTheme }) {
       <Navigation />
       <Announcements />
       <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
+        <div>
+          <h2>Frontlines</h2>
+          Current map is {GetTodayMap()}
+        </div>
+        <div>
+          <h2>Maintenance</h2>
+          No scheduled maintenance.
+        </div>
         {title && (
           <Card sx={{}}>
-            {/* <CardMedia
-              sx={{ height: 100 }}
-              image="https://img.finalfantasyxiv.com/lds/h/V/LxdIbtYNrILWLB7Gojul6q7OZw.jpg"
-              title="Maintenance"
-            /> */}
-            {/* #CC2944 */}
             <CardContent>
-              {/* <Typography gutterBottom variant="h6" component="div"> */}
               <div className={styles.titleContainer}>
                 <div>
                   <HandymanIcon className={styles.titleIcon} />
                 </div>
                 <div className={styles.titleText}>{title}</div>
               </div>
-              {/* </Typography> */}
               <Typography variant="body2" color="text.secondary" className="maintenanceSchedule">
                 <code className={styles.maintenanceTime}>{startTime}</code> ({timeZone}) until{" "}
                 <code className={styles.maintenanceTime}>{endTime}</code> ({timeZone})
