@@ -1,28 +1,27 @@
 import { useEffect, useState } from "react";
 
 const pvpMaps = {
-  0: "The Fields of Glory (Shatter)",
+  0: "Onsal Hakair (Danshig Naadam)",
   1: "Seal Rock (Seize)",
-  2: "Onsal Hakair (Danshig Naadam)",
+  2: "The Fields of Glory (Shatter)",
 };
 
-export function GetTodayMap() {
-  const [currentDate, setCurrentDate] = useState(new Date());
+export default function Frontlines() {
   const [isMounted, setIsMounted] = useState(false);
-  const [mapNow, setMapNow] = useState("");
+  const [mapNow, setMapNow] = useState("･･･");
+  const [remainingTime, setRemainingTime] = useState("");
 
-  const baseDate_TheFieldsOfGlory = new Date("March 31, 2024 23:00:00");
-  const baseDate_OnsalHakair = new Date("April 1, 2024 23:00:00");
-  const baseDate_SealRock = new Date("April 2, 2024 23:00:00");
+  // Base date is on May 1, Seal Rock
+  const baseDate = new Date("May 1, 2024 23:00:00");
 
-  const baseDate = new Date("March 30, 2024 23:00:00");
+  // Tomorrow 11PM
   const nextMapReset = new Date();
   nextMapReset.setDate(nextMapReset.getDate() + 1);
   nextMapReset.setHours(23);
   nextMapReset.setMinutes(0);
   nextMapReset.setSeconds(0);
 
-  const mapsCount = 3;
+  const mapsCount = Object.keys(pvpMaps).length;
 
   useEffect(() => {
     setIsMounted(true);
@@ -30,8 +29,8 @@ export function GetTodayMap() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentDate(new Date());
       getMap();
+      setRemainingTime(getRemainingTime());
     }, 1000);
 
     return () => clearInterval(interval);
@@ -42,16 +41,40 @@ export function GetTodayMap() {
   }
 
   function getMap() {
-    var durationSinceBaseDate = Math.floor((nextMapReset - baseDate)/(1000*60*60*24));
-    for (let parseNextDate = 0; parseNextDate <= durationSinceBaseDate; parseNextDate++) {
-      for (let mapRotation = 0; mapRotation < mapsCount; mapRotation++) {
-        baseDate.setDate(baseDate.getDate() + 1);
-        if (baseDate == nextMapReset) break;
-        setMapNow(pvpMaps[mapRotation]);
+    // Get how many days has passed since the base date
+    let dateDiff = Math.floor((nextMapReset - baseDate) / (24 * 60 * 60 * 1000));
+    console.log(nextMapReset);
+
+    var index = 0;
+    for (let i = 0; i < dateDiff; i++) {
+      index += 1;
+      if (index > 3) {
+        index = 0;
       }
-      if (baseDate == nextMapReset) break;
     }
+
+    setMapNow(pvpMaps[index]);
   }
 
-  return <>{mapNow}</>;
+  function getRemainingTime() {
+    let remainingHr =
+      Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60 * 60)) % 24;
+    let remainingMn = Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60)) % 60;
+    let remainingSc = Math.floor(new Date(nextMapReset - new Date()).getTime() / 1000) % 60;
+    return `${String(remainingHr).padStart(2, "0")}h ${String(remainingMn).padStart(
+      2,
+      "0"
+    )}m ${String(remainingSc).padStart(2, "0")}s`;
+  }
+
+  return (
+    <div>
+      <div className="section">
+        <img src="/icons/PvP/pvp.png" className="sectionTitleImage" />
+        PVP Frontlines
+      </div>
+      <div>Current Map: {mapNow} </div>
+      <div>Remaining Time: {remainingTime}</div>
+    </div>
+  );
 }

@@ -3,7 +3,6 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import NavItem from "./../components/NavItem";
-
 import style from "./../pages/styles/Navigation.module.css";
 
 function Navigation() {
@@ -50,9 +49,10 @@ function Navigation() {
           <Box className={style.navItemContainer}>
             <NavItem page="" />
             <NavItem page="eureka" />
-            <NavItem page="pvp" />
-            <NavItem page="maps" />
-            <NavItem page="FelicitousFavors" />
+            <NavItem page="Gathering/Gathering" />
+            {/* <NavItem page="pvp" /> */}
+            {/* <NavItem page="maps" /> */}
+            {/* <NavItem page="FelicitousFavors" /> */}
           </Box>
         )}
       </AppBar>

@@ -25,8 +25,15 @@
   src: url('../public/fonts/CrimsonPro/CrimsonPro.ttf');
   /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
 }
+
 @font-face {
   font-family: 'DMSans';
   src: url('../public/fonts/DMSans/DMSans_Variable.ttf');
+  /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
+}
+
+@font-face {
+  font-family: 'NotoSansJP';
+  src: url('../public/fonts/NotoSansJapanese/NotoSansJP-VariableFont_wght.ttf');
   /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
 }
