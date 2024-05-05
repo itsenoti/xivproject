@@ -50,7 +50,7 @@ function Events(props) {
               <div className={style.eventRow}>
                 <img src="/icons/Events/upcoming.png" />
                 <span className={style.eventName}>{event.EventName}</span> starts in{" "}
-                {GetRelativeTime(event.EndDate)}
+                {GetRelativeTime(event.StartDate)}
               </div>
             </>
           );
