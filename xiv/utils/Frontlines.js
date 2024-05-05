@@ -43,7 +43,6 @@ export default function Frontlines() {
   function getMap() {
     // Get how many days has passed since the base date
     let dateDiff = Math.floor((nextMapReset - baseDate) / (24 * 60 * 60 * 1000));
-    console.log(nextMapReset);
 
     var index = 0;
     for (let i = 0; i < dateDiff; i++) {
@@ -61,10 +60,10 @@ export default function Frontlines() {
       Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60 * 60)) % 24;
     let remainingMn = Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60)) % 60;
     let remainingSc = Math.floor(new Date(nextMapReset - new Date()).getTime() / 1000) % 60;
-    return `${String(remainingHr).padStart(2, "0")}h ${String(remainingMn).padStart(
+    return `${String(remainingHr).padStart(2, "0")}:${String(remainingMn).padStart(
       2,
       "0"
-    )}m ${String(remainingSc).padStart(2, "0")}s`;
+    )}:${String(remainingSc).padStart(2, "0")}`;
   }
 
   return (
@@ -73,8 +72,9 @@ export default function Frontlines() {
         <img src="/icons/PvP/pvp.png" className="sectionTitleImage" />
         PVP Frontlines
       </div>
-      <div>Current Map: {mapNow} </div>
-      <div>Remaining Time: {remainingTime}</div>
+      <div>
+        <b>{mapNow}</b> ends in <b>{remainingTime}</b>
+      </div>
     </div>
   );
 }

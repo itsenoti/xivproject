@@ -1,5 +1,6 @@
 import { Container } from "@mui/material";
 import Frontlines from "../utils/Frontlines";
+import Events from "./Events/Events";
 import Header from "./Header";
 import Maintenance from "./Maintenance/Maintenance";
 import Navigation from "./Navigation";
@@ -12,6 +13,7 @@ function Home({ theme, setTheme }) {
       <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
         <Maintenance />
         <Frontlines />
+        <Events />
       </Container>
     </>
   );

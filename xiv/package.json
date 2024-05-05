@@ -20,6 +20,7 @@
     "@xivapi/js": "^0.4.1",
     "animate.css": "^4.1.1",
     "autoprefixer": "^10.4.15",
+    "axios": "^1.6.8",
     "cookie": "^0.5.0",
     "cookie-cutter": "^0.2.0",
     "copy-to-clipboard": "^3.3.3",
