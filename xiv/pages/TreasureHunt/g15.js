@@ -2,7 +2,7 @@ import { Container, Select, TextField } from "@mui/material";
 import { useState } from "react";
 import Title from "../../components/title";
 import Header from "../Header";
-import Navigation from "../Navigation";
+import Navigation from "../Navigation/Navigation";
 
 const MAPNAME = "Ophiotauroskin (G15)";
 

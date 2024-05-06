@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/material";
 import { useState } from "react";
 import Header from "./Header";
-import Navigation from "./Navigation";
+import Navigation from "./Navigation/Navigation";
 import styles from "./styles/FelicitousFavors.module.css";
 
 function FelicitousFavors() {
