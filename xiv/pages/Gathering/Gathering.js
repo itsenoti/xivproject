@@ -56,7 +56,7 @@ function Gathering() {
       <Container className="containerBody">
         {data.map((item) => {
           return (
-            <CardContent>
+            <CardContent key={item.itemName}>
               <div className={style.gatheringCardTitle}>
                 <img
                   src="https://garlandtools.org/files/icons/item/21246.png"
