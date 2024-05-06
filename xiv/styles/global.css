@@ -33,9 +33,9 @@ Dark/Mixed - 600: For on background texts color
 
 body {
   /* background-image: url("../public/bg/bg.png"); */
-  background-color: var(--color-surface-mixed-100);
-  color: var(--color-surface-mixed-600);
-  background-attachment: fixed;
+  /* background-color: var(--color-surface-mixed-100); */
+  /* color: var(--color-surface-mixed-600); */
+  /* background-attachment: fixed; */
   font-family: 'NotoSansJP';
   font-size: 14px;
 }
@@ -43,7 +43,7 @@ body {
 
 h2 {
   font-size: 1rem;
-  font: #fff;
+  /* font: #fff; */
 }
 
 /* Global Overrides */
@@ -53,10 +53,9 @@ h2 {
 
 /* Containers */
 .containerBody {
-  margin-top: 5rem;
-  height: 100vh;
+  margin-top: 3.8rem;
   padding: 0;
-  color: #fff;
+  /* color: #fff; */
   padding-top: 8;
 }
 

@@ -9,15 +9,15 @@ import {
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import { useEffect, useState } from "react";
-import EUREKA from "../pages/api/foray.json";
-import styles from "../pages/styles/Eureka.module.css";
-import Header from "./Header";
-import Navigation from "./Navigation";
+import Header from "../Header";
+import Navigation from "../Navigation/Navigation";
+import EUREKA from "../api/foray.json";
 import {
   convertEorzeanTimeToLocalTime,
   getHourWeatherChanges,
   getWeatherByZone,
-} from "./api/utilities";
+} from "../api/utilities";
+import styles from "./Eureka.module.css";
 
 import * as dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -147,7 +147,7 @@ function Eureka_() {
   const output = (zone) => {
     return (
       <>
-        <Box className={styles.zoneForecast}>
+        <Box className={styles.zoneForecast} elevation={1}>
           <h2 className={styles.headerText}>{zone}</h2>
           <List className={styles.list}>
             {(() => {

@@ -7,3 +7,7 @@
 .backgroundColor {
   background-color: var(--color-surface-mixed-400);
 }
+
+.logo {
+  margin-left: -20px;
+}

@@ -9,6 +9,7 @@ const pvpMaps = {
 export default function Frontlines() {
   const [isMounted, setIsMounted] = useState(false);
   const [mapNow, setMapNow] = useState("･･･");
+  const [mapNext, setMapNext] = useState("･･･");
   const [remainingTime, setRemainingTime] = useState("");
 
   // Base date is on May 1, Seal Rock
@@ -47,12 +48,15 @@ export default function Frontlines() {
     var index = 0;
     for (let i = 0; i < dateDiff; i++) {
       index += 1;
-      if (index > 3) {
+      if (index > Object.keys(pvpMaps).length) {
         index = 0;
       }
     }
 
+    let mapNext = index + 1 >= Object.keys(pvpMaps).length ? 0 : index + 1;
+
     setMapNow(pvpMaps[index]);
+    setMapNext(pvpMaps[mapNext]);
   }
 
   function getRemainingTime() {
@@ -70,11 +74,13 @@ export default function Frontlines() {
     <div>
       <div className="section">
         <img src="/icons/PvP/pvp.png" className="sectionTitleImage" />
-        PVP Frontlines
+        PvP Frontlines
       </div>
       <div>
+        <img src="/icons/PvP/pvp_current.png" className="sectionTitleImage" />
         <b>{mapNow}</b> ends in <b>{remainingTime}</b>
       </div>
+      <div>Next: {mapNext}</div>
     </div>
   );
 }

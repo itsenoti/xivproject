@@ -2,8 +2,8 @@ import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import NavItem from "./../components/NavItem";
-import style from "./../pages/styles/Navigation.module.css";
+import NavItem from "../../components/NavItem";
+import style from "./Navigation.module.css";
 
 function Navigation() {
   /* Set theme to Dark Mode */
@@ -35,10 +35,11 @@ function Navigation() {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ backgroundColor: "#67655c" }}>
+      <AppBar position="fixed" sx={{}}>
         {/* The navigation header */}
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Typography sx={{ fontWeight: "bold" }}>FF14</Typography>
+          {/* <Typography sx={{ fontWeight: "bold" }}>FF14</Typography> */}
+          <img src="/logos/dawntrail_logo.png" height="60px" className={style.logo} />
           <Typography sx={{ fontWeight: "" }} onClick={MenuItemClicked}>
             Menu
           </Typography>
@@ -48,7 +49,7 @@ function Navigation() {
         {isMenuClicked && (
           <Box className={style.navItemContainer}>
             <NavItem page="" />
-            <NavItem page="eureka" />
+            <NavItem page="Eureka/Eureka" />
             <NavItem page="Gathering/Gathering" />
             {/* <NavItem page="pvp" /> */}
             {/* <NavItem page="maps" /> */}

@@ -6,3 +6,33 @@
 .tableContent {
   font-size: 0.2rem;
 }
+.titleImg {
+  width: 1.5rem;
+  height: 1.5rem;
+  float: left;
+  margin-right: 1rem;
+}
+
+.gatheringCardTitle {
+  margin-bottom: 1rem;
+}
+
+.gatheringCardContent {
+  font-size: 0.8rem;
+}
+
+.gatheringCardContentHead {
+  height: 1.2rem;
+  clear: both;
+  width: 7rem;
+  float: left;
+}
+
+.gatheringCardContentBody {
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.gatheringCardContentBody img {
+  height: 1.2rem;
+}

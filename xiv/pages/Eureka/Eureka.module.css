@@ -17,7 +17,7 @@
 }
 
 .zoneForecast {
-  background-color: var(--dark-900);
+  /* background-color: var(--dark-900); */
   padding: 0rem 0.5rem;
   margin-bottom: 1.5rem;
   border-radius: 0.5rem;
@@ -49,18 +49,18 @@
   /* sx={{ width: "100%", color: "inherit" }} */
   padding: 1rem;
   color:inherit;
-  background-color: #3b382e;
+  /* background-color: #3b382e; */
 }
 
 .container {
   /* sx={{ height: "100vh", padding: 0, pt: 8 }} */
   margin-top: 5rem;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 0;
   padding-top: 8;
 }
 
 .headerText {
-  color: #fff;
+  /* color: #fff; */
   letter-spacing: 0.1rem;
 }

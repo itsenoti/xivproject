@@ -1,11 +1,27 @@
 {
   "ja":{
+    "JOB": "ジョブ",
+    "LOCATION": "場所",
+    "REMARKS": "備考",
+
+    "UPPER_LA_NOSCEA": "高地ラノシア",
+    
     "ANEMOS": "アネモス",
     "PAGOS": "パゴス",
     "PYROS": "ピャロス",
     "HYDATOS": "ヒャダトス",
     "SPRITE": "スプライト",
     "COPYCAT_CASSIE": "キャシ",
-    "KING_ARTHRO": "キング・アルスロ"
+    "KING_ARTHRO": "キング・アルスロ",
+    "EARTHBREAK_AETHERSAND": " 地鳴の霊砂",
+
+    "SMALL": "小",
+    "MEDIUM": "中",
+    "LARGE": "大",
+    "SPEED_SLOW": "低速",
+    "SPEED_AVERAGE": "中速",
+    "SPEED_FAST": "高速",
+
+    "VERDIGRIS_GUPPY": "ヴァーディグリスグッピー"
   }
 }

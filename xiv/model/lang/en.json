@@ -1,11 +1,27 @@
 {
   "en":{
+    "JOB": "Job",
+    "LOCATION": "Location",
+    "REMARKS": "Remarks",
+
+    "UPPER_LA_NOSCEA": "Upper La Noscea",
+
     "ANEMOS": "Anemos",
     "PAGOS": "Pagos",
     "PYROS": "Pyros",
     "HYDATOS": "Hydatos",
     "SPRITE": "Sprite",
     "COPYCAT_CASSIE": "Copycat Cassie",
-    "KING_ARTHRO": "King Arthro"
+    "KING_ARTHRO": "King Arthro",
+    "EARTHBREAK_AETHERSAND": "Earthbreak Aethersand",
+
+    "SMALL": "Small",
+    "MEDIUM": "Medium",
+    "LARGE": "Large",
+    "SPEED_SLOW": "Slow",
+    "SPEED_AVERAGE": "Average",
+    "SPEED_FAST": "Fast",
+
+    "VERDIGRIS_GUPPY": "Verdigris Guppy"
   }
 }

@@ -1,85 +1,90 @@
-import { Container, Paper } from "@mui/material";
+import { Container } from "@mui/material";
+import CardContent from "@mui/material/CardContent";
+import en_text from "../../model/lang/en.json";
+import ja_text from "../../model/lang/ja.json";
 import Header from "../Header";
-import Navigation from "../Navigation";
+import Navigation from "../Navigation/Navigation";
+import style from "./Gathering.module.css";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+const LANG = "en";
+var TXT = "";
 
-import styles from "./Gathering.module.css";
+if (LANG == "en") {
+  TXT = en_text.en;
+} else if (LANG == "ja") {
+  TXT = ja_text.ja;
+}
 
-function CreateObject(itemName, job, location, targetItem, timeStart1, timeStart2) {
-  return { itemName, job, location, targetItem, timeStart1, timeStart2 };
+const jobsIcons = {
+  SPEARFISHING: "/jobs/fsh2.png",
+};
+
+function CreateObject(
+  itemName,
+  job,
+  location,
+  coordinates,
+  targetItem,
+  timeStart1,
+  timeStart2,
+  remarks
+) {
+  return { itemName, job, location, coordinates, targetItem, timeStart1, timeStart2, remarks };
 }
 
 function Gathering() {
   const data = [
     CreateObject(
-      "Earthbreak Aethersand",
-      "FSH",
-      "Upper La Noscea (25.1, 23.0)",
-      "Verdigris Guppy",
-      "-",
-      "-"
+      `${TXT.EARTHBREAK_AETHERSAND}`,
+      jobsIcons.SPEARFISHING,
+      `${TXT.UPPER_LA_NOSCEA}`,
+      `(X: 25, Y: 22)`,
+      `${TXT.VERDIGRIS_GUPPY}`,
+      `-`,
+      `-`,
+      `${TXT.VERDIGRIS_GUPPY} (${TXT.SMALL}, ${TXT.SPEED_AVERAGE})`
     ),
     CreateObject("Lightning Cluster", "FSH", "Upper La Noscea ()", "Verdigris Guppy", "-"),
   ];
+
+  const card = <></>;
 
   return (
     <>
       <Header />
       <Navigation />
       <Container className="containerBody">
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 400 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center" className={styles.tableHeader}>
-                  Item Name
-                </TableCell>
-                <TableCell align="center" className={styles.tableHeader}>
-                  Job
-                </TableCell>
-                <TableCell align="center" className={styles.tableHeader}>
-                  Location
-                </TableCell>
-                <TableCell align="center" className={styles.tableHeader}>
-                  Target
-                </TableCell>
-                <TableCell align="center" className={styles.tableHeader}>
-                  Time1
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((data) => (
-                <TableRow
-                  key={data.itemName}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row" className={styles.tableContent}>
-                    {data.itemName}
-                  </TableCell>
-                  <TableCell align="center" className={styles.tableContent}>
-                    {data.job}
-                  </TableCell>
-                  <TableCell align="center" className={styles.tableContent}>
-                    {data.location}
-                  </TableCell>
-                  <TableCell align="center" className={styles.tableContent}>
-                    {data.targetItem}
-                  </TableCell>
-                  <TableCell align="center" className={styles.tableContent}>
-                    {data.timeStart1}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {data.map((item) => {
+          return (
+            <CardContent>
+              <div className={style.gatheringCardTitle}>
+                <img
+                  src="https://garlandtools.org/files/icons/item/21246.png"
+                  className={style.titleImg}
+                />
+                <span>{item.itemName}</span>
+              </div>
+              <div className={style.gatheringCardContent}>
+                <div>
+                  <div className={style.gatheringCardContentHead}>{TXT.JOB}</div>
+                  <div className={style.gatheringCardContentBody}>
+                    <img src={item.job}></img>
+                  </div>
+                </div>
+                <div>
+                  <div className={style.gatheringCardContentHead}>{TXT.LOCATION}</div>
+                  <div className={style.gatheringCardContentBody}>
+                    {item.location} {item.coordinates}
+                  </div>
+                </div>
+                <div>
+                  <div className={style.gatheringCardContentHead}>{TXT.REMARKS}</div>
+                  <div className={style.gatheringCardContentBody}>{item.remarks}</div>
+                </div>
+              </div>
+            </CardContent>
+          );
+        })}
       </Container>
     </>
   );

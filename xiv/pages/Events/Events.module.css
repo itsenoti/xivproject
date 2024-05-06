@@ -2,6 +2,13 @@
   /* padding: 0.5rem; */
   padding: 0;
   height: 100%;
+  padding: 0.5rem 0rem;
+}
+
+.eventRowUpcoming {
+  padding: 0;
+  height: 100%;
+  background-color: #a1a1a1;
 }
 
 .eventName {
