@@ -1,4 +1,5 @@
 import axios from "axios";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { GetRelativeTime } from "../../utils/RelativeTime";
 import style from "./Events.module.css";
@@ -29,15 +30,22 @@ function Events(props) {
   return (
     <div>
       <div className="section">
-        <img src="/icons/Events/events.png" className="sectionTitleImage" />
+        <Image
+          src={"/icons/Events/events.png"}
+          className="sectionTitleImage"
+          alt="image"
+          width={20}
+          height={20}
+          priority
+        />
         Events
       </div>
       {eventsCsv.map((event, i) => {
         if (new Date(event.StartDate) < new Date() && new Date(event.EndDate) > new Date()) {
           return (
             <>
-              <div className={style.eventRow}>
-                <img src="/icons/Events/ongoing.png" />
+              <div className={style.eventRow} key={i}>
+                <Image src={"/icons/Events/ongoing.png"} alt="image" width={20} height={20} />
                 <span className={style.eventName}>{event.EventName}</span> ends in{" "}
                 {GetRelativeTime(event.EndDate)}
               </div>
@@ -48,8 +56,8 @@ function Events(props) {
         if (new Date(event.StartDate) > new Date()) {
           return (
             <>
-              <div className={style.eventRow}>
-                <img src="/icons/Events/upcoming.png" />
+              <div className={style.eventRow} key={i}>
+                <Image src={"/icons/Events/upcoming.png"} alt="image" width={20} height={20} />
                 <span className={style.eventName}>{event.EventName}</span> starts in{" "}
                 {GetRelativeTime(event.StartDate)}
               </div>

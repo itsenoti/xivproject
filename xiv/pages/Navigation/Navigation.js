@@ -1,5 +1,6 @@
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { useTheme } from "next-themes";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import NavItem from "../../components/NavItem";
@@ -38,7 +39,15 @@ function Navigation() {
       <AppBar position="fixed" sx={{}}>
         {/* The navigation header */}
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <img src="/logos/dawntrail_logo.png" height="60px" className={style.logo} />
+          <Image
+            src={"/logos/dawntrail_logo.png"}
+            width={100}
+            height={60}
+            className={style.logo}
+            alt="img"
+            unoptimized
+            priority
+          />
           <Typography sx={{ fontWeight: "" }} onClick={MenuItemClicked}>
             Menu
           </Typography>

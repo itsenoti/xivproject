@@ -1,5 +1,6 @@
 import { Container } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
+import Image from "next/image";
 import en_text from "../../model/lang/en.json";
 import ja_text from "../../model/lang/ja.json";
 import Header from "../Header";
@@ -69,9 +70,10 @@ function Gathering() {
           return (
             <CardContent key={item.itemName}>
               <div className={style.gatheringCardTitle}>
-                <img
+                <Image
                   src="https://garlandtools.org/files/icons/item/21246.png"
-                  className={style.titleImg}
+                  style={style.titleImg}
+                  alt="image"
                 />
                 <span>{item.itemName}</span>
               </div>
@@ -79,7 +81,7 @@ function Gathering() {
                 <div>
                   <div className={style.gatheringCardContentHead}>{TXT.JOB}</div>
                   <div className={style.gatheringCardContentBody}>
-                    <img src={item.job}></img>
+                    <Image src={item.job} alt="image" />
                   </div>
                 </div>
                 <div>

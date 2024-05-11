@@ -12,10 +12,9 @@ function Maintenance() {
   // Get user's timezone. Example: GMT+0800
   var userTimeZone = new Date().toString().split(" ")[5];
 
-  // Get the news
-  var lodestoneNewsUrl = "https://lodestonenews.com/news/maintenance/current?locale=na";
-
   useEffect(() => {
+    // Get the news
+    var lodestoneNewsUrl = "https://lodestonenews.com/news/maintenance/current?locale=na";
     fetch(lodestoneNewsUrl)
       .then((response) => response.json())
       .then((data) => {
