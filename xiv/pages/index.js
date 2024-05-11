@@ -8,7 +8,6 @@ import Navigation from "./Navigation/Navigation";
 function Home({ theme, setTheme }) {
   return (
     <>
-      <div class="invisible"></div>
       <Header />
       <Navigation />
       <Container sx={{ padding: 0, pt: 9, pr: 1, pl: 1 }}>

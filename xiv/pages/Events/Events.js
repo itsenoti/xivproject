@@ -30,14 +30,14 @@ function Events(props) {
   return (
     <div>
       <div className="section">
-        <Image
+        {/* <Image
           src={"/icons/Events/events.png"}
           className="sectionTitleImage"
           alt="image"
           width={20}
           height={20}
           priority
-        />
+        /> */}
         Events
       </div>
       {eventsCsv.map((event, i) => {
@@ -45,9 +45,13 @@ function Events(props) {
           return (
             <>
               <div className={style.eventRow} key={i}>
-                <Image src={"/icons/Events/ongoing.png"} alt="image" width={20} height={20} />
-                <span className={style.eventName}>{event.EventName}</span> ends in{" "}
-                {GetRelativeTime(event.EndDate)}
+                <Image
+                  src={"https://lds-img.finalfantasyxiv.com/h/l/CtEfIrQAujxk3py5UKSnVlfOPI.svg"}
+                  alt="image"
+                  width={20}
+                  height={20}
+                />
+                <b>{event.EventName}</b> ends in {GetRelativeTime(event.EndDate)}
               </div>
             </>
           );
@@ -56,10 +60,9 @@ function Events(props) {
         if (new Date(event.StartDate) > new Date()) {
           return (
             <>
-              <div className={style.eventRow} key={i}>
-                <Image src={"/icons/Events/upcoming.png"} alt="image" width={20} height={20} />
-                <span className={style.eventName}>{event.EventName}</span> starts in{" "}
-                {GetRelativeTime(event.StartDate)}
+              <div className={style.eventRowUpcoming} key={i}>
+                {/* <Image src={"/icons/Events/upcoming.png"} alt="image" width={20} height={20} /> */}
+                <b>{event.EventName}</b> starts in {GetRelativeTime(event.StartDate)}
               </div>
             </>
           );

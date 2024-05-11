@@ -37,7 +37,7 @@ body {
   /* color: var(--color-surface-mixed-600); */
   /* background-attachment: fixed; */
   font-family: 'NotoSansJP';
-  font-size: 14px;
+  font-size: 0.13rem;
 }
 
 
@@ -46,9 +46,18 @@ h2 {
   /* font: #fff; */
 }
 
+b {
+  color: #53993d;
+  font-weight: bolder;
+}
+
 /* Global Overrides */
 .MuiTypography-root {
   font-family: 'NotoSansJP';
+}
+
+.MuiAlert-message{
+  font-size: 0.13rem;
 }
 
 /* Containers */
@@ -79,9 +88,10 @@ h2 {
   padding: 0.1rem 0;
   font-size: 1.1rem;
   font-weight: bolder;
+  color: #75b324;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  border-bottom: 0.2rem solid #3f3f3f;
+  border-bottom: 0.15rem solid #75b324;
 }
 
 .sectionTitleImage {

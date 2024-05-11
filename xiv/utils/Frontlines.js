@@ -98,8 +98,8 @@ export default function Frontlines() {
   return (
     <div>
       <div className="section">
-        <img src="/icons/PvP/pvp.png" className="sectionTitleImage" />
-        PvP Frontlines
+        {/* <img src="/icons/PvP/pvp.png" className="sectionTitleImage" /> */}
+        Frontlines
       </div>
       <div>
         <img src="/icons/PvP/pvp_current.png" className="sectionTitleImage" />

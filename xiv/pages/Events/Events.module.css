@@ -8,7 +8,9 @@
 .eventRowUpcoming {
   padding: 0;
   height: 100%;
-  background-color: #a1a1a1;
+  padding: 0.5rem 0;
+  padding-left: 1.4rem;
+  opacity: 0.3;
 }
 
 .eventName {
