@@ -1,9 +1,10 @@
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
 const pvpMaps = {
-  0: "Onsal Hakair (Danshig Naadam)",
-  1: "Seal Rock (Seize)",
-  2: "The Fields of Glory (Shatter)",
+  0: "The Fields of Glory (Shatter)",
+  1: "Onsal Hakair (Danshig Naadam)",
+  2: "Seal Rock (Seize)",
 };
 
 export default function Frontlines() {
@@ -11,9 +12,6 @@ export default function Frontlines() {
   const [mapNow, setMapNow] = useState("･･･");
   const [mapNext, setMapNext] = useState("･･･");
   const [remainingTime, setRemainingTime] = useState("");
-
-  // Base date is on May 1, Seal Rock
-  const baseDate = new Date("May 1, 2024 23:00:00");
 
   // Tomorrow 11PM
   const nextMapReset = new Date();
@@ -30,7 +28,8 @@ export default function Frontlines() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getMap();
+      var dailyReset = getDailyReset();
+      getMap(dailyReset);
       setRemainingTime(getRemainingTime());
     }, 1000);
 
@@ -41,21 +40,47 @@ export default function Frontlines() {
     return null;
   }
 
-  function getMap() {
-    // Get how many days has passed since the base date
-    let dateDiff = Math.floor((nextMapReset - baseDate) / (24 * 60 * 60 * 1000));
+  function getDailyReset() {
+    let dailyReset = new Date();
+    dailyReset.setHours(23);
+    dailyReset.setMinutes(0);
+    dailyReset.setSeconds(0);
 
-    var index = 0;
-    for (let i = 0; i < dateDiff; i++) {
-      index += 1;
-      if (index > Object.keys(pvpMaps).length) {
-        index = 0;
+    let dateNow = new Date();
+
+    if (dateNow > dailyReset) {
+      if (dateNow.getDate() == dailyReset.getDate()) {
+        dailyReset.setDate(dailyReset.getDate() + 1);
       }
     }
 
-    let mapNext = index + 1 >= Object.keys(pvpMaps).length ? 0 : index + 1;
+    return dailyReset;
+  }
 
+  function getMap(dailyReset) {
+    const baseDate = new Date("May 1, 2024 23:00:00");
+
+    const dateNow = dayjs(new Date());
+
+    var dateDiff = dateNow.diff(baseDate, "d", false);
+
+    const MAP_1 = 0;
+
+    var index = 0;
+
+    var i = 0;
+
+    for (i = MAP_1; i < dateDiff - 1; i++) {
+      ++index;
+      if (index == mapsCount) index = MAP_1;
+    }
+
+    // Get next map
+    let mapNext = index + 1 == Object.keys(pvpMaps).length ? MAP_1 : index + 1;
+
+    // Set active map
     setMapNow(pvpMaps[index]);
+    // Set next map
     setMapNext(pvpMaps[mapNext]);
   }
 

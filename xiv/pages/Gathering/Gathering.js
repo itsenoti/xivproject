@@ -4,6 +4,7 @@ import en_text from "../../model/lang/en.json";
 import ja_text from "../../model/lang/ja.json";
 import Header from "../Header";
 import Navigation from "../Navigation/Navigation";
+import { xiv } from "../globals";
 import style from "./Gathering.module.css";
 
 const LANG = "en";
@@ -32,7 +33,17 @@ function CreateObject(
   return { itemName, job, location, coordinates, targetItem, timeStart1, timeStart2, remarks };
 }
 
+async function searchItem() {
+  try {
+    let response = await xiv.search("Baked Eggplant", { indexes: "Recipe" });
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function Gathering() {
+  searchItem();
   const data = [
     CreateObject(
       `${TXT.EARTHBREAK_AETHERSAND}`,

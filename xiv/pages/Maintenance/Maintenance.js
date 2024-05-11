@@ -9,31 +9,36 @@ function Maintenance() {
     endDate: "",
   });
 
-  var userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  // Get user's timezone. Example: GMT+0800
+  var userTimeZone = new Date().toString().split(" ")[5];
+
+  // Get the news
   var lodestoneNewsUrl = "https://lodestonenews.com/news/maintenance/current?locale=na";
 
   useEffect(() => {
     fetch(lodestoneNewsUrl)
       .then((response) => response.json())
       .then((data) => {
-        setHasMaintenance(true);
-        setMaintenanceDetails({
-          title: data["game"][0]["title"],
-          startDate: new Date(data["game"][0]["start"]).toLocaleString("default", {
-            month: "long",
-            day: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-          endDate: new Date(data["game"][0]["end"]).toLocaleString("default", {
-            month: "long",
-            day: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-        });
+        if (data.game.length > 0) {
+          setHasMaintenance(true);
+          setMaintenanceDetails({
+            title: data.game[0]["title"] ? data.game[0]["title"] : null,
+            startDate: new Date(data["game"][0]["start"]).toLocaleString("default", {
+              month: "long",
+              day: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+            endDate: new Date(data["game"][0]["end"]).toLocaleString("default", {
+              month: "long",
+              day: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          });
+        }
       });
   }, []);
 
@@ -42,15 +47,7 @@ function Maintenance() {
   } (${userTimeZone}) until
   ${maintenanceDetails.endDate} (${userTimeZone})`;
 
-  return (
-    <div>
-      {hasMaintenance && (
-        <>
-          <InfoBox message={infoBoxMessage} />
-        </>
-      )}
-    </div>
-  );
+  return <>{hasMaintenance && <InfoBox message={infoBoxMessage} />}</>;
 }
 
 export default Maintenance;

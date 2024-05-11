@@ -5,6 +5,7 @@ import style from "./Events.module.css";
 
 function Events(props) {
   const [eventsCsv, setEventsCsv] = useState([]);
+  const [loadingEvents, setLoadingEvents] = useState(false);
 
   useEffect(() => {
     getEventsFromGSheet();

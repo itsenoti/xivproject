@@ -38,7 +38,6 @@ function Navigation() {
       <AppBar position="fixed" sx={{}}>
         {/* The navigation header */}
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          {/* <Typography sx={{ fontWeight: "bold" }}>FF14</Typography> */}
           <img src="/logos/dawntrail_logo.png" height="60px" className={style.logo} />
           <Typography sx={{ fontWeight: "" }} onClick={MenuItemClicked}>
             Menu
@@ -51,8 +50,9 @@ function Navigation() {
             <NavItem page="" />
             <NavItem page="Eureka/Eureka" />
             <NavItem page="Gathering/Gathering" />
+            <NavItem page="Crafting/Crafting" />
             {/* <NavItem page="pvp" /> */}
-            {/* <NavItem page="maps" /> */}
+            <NavItem page="TreasureHunt/G15" />
             {/* <NavItem page="FelicitousFavors" /> */}
           </Box>
         )}
