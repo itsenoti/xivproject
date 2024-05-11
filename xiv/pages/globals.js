@@ -5,3 +5,9 @@ export const xiv = new XIVAPI({
   language: "en",
   snake_case: true,
 });
+
+function Globals() {
+  return <></>;
+}
+
+export default Globals;
