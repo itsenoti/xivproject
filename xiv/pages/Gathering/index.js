@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import Image from "next/image";
 import Header from "../../components/Header";
-import Navigation from "../../components/Navigation/Navigation";
+import Navigation from "../../components/Navigation/";
 import en_text from "../../model/lang/en.json";
 import ja_text from "../../model/lang/ja.json";
 import { xiv } from "../globals";
