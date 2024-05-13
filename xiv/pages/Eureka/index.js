@@ -9,8 +9,8 @@ import {
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import { useEffect, useState } from "react";
-import Header from "../Header";
-import Navigation from "../Navigation/Navigation";
+import Header from "../../components/Header";
+import Navigation from "../../components/Navigation";
 import EUREKA from "../api/foray.json";
 import {
   convertEorzeanTimeToLocalTime,

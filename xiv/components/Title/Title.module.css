@@ -1,0 +1,11 @@
+.pageTitle {
+  /* background-color: indianred; */
+  height: 2rem;
+  padding: 0.1rem 0;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  color: #75b324;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 0.15rem solid #75b324;
+}

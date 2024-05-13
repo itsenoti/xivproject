@@ -1,10 +1,10 @@
 import { Container } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import Image from "next/image";
+import Header from "../../components/Header";
+import Navigation from "../../components/Navigation/Navigation";
 import en_text from "../../model/lang/en.json";
 import ja_text from "../../model/lang/ja.json";
-import Header from "../Header";
-import Navigation from "../Navigation/Navigation";
 import { xiv } from "../globals";
 import style from "./Gathering.module.css";
 

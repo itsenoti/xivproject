@@ -2,8 +2,8 @@ import { Container } from "@mui/material";
 import List from "@mui/material/List";
 import Link from "next/link";
 import React from "react";
+import Title from "../../components/Title";
 import Announcements from "../components/announcements";
-import Title from "../components/title";
 import Header from "./Header";
 import Navigation from "./Navigation/Navigation";
 

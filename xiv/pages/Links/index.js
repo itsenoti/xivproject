@@ -5,9 +5,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import Header from "../../components/Header";
+import Title from "../../components/Title";
 import Announcements from "../components/announcements";
-import Title from "../components/title";
-import Header from "./Header";
 import Navigation from "./Navigation/Navigation";
 
 function Home({ theme, setTheme }) {

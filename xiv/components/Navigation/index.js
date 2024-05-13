@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import NavItem from "../../components/NavItem";
+import NavItem from "./NavItem";
 import style from "./Navigation.module.css";
 
 function Navigation() {
@@ -57,11 +57,12 @@ function Navigation() {
         {isMenuClicked && (
           <Box className={style.navItemContainer}>
             <NavItem page="" />
-            <NavItem page="Eureka/Eureka" />
-            <NavItem page="Gathering/Gathering" />
-            <NavItem page="Crafting/Crafting" />
+            <NavItem page="FauxHallow" />
+            <NavItem page="Eureka" />
+            <NavItem page="Gathering" />
+            <NavItem page="Crafting" />
             {/* <NavItem page="pvp" /> */}
-            <NavItem page="TreasureHunt/G15" />
+            <NavItem page="G15" />
             {/* <NavItem page="FelicitousFavors" /> */}
           </Box>
         )}

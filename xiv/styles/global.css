@@ -56,16 +56,13 @@ b {
   font-family: 'NotoSansJP';
 }
 
-/* .MuiAlert-message{
-  font-size: 0.13rem;
-} */
 
 /* Containers */
 .containerBody {
   margin-top: 3.8rem;
   padding: 0 10;
   /* color: #fff; */
-  padding-top: 8;
+  padding-top: 1px;
 }
 
 .containerBody > div {

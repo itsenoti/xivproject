@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const pvpMaps = {
@@ -97,12 +98,15 @@ export default function Frontlines() {
 
   return (
     <div>
-      <div className="section">
-        {/* <img src="/icons/PvP/pvp.png" className="sectionTitleImage" /> */}
-        Frontlines
-      </div>
+      <div className="section">Frontlines</div>
       <div>
-        <img src="/icons/PvP/pvp_current.png" className="sectionTitleImage" />
+        <Image
+          src="/icons/PvP/pvp_current.png"
+          className="sectionTitleImage"
+          width={20}
+          height={20}
+          alt="ongoing pvp"
+        />
         <b>{mapNow}</b> ends in <b>{remainingTime}</b>
       </div>
       <div>Next: {mapNext}</div>

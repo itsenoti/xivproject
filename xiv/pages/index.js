@@ -1,16 +1,16 @@
 import { Container } from "@mui/material";
-import Frontlines from "../utils/Frontlines";
-import Events from "./Events/Events";
-import Header from "./Header";
-import Maintenance from "./Maintenance/Maintenance";
-import Navigation from "./Navigation/Navigation";
+import Header from "../components/Header";
+import Navigation from "../components/Navigation";
+import Events from "../sections/Events/Events";
+import Frontlines from "../sections/Frontlines";
+import Maintenance from "../sections/Maintenance/Maintenance";
 
 function Home({ theme, setTheme }) {
   return (
     <>
       <Header />
       <Navigation />
-      <Container sx={{ padding: 0, pt: 9, pr: 1, pl: 1 }}>
+      <Container className="containerBody">
         <Maintenance />
         <Frontlines />
         <Events />

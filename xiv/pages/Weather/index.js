@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import React from "react";
+import Title from "../../components/title";
 import Announcements from "../components/announcements";
-import Title from "../components/title";
 import Header from "./Header";
 import Navigation from "./Navigation/Navigation";
 import styles from "./styles/Weather.module.css";

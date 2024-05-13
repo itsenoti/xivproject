@@ -1,8 +1,8 @@
 import { Container } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import Header from "./Header";
-import Navigation from "./Navigation/Navigation";
+import Header from "../../components/Header";
+import Navigation from "../../components/Navigation";
 
 function Pvp({ theme, setTheme }) {
   const [currentPlayerExp, setExp] = useState(0);

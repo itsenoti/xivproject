@@ -1,6 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import * as global from "../../pages/globals";
 import { GetRelativeTime } from "../../utils/RelativeTime";
 import style from "./Events.module.css";
 
@@ -29,17 +30,7 @@ function Events(props) {
 
   return (
     <div>
-      <div className="section">
-        {/* <Image
-          src={"/icons/Events/events.png"}
-          className="sectionTitleImage"
-          alt="image"
-          width={20}
-          height={20}
-          priority
-        /> */}
-        Events
-      </div>
+      <div className="section">Events</div>
       {eventsCsv.map((event, i) => {
         if (new Date(event.StartDate) < new Date() && new Date(event.EndDate) > new Date()) {
           return (
@@ -48,8 +39,8 @@ function Events(props) {
                 <Image
                   src={"https://lds-img.finalfantasyxiv.com/h/l/CtEfIrQAujxk3py5UKSnVlfOPI.svg"}
                   alt="image"
-                  width={20}
-                  height={20}
+                  width={global.ICON_WIDTH}
+                  height={global.ICON_HEIGHT}
                 />
                 <b>{event.EventName}</b> ends in {GetRelativeTime(event.EndDate)}
               </div>
