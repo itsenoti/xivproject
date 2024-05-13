@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import { useEffect } from "react";
 import Header from "../../components/Header";
 import { getCurrentEorzeaTime } from "../../utils/EorzeaClock";
-import Navigation from "./Navigation/Navigation";
+import Navigation from "./Navigation/";
 
 export default function IslandSanctuary() {
   useEffect(() => {

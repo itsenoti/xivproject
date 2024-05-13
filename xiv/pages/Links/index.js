@@ -6,8 +6,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import Header from "../../components/Header";
+import Navigation from "../../components/Navigation";
 import Title from "../../components/Title";
-import Navigation from "./Navigation/Navigation";
 
 function Home({ theme, setTheme }) {
   return (

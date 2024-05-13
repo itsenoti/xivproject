@@ -3,8 +3,8 @@ import List from "@mui/material/List";
 import Link from "next/link";
 import React from "react";
 import Header from "../../components/Header";
+import Navigation from "../../components/Navigation";
 import Title from "../../components/Title";
-import Navigation from "./Navigation/";
 
 function Home({ theme, setTheme }) {
   return (

@@ -1,7 +1,6 @@
 import { Container } from "@mui/material";
 import React from "react";
-import Title from "../../components/title";
-import Announcements from "../components/announcements";
+import Title from "../../components/Title";
 import Header from "./Header";
 import Navigation from "./Navigation/Navigation";
 import styles from "./styles/Weather.module.css";
@@ -11,7 +10,6 @@ function Weather({ theme, setTheme }) {
     <>
       <Header />
       <Navigation />
-      <Announcements />
       <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
         <Title text={"Weather Forecast"} />
         {getWeatherForecast_1000x()}
