@@ -1,9 +1,9 @@
 import { Container } from "@mui/material";
 import React from "react";
+import Header from "../../components/Header";
+import Navigation from "../../components/Navigation";
 import Title from "../../components/Title";
-import Header from "./Header";
-import Navigation from "./Navigation/Navigation";
-import styles from "./styles/Weather.module.css";
+import styles from "./Weather.module.css";
 
 function Weather({ theme, setTheme }) {
   return (
