@@ -16,46 +16,6 @@ function FauxGrid(props) {
   };
 
   return cells(props.disabledCells);
-  // return (
-  //   <div className={style.fauxGridRowContainer}>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //     <div className={style.fauxGridCell}></div>
-  //   </div>
-  // );
 }
 
 export default FauxGrid;
