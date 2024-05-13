@@ -2,10 +2,9 @@ import { Container } from "@mui/material";
 import List from "@mui/material/List";
 import Link from "next/link";
 import React from "react";
+import Header from "../../components/Header";
 import Title from "../../components/Title";
-import Announcements from "../components/announcements";
-import Header from "./Header";
-import Navigation from "./Navigation/Navigation";
+import Navigation from "./Navigation/";
 
 function Home({ theme, setTheme }) {
   return (

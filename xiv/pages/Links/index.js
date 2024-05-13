@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import Header from "../../components/Header";
 import Title from "../../components/Title";
-import Announcements from "../components/announcements";
 import Navigation from "./Navigation/Navigation";
 
 function Home({ theme, setTheme }) {
@@ -15,7 +14,6 @@ function Home({ theme, setTheme }) {
     <>
       <Header />
       <Navigation />
-      <Announcements />
       <Container sx={{ height: "100vh", padding: 0, pt: 8 }}>
         <Title text={"Links"} />
         <List>
