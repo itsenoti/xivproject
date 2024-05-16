@@ -31,17 +31,9 @@ Dark/Mixed - 600: For on background texts color
 **/
 }
 
-* {
-  font-family: 'NotoSansJP';
-}
-
 body {
-  /* background-image: url("../public/bg/bg.png"); */
-  /* background-color: var(--color-surface-mixed-100); */
-  /* color: var(--color-surface-mixed-600); */
-  /* background-attachment: fixed; */
   font-family: 'NotoSansJP';
-  font-size: 0.13rem;
+  font-size: 14px;
 }
 
 
@@ -52,7 +44,7 @@ h2 {
 
 b {
   color: #53993d;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 /* Global Overrides */
@@ -64,14 +56,14 @@ b {
 /* Containers */
 .containerBody {
   margin-top: 3.8rem;
-  padding: 0 10;
+  padding: 0 10px;
   /* color: #fff; */
   padding-top: 1px;
 }
-
+/* 
 .containerBody > div {
   margin-bottom: 1rem;
-}
+} */
 
 .containerBody small {
   font-style: italic;

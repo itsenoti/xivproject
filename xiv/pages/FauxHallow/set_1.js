@@ -2,12 +2,16 @@ import FauxGrid from "../../components/FauxGrid";
 import style from "./FauxHallow.module.css";
 
 export default function Set_1() {
-  // 1: Disabled    2: Sword     3: Treasure Box      4: Fox
-  const coloredCells = "000000 001010 010000 000050 001000 000001";
+  // 1: Disabled
+  // 2: Sword
+  // 3: Treasure Box
+  // 4: Fox
+  // 5: Recommended
+  // const coloredCells = "000000 001010 010000 000050 001000 000001";
 
   return (
     <>
-      <div className={style.row}>
+      <div className={style.fauxGridContainerRow}>
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={"330440331010410022000052001022400001"} />
         </div>
@@ -16,7 +20,7 @@ export default function Set_1() {
         </div>
       </div>
 
-      <div className={style.row}>
+      <div className={style.fauxGridContainerRow}>
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={"330000331410010224000250001220000441"} />
         </div>
@@ -25,7 +29,7 @@ export default function Set_1() {
         </div>
       </div>
 
-      <div className={style.row}>
+      <div className={style.fauxGridContainerRow}>
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={"330004331010010440004250001220000221"} />
         </div>
@@ -34,7 +38,7 @@ export default function Set_1() {
         </div>
       </div>
 
-      <div className={style.row}>
+      <div className={style.fauxGridContainerRow}>
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={"330004331010010440004252001222000001"} />
         </div>
@@ -43,7 +47,7 @@ export default function Set_1() {
         </div>
       </div>
 
-      <div className={style.row}>
+      <div className={style.fauxGridContainerRow}>
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={"334000331014012220002250001004004001"} />
         </div>
@@ -52,7 +56,7 @@ export default function Set_1() {
         </div>
       </div>
 
-      <div className={style.row}>
+      <div className={style.fauxGridContainerRow}>
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={"004000001014010000220050221334224331"} />
         </div>

@@ -7,7 +7,11 @@ const FOX = "4";
 const RECOMMENDED = "5";
 
 function FauxGrid({ disabledCells }) {
-  // 1: Disabled    2: Sword     3: Treasure Box      4: Fox    5: Recommended
+  // 1: Disabled
+  // 2: Sword
+  // 3: Treasure Box
+  // 4: Fox
+  // 5: Recommended
 
   var allCells = [];
   var cellContent = "0";
