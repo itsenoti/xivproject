@@ -39,7 +39,11 @@ function Home({ theme, setTheme }) {
     var boxes = [];
     for (let i = 0; i < 36; i++) {
       boxes.push(
-        <Checkbox className={style.cell} value={i} onClick={(e) => selectedCellHandler(e)} />
+        <Checkbox
+          className={style.fauxHallowCell}
+          value={i}
+          onClick={(e) => selectedCellHandler(e)}
+        />
       );
     }
     return <div className={style.printedContainer}>{boxes}</div>;
