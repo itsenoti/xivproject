@@ -1,4 +1,4 @@
-import FauxGrid from "./fauxgrid";
+import FauxGrid from "../../components/FauxGrid";
 import style from "./FauxHallow.module.css";
 
 export default function Set_1() {

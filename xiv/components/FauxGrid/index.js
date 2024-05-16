@@ -1,4 +1,4 @@
-import style from "./FauxHallow.module.css";
+import style from "./FauxGrid.module.css";
 
 function FauxGrid(props) {
   var allCells = [];
