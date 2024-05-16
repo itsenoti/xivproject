@@ -3,31 +3,16 @@
 }
 
 .printedContainer {
-  width: 176px;
+  width: 252px;
   align-items: center;
   margin: 0;
   margin: 0 auto;
 }
 
-.fauxGridCell {
-  width: 0.95rem;
-  height: 0.95rem;
-  border: 0.1rem solid #a1a1a1;
-  float: left;
-}
-
-.fauxGridDisabledCell {
-  width: 0.95rem;
-  height: 0.95rem;
-  border: 0.1rem solid #a1a1a1;
-  background-color: grey;
-  float: left;
-}
-
 .fauxGridContainer {
   width: 5.7rem;
   height: 5.7rem;
-  margin-right: 0.3rem;
+  margin-right: 0.1rem;
   margin-bottom: 0.3rem;
   float: left;
 }
