@@ -31,6 +31,10 @@ Dark/Mixed - 600: For on background texts color
 **/
 }
 
+* {
+  font-family: 'NotoSansJP';
+}
+
 body {
   /* background-image: url("../public/bg/bg.png"); */
   /* background-color: var(--color-surface-mixed-100); */
