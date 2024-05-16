@@ -31,9 +31,6 @@ export default function Set_1() {
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={disabledCells} />
         </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={disabledCells} />
-        </div>
       </div>
     </>
   );
