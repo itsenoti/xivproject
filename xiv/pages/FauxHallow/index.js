@@ -5,6 +5,7 @@ import Navigation from "../../components/Navigation";
 import Title from "../../components/Title";
 import style from "./FauxHallow.module.css";
 import Set_1 from "./set_1";
+import Set_2 from "./set_2";
 
 const setsList = [
   "000000001010010000000000001000000001",
@@ -27,6 +28,7 @@ const setsList = [
 
 function Home({ theme, setTheme }) {
   const [checked, setChecked] = useState(new Array(36).fill(false));
+  const [matchedPattern, setMatchedPattern] = useState();
   const [foundMatch, setFoundMatch] = useState();
 
   const selectedCellHandler = (e) => {
@@ -47,7 +49,6 @@ function Home({ theme, setTheme }) {
 
   // Check which pattern matches the user input
   const getPattern = (pattern) => {
-    var matchedPattern = 0;
     var convertedPattern = "";
 
     pattern.map((i) => {
@@ -55,15 +56,21 @@ function Home({ theme, setTheme }) {
     });
 
     setsList.forEach((set, i) => {
-      if (set.replace(/\s+/, "") == convertedPattern) matchedPattern = i;
+      if (set.replace(/\s/g, "") == convertedPattern) {
+        console.log(`Matched pattern at ${i}`);
+        setMatchedPattern(i);
+      }
     });
 
     switch (matchedPattern) {
-      case 1:
+      case 0:
         setFoundMatch(Set_1);
         break;
+      case 1:
+        setFoundMatch(Set_2);
+        break;
       default:
-        setFoundMatch(Set_1);
+        setFoundMatch(null);
         break;
     }
   };

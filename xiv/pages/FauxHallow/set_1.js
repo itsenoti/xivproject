@@ -12,63 +12,35 @@ export default function Set_1() {
   return (
     <>
       <div className={style.fauxGridContainerRow}>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"330440331010410022000052001022400001"} />
-        </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"000440001010413322003352001022400001"} />
-        </div>
+        <FauxGrid disabledCells={"330440 331010 410022 000052 001022 400001"} />
+        <FauxGrid disabledCells={"000440 001010 413322 003352 001022 400001"} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"330000331410010224000250001220000441"} />
-        </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"000000001410010224330250331220000441"} />
-        </div>
+        <FauxGrid disabledCells={"330000 331410 010224 000250 001220 000441"} />
+        <FauxGrid disabledCells={"000000 001410 010224 330250 331220 000441"} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"330004331010010440004250001220000221"} />
-        </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"000004001010010440334250331220000221"} />
-        </div>
+        <FauxGrid disabledCells={"330004 331010 010440 004250 001220 000221"} />
+        <FauxGrid disabledCells={"000004 001010 010440 334250 331220 000221"} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"330004331010010440004252001222000001"} />
-        </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"000004001010010440004252331222330001"} />
-        </div>
+        <FauxGrid disabledCells={"330004 331010 010440 004252 001222 000001"} />
+        <FauxGrid disabledCells={"000004 001010 010440 004252 331222 330001"} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"334000331014012220002250001004004001"} />
-        </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"004000001014012220002250331004334001"} />
-        </div>
+        <FauxGrid disabledCells={"334000 331014 012220 002250 001004 004001"} />
+        <FauxGrid disabledCells={"004000 001014 012220 002250 331004 334001"} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"004000001014010000220050221334224331"} />
-        </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"004000001014010033220053221004224001"} />
-        </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"000000001410010004220053221033220441"} />
-        </div>
-        <div className={style.fauxGridContainer}>
-          <FauxGrid disabledCells={"000000001410013304223350221000220441"} />
-        </div>
+        <FauxGrid disabledCells={"004000 001014 010000 220050 221334 224331"} />
+        <FauxGrid disabledCells={"004000 001014 010033 220053 221004 224001"} />
+        <FauxGrid disabledCells={"000000 001410 010004 220053 221033 220441"} />
+        <FauxGrid disabledCells={"000000 001410 013304 223350 221000 220441"} />
       </div>
     </>
   );

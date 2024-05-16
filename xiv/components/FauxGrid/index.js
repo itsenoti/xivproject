@@ -1,5 +1,6 @@
 import style from "./FauxGrid.module.css";
 
+const NORMAL_CELL = "0";
 const DISABLED = "1";
 const SWORD = "2";
 const TREASURE_BOX = "3";
@@ -14,10 +15,12 @@ function FauxGrid({ disabledCells }) {
   // 5: Recommended
 
   var allCells = [];
-  var cellContent = "0";
+  var cleanBits = disabledCells;
+  cleanBits = cleanBits.replace(/\s/g, ""); // Remove space
+  var cellContent = NORMAL_CELL;
 
   for (let i = 0; i < 36; i++) {
-    switch (disabledCells[i]) {
+    switch (cleanBits[i]) {
       case DISABLED:
         cellContent = style.fauxGridDisabledCell;
         break;
@@ -40,7 +43,11 @@ function FauxGrid({ disabledCells }) {
 
     allCells.push(<div className={cellContent}></div>);
   }
-  return <div className={style.fauxGridRowContainer}>{allCells}</div>;
+  return (
+    <div className={style.fauxGridContainer}>
+      <div className={style.fauxGridRowContainer}>{allCells}</div>
+    </div>
+  );
 }
 
 export default FauxGrid;

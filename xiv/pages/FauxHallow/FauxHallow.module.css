@@ -7,8 +7,10 @@
   width: 5.7rem;
   height: 5.7rem;
   margin-right: 0.1rem;
+  margin-left: 0.1rem;
   margin-bottom: 0.3rem;
   float: left;
+  align-items: center;
 }
 
 .fauxGridContainerRow {

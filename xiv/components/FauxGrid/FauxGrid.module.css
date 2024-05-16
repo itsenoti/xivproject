@@ -2,7 +2,7 @@
   width: 0.85rem;
   height: 0.85rem;
   border: 0.5px solid rgb(75, 75, 75);
-  background-color: #bc9e7b;
+  background-color: #c7aa8c;
   float: left;
 }
 
@@ -27,7 +27,7 @@
   height: 0.85rem;
   border: 1px solid rgb(75, 75, 75);
   float: left;
-  background-color: #c8c07a;
+  background-color: #af4646;
 }
 
 .fauxGridSword {
@@ -44,4 +44,12 @@
   border: 1px solid rgb(75, 75, 75);
   float: left;
   background-color: greenyellow;
+}
+
+.fauxGridContainer {
+  width: 5.7rem;
+  height: 5.7rem;
+  margin-right: 0.1rem;
+  margin-bottom: 0.3rem;
+  float: left;
 }
