@@ -2,6 +2,7 @@
   width: 0.85rem;
   height: 0.85rem;
   border: 0.5px solid rgb(75, 75, 75);
+  background-color: #bc9e7b;
   float: left;
 }
 
@@ -9,7 +10,7 @@
   width: 0.85rem;
   height: 0.85rem;
   border: 1px solid rgb(75, 75, 75);
-  background-color: grey;
+  background-color: #5a4c3a;
   float: left;
 }
 
@@ -18,7 +19,7 @@
   height: 0.85rem;
   border: 1px solid rgb(75, 75, 75);
   float: left;
-  background-color: orange;
+  background-color: #cf9093;
 }
 
 .fauxGridFox {
@@ -26,7 +27,7 @@
   height: 0.85rem;
   border: 1px solid rgb(75, 75, 75);
   float: left;
-  background-color: magenta;
+  background-color: #c8c07a;
 }
 
 .fauxGridSword {
@@ -34,7 +35,7 @@
   height: 0.85rem;
   border: 1px solid rgb(75, 75, 75);
   float: left;
-  background-color: lightskyblue;
+  background-color: #8fa7bb;
 }
 
 .fauxGridRecommended {

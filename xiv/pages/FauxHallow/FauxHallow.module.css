@@ -1,11 +1,5 @@
-.fauxHallowCell{
-  margin: -0.4rem;
-}
-
 .printedContainer {
-  width: 252px;
-  align-items: center;
-  margin: 0;
+  width: 200px;
   margin: 0 auto;
 }
 
