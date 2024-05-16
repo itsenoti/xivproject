@@ -10,7 +10,7 @@ export default function Set_1() {
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={disabledCells} />
         </div>
-        <div className={style.fauxGridContainer}>
+        {/* <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={disabledCells} />
         </div>
         <div className={style.fauxGridContainer}>
@@ -30,7 +30,7 @@ export default function Set_1() {
         </div>
         <div className={style.fauxGridContainer}>
           <FauxGrid disabledCells={disabledCells} />
-        </div>
+        </div> */}
       </div>
     </>
   );
