@@ -64,6 +64,7 @@ function Home({ theme, setTheme }) {
         break;
       default:
         setFoundMatch(Set_1);
+        break;
     }
   };
 
