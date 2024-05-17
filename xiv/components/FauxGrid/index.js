@@ -1,3 +1,4 @@
+import PetsSharpIcon from "@mui/icons-material/PetsSharp";
 import style from "./FauxGrid.module.css";
 
 const NORMAL_CELL = "0";
@@ -41,7 +42,11 @@ function FauxGrid({ disabledCells }) {
         break;
     }
 
-    allCells.push(<div className={cellContent}></div>);
+    allCells.push(
+      <div className={cellContent}>
+        {cleanBits[i] == FOX ? <PetsSharpIcon sx={{ fontSize: "11px" }} /> : ""}
+      </div>
+    );
   }
   return (
     <div className={style.fauxGridContainer}>

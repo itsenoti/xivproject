@@ -1,3 +1,5 @@
+import DisabledByDefaultSharpIcon from "@mui/icons-material/DisabledByDefaultSharp";
+import SquareSharpIcon from "@mui/icons-material/SquareSharp";
 import { Button, Checkbox, Container } from "@mui/material";
 import React, { useState } from "react";
 import Header from "../../components/Header";
@@ -41,7 +43,15 @@ function Home({ theme, setTheme }) {
     var boxes = [];
     for (let i = 0; i < 36; i++) {
       boxes.push(
-        <Checkbox sx={{ margin: "-0.4rem" }} value={i} onClick={(e) => selectedCellHandler(e)} />
+        <Checkbox
+          sx={{ margin: "-0.4rem" }}
+          disableTouchRipple
+          disableRipple
+          icon={<SquareSharpIcon />}
+          checkedIcon={<DisabledByDefaultSharpIcon />}
+          value={i}
+          onClick={(e) => selectedCellHandler(e)}
+        />
       );
     }
     return <div className={style.printedContainer}>{boxes}</div>;
