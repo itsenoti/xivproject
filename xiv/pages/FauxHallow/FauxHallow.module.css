@@ -1,20 +1,16 @@
+/* Container of checkboxes */
 .printedContainer {
   width: 200px;
   margin: 0 auto;
 }
 
-.fauxGridContainer {
-  width: 5.7rem;
-  height: 5.7rem;
-  margin-right: 0.1rem;
-  margin-left: 0.1rem;
-  margin-bottom: 0.3rem;
-  float: left;
-  align-items: center;
-}
-
+/* Container for the entire row */
 .fauxGridContainerRow {
-  clear: both;
-  background-color: red;
+  display: flex;
+  flex-direction: row;
+  /* background-color: red; */
+  height: 100px;
   width: 100%;
+  gap: 5px;
+  margin-bottom: 5px;
 }

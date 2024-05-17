@@ -1,4 +1,5 @@
-import PetsSharpIcon from "@mui/icons-material/PetsSharp";
+import { Grid } from "@mui/material";
+import FauxHallowCell_Chest_1 from "../../pages/FauxHallow/FauxHallowCell_Chest_1";
 import style from "./FauxGrid.module.css";
 
 const NORMAL_CELL = "0";
@@ -7,6 +8,7 @@ const SWORD = "2";
 const TREASURE_BOX = "3";
 const FOX = "4";
 const RECOMMENDED = "5";
+const RECOMMENDED2 = "6";
 
 function FauxGrid({ disabledCells }) {
   // 1: Disabled
@@ -35,22 +37,34 @@ function FauxGrid({ disabledCells }) {
         cellContent = style.fauxGridFox;
         break;
       case RECOMMENDED:
+      case RECOMMENDED2:
         cellContent = style.fauxGridRecommended;
         break;
       default:
-        cellContent = style.fauxGridCell;
+        cellContent = disabledCells == "" ? style.fauxGridEmpty : style.fauxGridCellRegular;
         break;
     }
 
-    allCells.push(
-      <div className={cellContent}>
-        {cleanBits[i] == FOX ? <PetsSharpIcon sx={{ fontSize: "11px" }} /> : ""}
-      </div>
-    );
+    if (cleanBits[i] == FOX) {
+      // Return the fox's face
+      allCells.push(<FauxHallowCell_Chest_1 />);
+    } else {
+      // return an empty cell
+      allCells.push(
+        <>
+          <Grid item className={`${cellContent} ${style.fauxGridCell}`}>
+            &#8203;
+          </Grid>
+        </>
+      );
+    }
   }
   return (
     <div className={style.fauxGridContainer}>
-      <div className={style.fauxGridRowContainer}>{allCells}</div>
+      {/* <div className={style.fauxGridRowContainer}>{allCells}</div> */}
+      <Grid container rowSpacing={0} columnSpacing={0}>
+        {allCells}
+      </Grid>
     </div>
   );
 }

@@ -1,56 +1,49 @@
+/* Common Style for All Cells */
 .fauxGridCell {
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 0.5px solid rgb(75, 75, 75);
+  width: calc(100% / 6);
+  height: calc(100% / 6);
+  border: 0.5px solid lightgray;  
+}
+
+.fauxGridEmpty {
+  background-color: transparent;
+  border: 0; 
+}
+
+/* Regular Cell */
+.fauxGridCellRegular {
   background-color: #c7aa8c;
-  float: left;
 }
 
+/* Disabled Cell */
 .fauxGridDisabledCell {
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 1px solid rgb(75, 75, 75);
   background-color: #5a4c3a;
-  float: left;
 }
 
+/* Treasure Box Cell */
 .fauxGridTreasureBox {
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 1px solid rgb(75, 75, 75);
-  float: left;
   background-color: #cf9093;
 }
 
+/* Fox Cell */
 .fauxGridFox {
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 1px solid rgb(75, 75, 75);
-  float: left;
   background-color: #af4646;
-  font-size: 8px;
 }
 
+/* Sword Cell */
 .fauxGridSword {
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 1px solid rgb(75, 75, 75);
-  float: left;
   background-color: #8fa7bb;
 }
 
+/* Recommended Cell */
 .fauxGridRecommended {
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 1px solid rgb(75, 75, 75);
-  float: left;
   background-color: greenyellow;
 }
 
+/* Box that holds 1 6x6 square */
 .fauxGridContainer {
-  width: 5.7rem;
-  height: 5.7rem;
-  margin-right: 0.1rem;
-  margin-bottom: 0.3rem;
-  float: left;
+  display: flex;
+  flex-direction: row;
+  width: calc( ( 100% - 15px ) );
+  height: inherit;
 }
