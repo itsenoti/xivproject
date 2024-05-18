@@ -11,9 +11,7 @@ function FauxHallowCell_Fox({ contentStyle = null, iconPart = null }) {
         item
         className={`${style.fauxGridCell}`}
         sx={{ background: `url(${imgPath})`, backgroundSize: `contain` }}
-      >
-        {/* <Image src={imgPath} width={ICON_SIZE} height={ICON_SIZE} alt="Fox Icon" /> */}
-      </Grid>
+      ></Grid>
     </>
   );
 }

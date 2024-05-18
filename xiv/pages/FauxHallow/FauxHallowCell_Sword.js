@@ -43,14 +43,7 @@ const Sword_Print = (src) => {
         item
         className={`${style.fauxGridCell}`}
         sx={{ background: `url(${imgPath})`, backgroundSize: `contain` }}
-      >
-        {/* <Image
-          src={"/icons/FauxHallows/FauxHallow_Sword_" + src + ".png"}
-          width={ICON_SIZE}
-          height={ICON_SIZE}
-          alt="Sword Icon"
-        /> */}
-      </Grid>
+      ></Grid>
     </>
   );
 };

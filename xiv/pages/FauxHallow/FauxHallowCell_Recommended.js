@@ -27,9 +27,7 @@ const Recommended_Print = (src) => {
         item
         className={`${style.fauxGridCell}`}
         sx={{ background: `url(${imgPath})`, backgroundSize: `contain` }}
-      >
-        {/* <Image src={imgPath} width={ICON_SIZE} height={ICON_SIZE} alt="Recommended Icon" /> */}
-      </Grid>
+      ></Grid>
     </>
   );
 };

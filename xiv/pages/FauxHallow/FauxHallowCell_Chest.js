@@ -27,9 +27,7 @@ const TreasureChest_Print = (src) => {
         item
         className={`${style.fauxGridCell}`}
         sx={{ background: `url(${imgPath})`, backgroundSize: `contain` }}
-      >
-        {/* <Image src={imgPath} width={ICON_SIZE} height={ICON_SIZE} alt="Chest Icon" /> */}
-      </Grid>
+      ></Grid>
     </>
   );
 };
