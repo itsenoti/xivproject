@@ -2,55 +2,48 @@ import FauxGrid from "../../components/FauxGrid";
 import style from "./FauxHallow.module.css";
 
 export default function Set_1() {
-  // 1: Disabled
-  // 2: Sword
-  // 3: Treasure Box
-  // 4: Fox
-  // 5: Recommended
-  // const coloredCells = "000000 001010 010000 000050 001000 000001";
-
   return (
     <>
       <div className={style.fauxGridContainerRow}>
-        <FauxGrid disabledCells={"330440 331010 410022 000052 001022 400001"} />
-        <FauxGrid disabledCells={"000440 001010 413322 003352 001022 400001"} />
+        <FauxGrid disabledCells={"MN0QQ0 OP1010 Q100AB 0000RD 0010EF Q00001"} />
+        <FauxGrid disabledCells={"000QQ0 001010 Q1MNAB 00OPRD 0010EF Q00001"} />
         <FauxGrid disabledCells={""} />
         <FauxGrid disabledCells={""} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <FauxGrid disabledCells={"330000 331410 010224 000250 001220 000441"} />
-        <FauxGrid disabledCells={"000000 001410 010224 330250 331220 000441"} />
+        <FauxGrid disabledCells={"MN0000 OP1Q10 010ABQ 000CR0 001EF0 000QQ1"} />
+        <FauxGrid disabledCells={"000000 001Q10 010ABQ MN0CR0 OP1EF0 000QQ1"} />
         <FauxGrid disabledCells={""} />
         <FauxGrid disabledCells={""} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <FauxGrid disabledCells={"330004 331010 010440 004250 001220 000221"} />
-        <FauxGrid disabledCells={"000004 001010 010440 334250 331220 000221"} />
+        <FauxGrid disabledCells={"MN000Q OP1010 010QQ0 00QAR0 001CD0 000EF1"} />
+        <FauxGrid disabledCells={"00000Q 001010 010QQ0 MNQAR0 OP1CD0 000EF1"} />
         <FauxGrid disabledCells={""} />
         <FauxGrid disabledCells={""} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <FauxGrid disabledCells={"330004 331010 010440 004252 001222 000001"} />
-        <FauxGrid disabledCells={"000004 001010 010440 004252 331222 330001"} />
+        <FauxGrid disabledCells={"MN000Q OP1010 010QQ0 00QGRI 001JKL 000001"} />
+        <FauxGrid disabledCells={"00000Q 001010 010QQ0 00QGRI MN1JKL OP0001"} />
         <FauxGrid disabledCells={""} />
         <FauxGrid disabledCells={""} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <FauxGrid disabledCells={"334000 331014 012220 002250 001004 004001"} />
-        <FauxGrid disabledCells={"004000 001014 012220 002250 331004 334001"} />
+        <FauxGrid disabledCells={"MNQ000 OP101Q 01GHI0 00JKR0 00100Q 00Q001"} />
+        <FauxGrid disabledCells={"00Q000 00101Q 01GHI0 00JKR0 MN100Q OPQ001"} />
         <FauxGrid disabledCells={""} />
         <FauxGrid disabledCells={""} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <FauxGrid disabledCells={"004000 001014 010000 220050 221334 224331"} />
-        <FauxGrid disabledCells={"004000 001014 010033 220053 221004 224001"} />
-        <FauxGrid disabledCells={"000000 001410 010004 220053 221033 220441"} />
-        <FauxGrid disabledCells={"000000 001410 013304 223350 221000 220441"} />
+        <FauxGrid disabledCells={"00Q000 00101Q 010000 AB00S0 CD1MNQ EFQOP1"} />
+        <FauxGrid disabledCells={"00Q000 00101Q 0100MN AB00SP CD100Q EFQ001"} />
+        <FauxGrid disabledCells={"000000 001Q10 01000Q AB00SN CD10OP EF0QQ1"} />
+        <FauxGrid disabledCells={"000000 001Q10 01MN0Q ABOPS0 CD1000 EF0QQ1"} />
       </div>
     </>
   );

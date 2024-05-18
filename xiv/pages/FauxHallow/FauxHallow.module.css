@@ -14,3 +14,45 @@
   gap: 5px;
   margin-bottom: 5px;
 }
+
+.fauxGridCell {
+  width: calc(100% / 6);
+  height: calc(100% / 6);
+  border: 0.5px solid lightgray;  
+}
+
+/* Empty Cell */
+.fauxGridEmpty {
+  background-color: transparent;
+  border: 0; 
+}
+
+/* Disabled Cell */
+.fauxGridDisabledCell {
+  background-color: #5a4c3a;
+}
+
+/* Regular Cell */
+.fauxGridCellRegular {
+  background-color: #c7aa8c;
+}
+
+/* Treasure Box Cell */
+.fauxGridTreasureBox {
+  background-color: #cf9093;
+}
+
+/* Fox Cell */
+.fauxGridFox {
+  background-color: #af4646;
+}
+
+/* Sword Cell */
+.fauxGridSword {
+  background-color: #8fa7bb;
+}
+
+/* Recommended Cell */
+.fauxGridRecommended {
+  background-color: greenyellow;
+}
