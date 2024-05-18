@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import Image from "next/image";
 import * as GLOBAL from "../globals";
 import style from "./FauxHallow.module.css";
 
@@ -37,15 +36,20 @@ function FauxHallowCell_Sword({ contentStyle = null, iconPart }) {
 }
 
 const Sword_Print = (src) => {
+  var imgPath = `/icons/FauxHallows/FauxHallow_Sword_${src}.png`;
   return (
     <>
-      <Grid item className={`${style.fauxGridCell}`}>
-        <Image
+      <Grid
+        item
+        className={`${style.fauxGridCell}`}
+        sx={{ background: `url(${imgPath})`, backgroundSize: `contain` }}
+      >
+        {/* <Image
           src={"/icons/FauxHallows/FauxHallow_Sword_" + src + ".png"}
           width={ICON_SIZE}
           height={ICON_SIZE}
           alt="Sword Icon"
-        />
+        /> */}
       </Grid>
     </>
   );

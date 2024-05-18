@@ -21,10 +21,10 @@
   border: 1px solid white;
 }
 
-.fauxGridCell > img {
+/* .fauxGridCell > img {
   width: 100%;
   height: 100%;
-}
+} */
 
 /* Empty Cell */
 .fauxGridEmpty {

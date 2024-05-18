@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material";
-import Image from "next/image";
 import * as GLOBAL from "../globals";
 import style from "./FauxHallow.module.css";
 
@@ -24,8 +23,12 @@ const Recommended_Print = (src) => {
   var imgPath = `/icons/FauxHallows/FauxHallow_Recommended_${src}.png`;
   return (
     <>
-      <Grid item className={`${style.fauxGridCell}`}>
-        <Image src={imgPath} width={ICON_SIZE} height={ICON_SIZE} alt="Recommended Icon" />
+      <Grid
+        item
+        className={`${style.fauxGridCell}`}
+        sx={{ background: `url(${imgPath})`, backgroundSize: `contain` }}
+      >
+        {/* <Image src={imgPath} width={ICON_SIZE} height={ICON_SIZE} alt="Recommended Icon" /> */}
       </Grid>
     </>
   );
