@@ -32,7 +32,7 @@ function FauxHallowCell_Sword({ contentStyle = null, iconPart }) {
     case GLOBAL.FauxHallow_Cell.SWORD_H_6:
       return Sword_Print("H_6");
     default:
-      return TreasureChest_01();
+      return Sword_Print("H_1");
   }
 }
 
