@@ -46,5 +46,13 @@
   flex-direction: row;
   width: calc( ( 100% - 15px ) );
   height: inherit;
-  border: 2px solid white;
+  /* border: 2px solid white; */
+}
+
+.fauxGridCellEmpty {
+  display: flex;
+  flex-direction: row;
+  width: calc( ( 100% - 15px ) );
+  height: inherit;
+  border: 0;
 }

@@ -2,7 +2,7 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2024-05-16 11:35:25
  * @ Modified by: F.Villanueva
- * @ Modified time: 2024-05-18 14:07:08
+ * @ Modified time: 2024-05-19 02:09:50
  * @ Description:
  */
 
@@ -23,6 +23,8 @@ function FauxGrid({ disabledCells }) {
   var cleanBits = RemoveSpacesFromString(disabledCells);
 
   var cellContent = style.fauxGridCellRegular;
+
+  var cellEmpty = style.fauxGridCellEmpty;
 
   if (disabledCells == "") {
     allCells.push(<FauxHallowCell_Empty iconPart={GLOBAL.FauxHallow_Cell.DISABLED} />);
