@@ -2,7 +2,7 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2024-06-15 18:06:47
  * @ Modified by: F.Villanueva
- * @ Modified time: 2024-06-17 15:17:59
+ * @ Modified time: 2024-06-17 15:20:36
  * @ Description:
  */
 
@@ -14,13 +14,13 @@ import { ZoneNames } from "./Zones";
 export default function Gather(props) {
   const [result, setResult] = useState(null);
 
-  if (!props.keyword) return;
-
   useEffect(() => {
     getItemSpawnDetailsByName(props.keyword).then((res) => {
       setResult(res);
     });
   }, [props.keyword]);
+
+  if (!props.keyword) return;
 
   async function getItemSpawnDetailsByName(name) {
     var id = 0;
