@@ -2,7 +2,7 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2024-06-15 18:06:47
  * @ Modified by: F.Villanueva
- * @ Modified time: 2024-06-17 15:14:09
+ * @ Modified time: 2024-06-17 15:17:59
  * @ Description:
  */
 
@@ -20,7 +20,7 @@ export default function Gather(props) {
     getItemSpawnDetailsByName(props.keyword).then((res) => {
       setResult(res);
     });
-  }, []);
+  }, [props.keyword]);
 
   async function getItemSpawnDetailsByName(name) {
     var id = 0;
