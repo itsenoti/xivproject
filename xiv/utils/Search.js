@@ -1,4 +1,4 @@
-export async function searchItemByKeyword(keyword) {
+export default async function searchItemByKeyword(keyword) {
   if (keyword === null) throw "Invalid keyword.";
 
   let item = {
