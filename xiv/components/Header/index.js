@@ -14,7 +14,6 @@ function Header() {
         />
         <meta name="robots" content="noindex"></meta>
         <link rel="icon" href="/063922_hr1.png" />
-        {/* <link href="./styles/globals.css" rel="stylesheet"></link> */}
       </Head>
     </>
   );

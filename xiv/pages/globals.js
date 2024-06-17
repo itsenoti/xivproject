@@ -38,6 +38,17 @@ export const FauxHallow_Cell = {
   RECOM_4: "U",
 };
 
+export const JOBS = {
+  ALC: "ALC",
+  CUL: "CUL",
+};
+
+// Icons
+export const LOGGING = "/icons/Gathering/060433_hr1.png";
+export const HARVESTING = "/icons/Gathering/060432_hr1.png";
+export const MINING = "/icons/Gathering/060438_hr1.png";
+export const QUARRYING = "/icons/Gathering/060437_hr1.png";
+
 function Globals() {
   return <></>;
 }

@@ -1,6 +1,6 @@
 // import { ThemeProvider } from "next-themes";
 
-import CssBaseline from "@mui/material/CssBaseline";
+import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme, useTheme } from "@mui/material/styles";
 import "animate.css";
 import { createContext, useContext } from "react";

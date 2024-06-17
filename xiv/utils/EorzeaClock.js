@@ -2,7 +2,7 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2023-09-18 10:36:04
  * @ Modified by: F.Villanueva
- * @ Modified time: 2023-10-08 09:41:37
+ * @ Modified time: 2024-06-17 12:45:41
  * @ Description:
  */
 
@@ -259,4 +259,28 @@ export function computeRemainingTime(zoneObj, currentTimeDate) {
 export const computeRelativeTime = (futureTime) => {
   dayjs.extend(relativeTime);
   return dayjs(futureTime).fromNow(true);
+};
+
+/**
+ * Converts given ET to Earth Time
+ * @param {string} Eorzean time  in xx:00 format
+ */
+export const convertETToLT = (ETTime) => {};
+
+/**
+ * Convert Earth time to Eorzea time
+ * @param {*} string Local time (Earth time) in new Date() format
+ */
+export const convertLTToET = (LTTime) => {};
+
+/**
+ * Get the current time in-game
+ */
+export const getCurrentETTime = () => {
+  var newtime = EPOCH * E_CONSTANT;
+
+  var hour = Math.floor((newtime / 3600) % 24);
+  var minute = Math.floor((newtime / 60) % 60);
+
+  return `${formatTime(hour)}:${formatTime(minute)}`;
 };

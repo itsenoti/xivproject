@@ -1,4 +1,5 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Box, Toolbar } from "@mui/material";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -36,7 +37,7 @@ function Navigation() {
 
   return (
     <>
-      <AppBar position="fixed" sx={{}}>
+      <AppBar position="sticky">
         {/* The navigation header */}
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Image
@@ -48,9 +49,7 @@ function Navigation() {
             unoptimized
             priority
           />
-          <Typography sx={{ fontWeight: "" }} onClick={MenuItemClicked}>
-            Menu
-          </Typography>
+          <MenuIcon onClick={MenuItemClicked} />
         </Toolbar>
 
         {/* The menu items */}
@@ -59,11 +58,10 @@ function Navigation() {
             <NavItem page="" />
             <NavItem page="FauxHallow" />
             <NavItem page="Eureka" />
-            <NavItem page="Gathering" />
-            <NavItem page="Crafting" />
-            {/* <NavItem page="pvp" /> */}
-            <NavItem page="G15" />
-            {/* <NavItem page="FelicitousFavors" /> */}
+            <NavItem page="Resources" />
+            {/* <NavItem page="Gathering" /> */}
+            {/* <NavItem page="Crafting" /> */}
+            {/* <NavItem page="G15" /> */}
           </Box>
         )}
       </AppBar>
