@@ -1,4 +1,9 @@
-const ZoneNames = [
+export default function Zone_()
+{
+  return(<></>);
+}
+
+export const ZoneNames = [
   { id: 0, zoneName: "		" },
   { id: 1, zoneName: "		" },
   { id: 2, zoneName: "		" },
@@ -4496,4 +4501,3 @@ const ZoneNames = [
   { id: 4494, zoneName: "		" },
 ];
 
-export default ZoneNames;

@@ -2,14 +2,14 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2024-06-15 18:06:47
  * @ Modified by: F.Villanueva
- * @ Modified time: 2024-06-17 15:49:53
+ * @ Modified time: 2024-06-17 20:08:48
  * @ Description:
  */
 
 import * as gtools from "garlandtools-api";
 import { useEffect, useState } from "react";
 import * as style from "./Resources.module.css";
-import ZoneNames from "./Zones";
+import { ZoneNames } from "./Zones";
 
 export default function Gather(props) {
   const [result, setResult] = useState(null);
