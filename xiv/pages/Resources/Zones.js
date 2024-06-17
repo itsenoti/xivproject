@@ -4495,3 +4495,5 @@ export const ZoneNames = [
   { id: 4493, zoneName: "		" },
   { id: 4494, zoneName: "		" },
 ];
+
+export default ZoneNames;
