@@ -1,4 +1,4 @@
-export const ZoneNames = [
+const ZoneNames = [
   { id: 0, zoneName: "		" },
   { id: 1, zoneName: "		" },
   { id: 2, zoneName: "		" },
