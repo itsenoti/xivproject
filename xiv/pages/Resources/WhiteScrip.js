@@ -23,8 +23,12 @@ function WhiteScrip() {
         Body={
           <>
             <Gather keyword="Rarefied Eblan Alumen" />
-            <Gather keyword="Ghostly Umbral Rock" />
-            <Gather keyword="Dark Matter Cluster" />
+            <Gather keyword="Rarefied Annite " />
+            <Gather keyword="Rarefied Eblan Alumen " />
+            <Gather keyword="Rarefied Iceberg Lettuce " />
+            <Gather keyword="Rarefied AR-Caean Cotton Boll " />
+            <Gather keyword="Rarefied Elder Nutmeg " />
+            <Gather keyword="Rarefied Raw Ametrine " />
           </>
         }
         Handler={handleChange}

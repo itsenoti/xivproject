@@ -2,7 +2,19 @@
   margin-bottom: 0.5em;
 }
 
-.itemDetails {
-  padding-left: 1em;
-  font-size: 13px;
+.itemInfoRow {
+  display: flex;
+}
+
+.itemDetailsLocation {
+  font-size: 12px;
+  width: 70%;
+}
+
+.itemDetailsTime {
+  padding-left: 0em;
+  font-size: 12px;
+  width: 30%;
+  text-align: right;
+  font-family: 'Courier New', Courier, monospace;
 }

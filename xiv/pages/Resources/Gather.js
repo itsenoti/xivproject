@@ -2,11 +2,12 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2024-06-15 18:06:47
  * @ Modified by: F.Villanueva
- * @ Modified time: 2024-06-17 20:08:48
+ * @ Modified time: 2024-06-18 00:45:49
  * @ Description:
  */
 
 import * as gtools from "garlandtools-api";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import * as style from "./Resources.module.css";
 import { ZoneNames } from "./Zones";
@@ -51,133 +52,119 @@ export default function Gather(props) {
     return { id, details, coordinates };
   }
 
-  // console.log(result);
-
-  var node1 = { x: 0, y: 0, zone: "", time1: 0, time2: 0 };
-  var node2 = { x: 0, y: 0, zone: "", time1: 0, time2: 0 };
-  var node3 = { x: 0, y: 0, zone: "", time1: 0, time2: 0 };
-  var node4 = { x: 0, y: 0, zone: "", time1: 0, time2: 0 };
-  var node5 = { x: 0, y: 0, zone: "", time1: 0, time2: 0 };
+  var nodes = [];
   var isMultiNodal = false;
+  var numberOfNodes = 0;
 
   if (result !== null) {
+    // Items with more than 1 nodes
     if (typeof result.coordinates[0] !== "undefined" && result.coordinates[0] !== null) {
       // if property coordinates[0] exists, set isMultiNodal to true.
       isMultiNodal = true;
-      node1 = {
-        x: result.coordinates[0].node.coords[0],
-        y: result.coordinates[0].node.coords[1],
-        zone: ZoneNames[result.coordinates[0].node.zoneid].zoneName,
-        time1: result.coordinates[0].node.time[0]
-          ? `${result.coordinates[0].node.time[0]}:00`
-          : "-",
-        time2: result.coordinates[0].node.time[1]
-          ? `${result.coordinates[0].node.time[1]}:00`
-          : "-",
-      };
+      numberOfNodes = Object.keys(result.coordinates).length;
+
+      for (let index = 0; index < numberOfNodes; index++) {
+        nodes[index] = {
+          x: addPadding(result.coordinates[index].node.coords[0]),
+          y: addPadding(result.coordinates[index].node.coords[1]),
+          type: result.coordinates[index].node.type,
+          zone: ZoneNames[result.coordinates[index].node.zoneid].zoneName,
+          time1: result.coordinates[index].node.time[0]
+            ? `${result.coordinates[index].node.time[0].toString().padStart(2, "0")}:00`
+            : "",
+          time2: result.coordinates[index].node.time[1]
+            ? `${result.coordinates[index].node.time[1].toString().padStart(2, "0")}:00`
+            : "",
+        };
+      }
     } else {
+      //  Items with only 1 node (usually these are the time-limited items)
       if (typeof result.coordinates !== "undefined" && result.coordinates !== null) {
         // if property coordinates[0] exists, set isMultiNodal to true.
         isMultiNodal = false;
-        node1 = {
-          x: result.coordinates?.node.coords[0],
-          y: result.coordinates?.node.coords[1],
+        nodes[0] = {
+          x: addPadding(result.coordinates?.node.coords[0]),
+          y: addPadding(result.coordinates?.node.coords[1]),
+          type: result.coordinates.node.type,
           zone: ZoneNames[result.coordinates.node.zoneid].zoneName,
-          time1: result.coordinates.node.time[0] ? `${result.coordinates.node.time[0]}:00` : "-",
-          time2: result.coordinates.node.time[1] ? `${result.coordinates.node.time[1]}:00` : "-",
+          time1: result.coordinates.node.time[0]
+            ? `${result.coordinates.node.time[0].toString().padStart(2, "0")}:00`
+            : "",
+          time2: result.coordinates.node.time[1]
+            ? `${result.coordinates.node.time[1].toString().padStart(2, "0")}:00`
+            : "",
         };
       }
-    }
-
-    if (typeof result.coordinates[1] !== "undefined" && result.coordinates[1] !== null) {
-      // if property coordinates[0] exists, set isMultiNodal to true.
-      isMultiNodal = true;
-      node2 = {
-        x: result.coordinates[1].node.coords[0],
-        y: result.coordinates[1].node.coords[1],
-        zone: ZoneNames[result.coordinates[1].node.zoneid].zoneName,
-        time1: result.coordinates[1].node.time[0]
-          ? `${result.coordinates[1].node.time[0]}:00`
-          : "-",
-        time2: result.coordinates[1].node.time[1]
-          ? `${result.coordinates[1].node.time[1]}:00`
-          : "-",
-      };
-    }
-
-    if (typeof result.coordinates[2] !== "undefined" && result.coordinates[2] !== null) {
-      // if property coordinates[0] exists, set isMultiNodal to true.
-      isMultiNodal = true;
-      node3 = {
-        x: result.coordinates[2].node.coords[0],
-        y: result.coordinates[2].node.coords[1],
-        zone: ZoneNames[result.coordinates[2].node.zoneid].zoneName,
-        time1: result.coordinates[2].node.time[0]
-          ? `${result.coordinates[2].node.time[0]}:00`
-          : "-",
-        time2: result.coordinates[2].node.time[1]
-          ? `${result.coordinates[2].node.time[1]}:00`
-          : "-",
-      };
-    }
-
-    if (typeof result.coordinates[3] !== "undefined" && result.coordinates[3] !== null) {
-      // if property coordinates[0] exists, set isMultiNodal to true.
-      isMultiNodal = true;
-      node4 = {
-        x: result.coordinates[3].node.coords[0],
-        y: result.coordinates[3].node.coords[1],
-        zone: ZoneNames[result.coordinates[3].node.zoneid].zoneName,
-        time1: result.coordinates[3].node.time[0]
-          ? `${result.coordinates[3].node.time[0]}:00`
-          : "-",
-        time2: result.coordinates[3].node.time[1]
-          ? `${result.coordinates[3].node.time[1]}:00`
-          : "-",
-      };
-    }
-
-    if (typeof result.coordinates[4] !== "undefined" && result.coordinates[4] !== null) {
-      // if property coordinates[0] exists, set isMultiNodal to true.
-      isMultiNodal = true;
-      node5 = {
-        x: result.coordinates[4].node.coords[0],
-        y: result.coordinates[4].node.coords[1],
-        zone: ZoneNames[result.coordinates[4].node.zoneid].zoneName,
-        time1: result.coordinates[4].node.time[0]
-          ? `${result.coordinates[4].node.time[0]}:00`
-          : "-",
-        time2: result.coordinates[4].node.time[1]
-          ? `${result.coordinates[4].node.time[1]}:00`
-          : "-",
-      };
     }
   }
 
   return (
     <>
       <div className={style.row}>
-        <div>▶ {result?.details.item.name}</div>
-        <div className={style.itemDetails}>
-          📍{node1.zone}({node1.x}, {node1.y})
+        <div>
+          {result?.details.item.name}{" "}
+          <Image
+            src={`${Types[nodes[0]?.type] ?? Types[0]}`}
+            width={20}
+            height={20}
+            alt="type"
+            style={{ marginBottom: -5 }}
+          />
         </div>
-        <div className={style.itemDetails}>
-          🕒 {node1.time1}, {node1.time2}
-        </div>
+        {(() => {
+          const _rows = [];
+          if (numberOfNodes > 1) {
+            for (let ind = 0; ind < numberOfNodes; ind++) {
+              _rows.push(
+                <>
+                  <div className={style.itemInfoRow}>
+                    <div className={style.itemDetailsLocation} key={Math.random()}>
+                      {nodes[ind].zone}({nodes[ind].x}, {nodes[ind].y})
+                    </div>
+                    <div className={style.itemDetailsTime}>
+                      {nodes[ind].time1}
+                      {nodes[ind].time1 && ", "}
+                      {nodes[ind].time2}
+                    </div>
+                  </div>
+                </>
+              );
+            }
+          } else {
+            _rows.push(
+              <>
+                <div className={style.itemInfoRow}>
+                  <div className={style.itemDetailsLocation} key={Math.random()}>
+                    {nodes[0]?.zone}({nodes[0]?.x}, {nodes[0]?.y})
+                  </div>
+                  <div className={style.itemDetailsTime}>
+                    {nodes[0]?.time1}
+                    {nodes[0]?.time1 && ", "}
+                    {nodes[0]?.time2}
+                  </div>
+                </div>
+              </>
+            );
+          }
+          return _rows;
+        })()}
       </div>
-      {isMultiNodal && (
-        <>
-          <div className={style.itemDetails}>
-            📍 {node2.zone}({node2.x}, {node2.y})
-          </div>
-          <div className={style.itemDetails}>
-            🕒 {node2.time1}, {node2.time2}
-          </div>
-        </>
-      )}
     </>
   );
 }
+
+function addPadding(num) {
+  if (!num && num !== null) return;
+  let _temp = String(num).split(".");
+  return `${_temp[0].padStart(2, "0")}.${_temp[1].padEnd(2, "0")}`;
+}
+
+const Types = [
+  "/icons/Gathering/060438_hr1.png",
+  "/icons/Gathering/060437_hr1.png",
+  "/icons/Gathering/060433_hr1.png",
+  "/icons/Gathering/060432_hr1.png",
+];
 
 async function getItemId(name) {
   if (!name) return;
@@ -192,7 +179,7 @@ async function getItemId(name) {
 }
 
 async function getItemDetails(id) {
-  if (!id || id == null || id == undefined) return;
+  if (!id || id === null || id === undefined) return;
 
   try {
     let result = await gtools.item(id);
