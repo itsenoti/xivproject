@@ -1,7 +1,9 @@
 .row {
   margin-bottom: 0.5em;
 }
-
+.itemTitle {
+  font-size: 13px;
+}
 .itemInfoRow {
   display: flex;
 }
@@ -16,5 +18,5 @@
   font-size: 12px;
   width: 30%;
   text-align: right;
-  font-family: 'Courier New', Courier, monospace;
+  /* font-family: 'Courier New', Courier, monospace; */
 }

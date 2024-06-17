@@ -2,7 +2,7 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2024-06-15 18:06:47
  * @ Modified by: F.Villanueva
- * @ Modified time: 2024-06-18 00:45:49
+ * @ Modified time: 2024-06-18 00:50:18
  * @ Description:
  */
 
@@ -101,7 +101,7 @@ export default function Gather(props) {
   return (
     <>
       <div className={style.row}>
-        <div>
+        <div className={style.itemTitle}>
           {result?.details.item.name}{" "}
           <Image
             src={`${Types[nodes[0]?.type] ?? Types[0]}`}
