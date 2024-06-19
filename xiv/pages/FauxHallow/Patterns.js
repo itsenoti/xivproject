@@ -2,12 +2,12 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2024-05-19 17:05:12
  * @ Modified by: F.Villanueva
- * @ Modified time: 2024-05-19 17:47:39
+ * @ Modified time: 2024-06-20 00:45:10
  * @ Description:
  */
 
 import FauxGrid from "../../components/FauxGrid";
-import sets from "../../model/FauxHallows/sets.json";
+import sets from "../../pages/model/FauxHallows/sets.json";
 import style from "./FauxHallow.module.css";
 
 export default function Patterns({ set }) {

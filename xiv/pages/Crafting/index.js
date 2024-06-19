@@ -2,8 +2,8 @@ import { Button, Container, TextField } from "@mui/material";
 import { useState } from "react";
 import Header from "../../components/Header";
 import Navigation from "../../components/Navigation/";
-import en_text from "../../model/lang/en.json";
-import ja_text from "../../model/lang/ja.json";
+import en_text from "../../pages/model/lang/en.json";
+import ja_text from "../../pages/model/lang/ja.json";
 
 const LANG = "en";
 var TXT = "";
