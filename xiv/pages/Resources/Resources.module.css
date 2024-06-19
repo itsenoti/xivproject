@@ -9,8 +9,12 @@
 }
 
 .itemDetailsLocation {
-  font-size: 12px;
+  font-size: 11px;
   width: 70%;
+}
+
+.itemDetailsLocation::before {
+  content: '';
 }
 
 .itemDetailsTime {
@@ -18,5 +22,22 @@
   font-size: 12px;
   width: 30%;
   text-align: right;
-  /* font-family: 'Courier New', Courier, monospace; */
+}
+
+
+.midCraftContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.midCraft {
+  padding-left: 0px;
+}
+
+.midCraft::before {
+  content: '▪ ';
+}
+
+.rawMaterial {
+  padding-left: 55px;
+
 }

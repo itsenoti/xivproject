@@ -37,3 +37,8 @@
   src: url('../public/fonts/NotoSansJapanese/NotoSansJP-VariableFont_wght.ttf');
   /* src: url('../asset/OpenSans/OpenSans-Medium.ttf'); */
 }
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../public/fonts/Poppins/Poppins-Regular.ttf');
+}

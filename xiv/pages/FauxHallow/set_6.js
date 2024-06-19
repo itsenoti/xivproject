@@ -40,15 +40,15 @@ export default function Set_6() {
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <FauxGrid disabledCells={""} />
-        <FauxGrid disabledCells={""} />
-        <FauxGrid disabledCells={""} />
-        <FauxGrid disabledCells={""} />
+        <FauxGrid disabledCells={"GHI0MN JKL1OP 10QQ00 001001 00Q1Q0 000000"} />
+        <FauxGrid disabledCells={"GHI000 JKL100 10QQ00 001001 MNQ1Q0 OP0000"} />
+        <FauxGrid disabledCells={"GHIQ00 JKL100 100MNQ 001OP1 000100 Q0000Q"} />
+        <FauxGrid disabledCells={"GHIQ00 JKL100 10000Q 001001 0MN100 QOP00Q"} />
       </div>
 
       <div className={style.fauxGridContainerRow}>
-        <FauxGrid disabledCells={""} />
-        <FauxGrid disabledCells={""} />
+        <FauxGrid disabledCells={"0ABQMN 0CD1OP 1EF00Q 001001 000100 Q0000Q"} />
+        <FauxGrid disabledCells={"0ABQ00 0CD100 1EF00Q MN1001 OP0100 Q0000Q"} />
         <FauxGrid disabledCells={""} />
         <FauxGrid disabledCells={""} />
       </div>

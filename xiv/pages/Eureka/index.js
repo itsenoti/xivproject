@@ -9,6 +9,9 @@ import {
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import { useEffect, useState } from "react";
+
+import Title from "../../components/Title";
+
 import Header from "../../components/Header";
 import Navigation from "../../components/Navigation";
 import EUREKA from "../api/foray.json";
@@ -17,6 +20,7 @@ import {
   getHourWeatherChanges,
   getWeatherByZone,
 } from "../api/utilities";
+
 import styles from "./Eureka.module.css";
 
 import * as dayjs from "dayjs";
@@ -53,8 +57,6 @@ function Eureka_() {
   var PagosSpawn = ["Copycat Cassie", "King Arthro"];
   var PyrosSpawn = ["Penthesilea"];
   var HydatosSpawn = ["Sprite (Logos Farming)", "Sprite (Logos Farming)"];
-
-  var weather2Track = "";
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -147,8 +149,8 @@ function Eureka_() {
   const output = (zone) => {
     return (
       <>
-        <Box className={styles.zoneForecast} elevation={1}>
-          <h2 className={styles.headerText}>{zone}</h2>
+        <Box className={styles.zoneForecast}>
+          <Title text={zone} />
           <List className={styles.list}>
             {(() => {
               const rows = [];
@@ -172,12 +174,8 @@ function Eureka_() {
                         ></Avatar>
                       </ListItemAvatar>
                       <ListItemText
-                        disableTypography
                         primary={
-                          <Typography
-                            variant="body2"
-                            style={{ fontSize: "0.8rem", marginLeft: "-1rem" }}
-                          >
+                          <Typography style={{ fontSize: "0.8rem", marginLeft: "-1rem" }}>
                             {zone === EUREKA.Zones.Anemos
                               ? AnemosSpawn[i]
                               : zone === EUREKA.Zones.Pagos
@@ -188,11 +186,9 @@ function Eureka_() {
                           </Typography>
                         }
                       />
-                      {/* <Card className={styles.timeCard}> */}
                       <span className="italic">
                         {mb_getWeatherForecast(zone, m_weatherList[i])}
-                      </span>{" "}
-                      {/* </Card> */}
+                      </span>
                     </ListItem>
                   );
                 }
@@ -210,12 +206,12 @@ function Eureka_() {
       <Header />
       <Navigation />
       <Container className={styles.container}>
-        <Box component="div" className={styles.ContainerBox}>
-          {output(EUREKA.Zones.Anemos)}
-          {output(EUREKA.Zones.Pagos)}
-          {output(EUREKA.Zones.Pyros)}
-          {output(EUREKA.Zones.Hydatos)}
-        </Box>
+        {/* <Box component="div" className={styles.ContainerBox}> */}
+        {output(EUREKA.Zones.Anemos)}
+        {output(EUREKA.Zones.Pagos)}
+        {output(EUREKA.Zones.Pyros)}
+        {output(EUREKA.Zones.Hydatos)}
+        {/* </Box> */}
       </Container>
     </>
   );

@@ -1,10 +1,9 @@
-import FauxGrid from "../../components/FauxGrid";
-import style from "./FauxHallow.module.css";
-
-export default function Set_1() {
+export default function Set_1({ set }) {
+  var setNo = set;
   return (
     <>
-      <div className={style.fauxGridContainerRow}>
+      <span>Pattern {setNo} is choosen.</span>
+      {/* <div className={style.fauxGridContainerRow}>
         <FauxGrid disabledCells={"MN0QQ0 OP1010 Q100AB 0000RD 0010EF Q00001"} />
         <FauxGrid disabledCells={"000QQ0 001010 Q1MNAB 00OPRD 0010EF Q00001"} />
         <FauxGrid disabledCells={""} />
@@ -44,7 +43,7 @@ export default function Set_1() {
         <FauxGrid disabledCells={"00Q000 00101Q 0100MN AB00SP CD100Q EFQ001"} />
         <FauxGrid disabledCells={"000000 001Q10 01000Q AB00SN CD10OP EF0QQ1"} />
         <FauxGrid disabledCells={"000000 001Q10 01MN0Q ABOPS0 CD1000 EF0QQ1"} />
-      </div>
+      </div> */}
     </>
   );
 }

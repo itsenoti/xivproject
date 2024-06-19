@@ -2,7 +2,7 @@
  * @ Author: F.Villanueva
  * @ Create Time: 2024-06-15 18:06:47
  * @ Modified by: F.Villanueva
- * @ Modified time: 2024-06-18 00:50:18
+ * @ Modified time: 2024-06-19 23:18:52
  * @ Description:
  */
 
@@ -98,19 +98,23 @@ export default function Gather(props) {
     }
   }
 
+  const SectionHead = ({ title, imgSrc }) => {
+    return (
+      <div className={style.itemTitle}>
+        <Image src={imgSrc} width={20} height={20} alt="type" style={{ marginBottom: -5 }} />
+        {title}
+      </div>
+    );
+  };
+
   return (
     <>
       <div className={style.row}>
-        <div className={style.itemTitle}>
-          {result?.details.item.name}{" "}
-          <Image
-            src={`${Types[nodes[0]?.type] ?? Types[0]}`}
-            width={20}
-            height={20}
-            alt="type"
-            style={{ marginBottom: -5 }}
-          />
-        </div>
+        <SectionHead
+          title={result?.details.item.name}
+          imgSrc={`${Types[nodes[0]?.type] ?? Types[0]}`}
+        />
+
         {(() => {
           const _rows = [];
           if (numberOfNodes > 1) {

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import CustomAccordion from "../../components/Accordion/Accordion";
 import { JOBS } from "../globals";
-import Gather from "./Gather";
+import Craft from "./Craft";
 
 function WhiteScrip() {
   const [expanded, setExpanded] = useState("");
@@ -14,7 +14,7 @@ function WhiteScrip() {
 
   return (
     <>
-      <CustomAccordion
+      {/* <CustomAccordion
         Title="Test if gathering"
         Patch="6.3"
         ExpandedPanel={expanded}
@@ -23,16 +23,15 @@ function WhiteScrip() {
         Body={
           <>
             <Gather keyword="Rarefied Eblan Alumen" />
-            <Gather keyword="Rarefied Annite " />
-            <Gather keyword="Rarefied Eblan Alumen " />
-            <Gather keyword="Rarefied Iceberg Lettuce " />
-            <Gather keyword="Rarefied AR-Caean Cotton Boll " />
-            <Gather keyword="Rarefied Elder Nutmeg " />
-            <Gather keyword="Rarefied Raw Ametrine " />
+            <Gather keyword="Rarefied Annite" />
+            <Gather keyword="Rarefied Iceberg Lettuce" />
+            <Gather keyword="Rarefied AR-Caean Cotton Boll" />
+            <Gather keyword="Rarefied Elder Nutmeg" />
+            <Gather keyword="Rarefied Raw Ametrine" />
           </>
         }
         Handler={handleChange}
-      ></CustomAccordion>
+      ></CustomAccordion> */}
       <CustomAccordion
         Title="Earth Break Aethersand"
         Patch="6.3"
@@ -96,6 +95,19 @@ function WhiteScrip() {
         Body={
           <>
             ({JOBS.CUL}) Craft <b>Rarefied Sykon Bavarois</b> collectables
+          </>
+        }
+        Handler={handleChange}
+      ></CustomAccordion>
+      <CustomAccordion
+        Title="Free Company Buff"
+        Patch="2.5"
+        ExpandedPanel={expanded}
+        PanelName="Grade3WheelOfConfrontation"
+        Icon="/icons/Resources/027683.png"
+        Body={
+          <>
+            <Craft title={`Grade 3 Wheel of Confrontation`} />
           </>
         }
         Handler={handleChange}

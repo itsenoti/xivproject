@@ -6,12 +6,7 @@ import Header from "../../components/Header";
 import Navigation from "../../components/Navigation";
 import Title from "../../components/Title";
 import style from "./FauxHallow.module.css";
-import Set_1 from "./set_1";
-import Set_2 from "./set_2";
-import Set_3 from "./set_3";
-import Set_4 from "./set_4";
-import Set_5 from "./set_5";
-import Set_6 from "./set_6";
+import Patterns from "./Patterns";
 
 const setsList = [
   // Set A
@@ -83,23 +78,23 @@ function Home({ theme, setTheme }) {
 
     switch (matchedPattern) {
       case 0:
-        setFoundMatch(Set_1);
+        setFoundMatch(<Patterns set="1" />);
         break;
-      case 1:
-        setFoundMatch(Set_2);
-        break;
-      case 2:
-        setFoundMatch(Set_3);
-        break;
-      case 3:
-        setFoundMatch(Set_4);
-        break;
-      case 4:
-        setFoundMatch(Set_5);
-        break;
-      case 5:
-        setFoundMatch(Set_6);
-        break;
+      // case 1:
+      //   setFoundMatch(Set_2);
+      //   break;
+      // case 2:
+      //   setFoundMatch(Set_3);
+      //   break;
+      // case 3:
+      //   setFoundMatch(Set_4);
+      //   break;
+      // case 4:
+      //   setFoundMatch(Set_5);
+      //   break;
+      // case 5:
+      //   setFoundMatch(Set_6);
+      //   break;
       default:
         setFoundMatch(null);
         break;

@@ -33,8 +33,8 @@ Dark/Mixed - 600: For on background texts color
 }
 
 body {
-  font-family: 'NotoSansJP';
-  font-size: 14px;
+  font-family: 'Poppins';
+  font-size: 12px;
 }
 
 
@@ -50,7 +50,10 @@ b {
 
 /* Global Overrides */
 .MuiTypography-root {
-  font-family: 'NotoSansJP';
+  font-family: 'Poppins';
+  font-size:12px;
+  margin-top: 3px;
+  margin-left: 2px;
 }
 
 
@@ -81,11 +84,12 @@ b {
   height: 2rem;
   padding: 0.1rem 0;
   font-size: 1.1rem;
-  font-weight: bolder;
+  font-weight: bold;
   color: #75b324;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   border-bottom: 0.15rem solid #75b324;
+  /* border-left: 0.3em solid #75b324; */
 }
 
 .sectionTitleImage {

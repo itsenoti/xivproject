@@ -56,7 +56,7 @@ function Navigation() {
         {isMenuClicked && (
           <Box className={style.navItemContainer}>
             <NavItem page="" />
-            <NavItem page="FauxHallow" />
+            {/* <NavItem page="FauxHallow" /> */}
             <NavItem page="Eureka" />
             <NavItem page="Resources" />
             {/* <NavItem page="Gathering" /> */}
