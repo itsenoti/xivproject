@@ -7,12 +7,17 @@ import Maintenance from "../sections/Maintenance/Maintenance";
 
 import { Poppins } from "next/font/google";
 
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+});
+
 function Home({ theme, setTheme }) {
   return (
     <>
       <Header />
       <Navigation />
-      <Container className={`containerBody ${Poppins.className}`}>
+      <Container className={`containerBody ${poppins.className}`}>
         <Maintenance />
         <Frontlines />
         <Events />
