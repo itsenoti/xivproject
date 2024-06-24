@@ -36,7 +36,6 @@ const AccordionSummary = styled((props) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: theme.spacing(1),
-  borderTop: "0px solid rgba(0, 0, 0, .125)",
 }));
 
 export default function CustomAccordion(props) {
@@ -54,7 +53,7 @@ export default function CustomAccordion(props) {
       >
         <AccordionSummary aria-controls={`${panelName}-content`} id={`${panelName}-header`}>
           <Image src={`${panelIcon}`} width={25} height={25} alt="---" style={{ marginRight: 2 }} />
-          <Typography>
+          <Typography sx={{ fontFamily: "inherit", fontWeight: 500 }}>
             {panelTitle} ({props.Patch})
           </Typography>
         </AccordionSummary>

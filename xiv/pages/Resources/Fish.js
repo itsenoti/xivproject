@@ -28,6 +28,7 @@ const Fish = () => {
         </ListItemAvatar>
         <ListItemText
           primary={`${fish.name} ( ${fish.bite} ${fish.hookTime} ) `}
+          className={style.list}
           // secondary={
           //   <>
           //     <ListItemText primary={`${fish.location} `} />

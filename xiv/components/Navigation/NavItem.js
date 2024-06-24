@@ -14,8 +14,7 @@ export default function NavItem(props) {
           onClick={() => {
             router.push(`/${props.page}`);
           }}
-          sx={{ width: "100%", justifyContent: "left" }}
-          className="bg-green-900"
+          sx={{ width: "100%", justifyContent: "left", fontFamily: "inherit" }}
         >
           {props.page == "" ? "Home" : props.page}
         </Button>

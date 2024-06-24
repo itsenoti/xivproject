@@ -10,7 +10,6 @@
 .weatherInfo {
   align-content: center;
   text-align: center;
-  /* border: 1px dotted gray; */
   width: 150px;
   padding-left: auto;
   padding-right: auto;
@@ -23,7 +22,13 @@
 }
 
 .activeWeather {
-  color:var(--color-primary-500);
+  font-family: inherit;
+  /* color:var(--color-primary-500); */
+  color:green;
+}
+
+.inactiveWeather {
+  opacity: 0.3;
 }
 
 .timeCard {
@@ -32,12 +37,12 @@
   padding: 0.5rem; 
   text-align: center;
   margin: 0;
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
 }
 
 .weatherRow {
   padding: 0;
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
 }
 
 .weatherRowLabel {
@@ -45,7 +50,8 @@
 }
 
 .list {
-  padding: 1rem;
+  font-family: inherit;
+  /* padding: 1rem; */
   /* color:inherit; */
 }
 
@@ -56,6 +62,5 @@
 }
 
 .headerText {
-  /* color: #fff; */
   letter-spacing: 0.1rem;
 }

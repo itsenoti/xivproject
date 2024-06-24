@@ -34,7 +34,13 @@ function getTimeRemaining(zoneObj, currentTime) {
       </span>
     );
   } else {
-    return `starts in ${getTimeDuration(zoneObj.LT_Start, currentTime, "hr")}`;
+    return (
+      <>
+        <span className={styles.inactiveWeather}>
+          starts in {getTimeDuration(zoneObj.LT_Start, currentTime, "hr")}
+        </span>
+      </>
+    );
   }
 }
 
@@ -146,7 +152,7 @@ function Eureka_() {
     }
   }
 
-  const output = (zone) => {
+  const ZoneSpawnRow = (zone) => {
     return (
       <>
         <Box className={styles.zoneForecast}>
@@ -175,7 +181,7 @@ function Eureka_() {
                       </ListItemAvatar>
                       <ListItemText
                         primary={
-                          <Typography style={{ fontSize: "0.8rem", marginLeft: "-1rem" }}>
+                          <Typography style={{ fontFamily: "inherit", marginLeft: "-1rem" }}>
                             {zone === EUREKA.Zones.Anemos
                               ? AnemosSpawn[i]
                               : zone === EUREKA.Zones.Pagos
@@ -206,12 +212,10 @@ function Eureka_() {
       <Header />
       <Navigation />
       <Container className={styles.container}>
-        {/* <Box component="div" className={styles.ContainerBox}> */}
-        {output(EUREKA.Zones.Anemos)}
-        {output(EUREKA.Zones.Pagos)}
-        {output(EUREKA.Zones.Pyros)}
-        {output(EUREKA.Zones.Hydatos)}
-        {/* </Box> */}
+        {ZoneSpawnRow(EUREKA.Zones.Anemos)}
+        {ZoneSpawnRow(EUREKA.Zones.Pagos)}
+        {ZoneSpawnRow(EUREKA.Zones.Pyros)}
+        {ZoneSpawnRow(EUREKA.Zones.Hydatos)}
       </Container>
     </>
   );
