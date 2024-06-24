@@ -3,6 +3,7 @@ import { useState } from "react";
 import CustomAccordion from "../../components/Accordion/Accordion";
 import { JOBS } from "../globals";
 import Craft from "./Craft";
+import Fish from "./Fish";
 
 function WhiteScrip() {
   const [expanded, setExpanded] = useState("");
@@ -54,8 +55,9 @@ function WhiteScrip() {
         Icon="/icons/Gathering/065069.png"
         Body={
           <>
-            Rodfishing <b>Fleeting Brand (!!)</b> at <b>Mare Lamentorum (X: 22.7, Y:31)</b> using{" "}
-            <b>Versatile Lure</b>
+            {/* Rodfishing <b>Fleeting Brand (!!)</b> at <b>Mare Lamentorum (X: 22.7, Y:31)</b> using{" "}
+            <b>Versatile Lure</b> */}
+            <Fish name="Fleeting Brand" />
           </>
         }
         Handler={handleChange}
