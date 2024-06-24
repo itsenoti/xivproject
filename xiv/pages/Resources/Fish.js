@@ -28,15 +28,15 @@ const Fish = () => {
         </ListItemAvatar>
         <ListItemText
           primary={`${fish.name} ( ${fish.bite} ${fish.hookTime} ) `}
-          secondary={
-            <>
-              <ListItemText primary={`${fish.location} `} />
-              {fish.book && <ListItemText primary={`${fish.book}`} />}
-              <ListItemText
-                primary={`Collectability: ${fish.minCollectability} ${fish.midCollectability} ${fish.maxCollectability}`}
-              />
-            </>
-          }
+          // secondary={
+          //   <>
+          //     <ListItemText primary={`${fish.location} `} />
+          //     {fish.book && <ListItemText primary={`${fish.book}`} />}
+          //     <ListItemText
+          //       primary={`Collectability: ${fish.minCollectability} ${fish.midCollectability} ${fish.maxCollectability}`}
+          //     />
+          //   </>
+          // }
         />
       </ListItem>
     </List>
