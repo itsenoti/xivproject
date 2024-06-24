@@ -5,12 +5,14 @@ import Events from "../sections/Events/Events";
 import Frontlines from "../sections/Frontlines";
 import Maintenance from "../sections/Maintenance/Maintenance";
 
+import { Poppins } from "next/font/google";
+
 function Home({ theme, setTheme }) {
   return (
     <>
       <Header />
       <Navigation />
-      <Container className="containerBody">
+      <Container className={`containerBody ${Poppins.className}`}>
         <Maintenance />
         <Frontlines />
         <Events />
