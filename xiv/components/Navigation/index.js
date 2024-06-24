@@ -59,6 +59,7 @@ function Navigation() {
             {/* <NavItem page="FauxHallow" /> */}
             <NavItem page="Eureka" />
             <NavItem page="Resources" />
+            <NavItem page="Releases" />
             {/* <NavItem page="Gathering" /> */}
             {/* <NavItem page="Crafting" /> */}
             {/* <NavItem page="G15" /> */}

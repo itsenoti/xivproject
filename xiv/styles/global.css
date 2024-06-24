@@ -33,8 +33,9 @@ Dark/Mixed - 600: For on background texts color
 }
 
 body {
-  font-family: 'Poppins';
-  font-size: 12px;
+  /* font-family: 'Poppins'; */
+  /* font-size: 12px; */
+  padding: 0;
 }
 
 
@@ -50,8 +51,6 @@ b {
 
 /* Global Overrides */
 .MuiTypography-root {
-  font-family: 'Poppins';
-  font-size:12px;
   margin-top: 3px;
   margin-left: 2px;
 }
@@ -59,15 +58,9 @@ b {
 
 /* Containers */
 .containerBody {
-  /* margin-top: 3.8rem; */
   padding: 0 10px;
-  /* color: #fff; */
-  /* padding-top: 1px; */
 }
-/* 
-.containerBody > div {
-  margin-bottom: 1rem;
-} */
+
 
 .containerBody small {
   font-style: italic;
@@ -80,7 +73,6 @@ b {
 }
 
 .section {
-  /* background-color: indianred; */
   height: 2rem;
   padding: 0.1rem 0;
   font-size: 1.1rem;
@@ -89,7 +81,6 @@ b {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   border-bottom: 0.15rem solid #75b324;
-  /* border-left: 0.3em solid #75b324; */
 }
 
 .sectionTitleImage {

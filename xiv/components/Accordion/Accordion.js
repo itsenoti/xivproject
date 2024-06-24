@@ -24,7 +24,7 @@ const AccordionSummary = styled((props) => (
     {...props}
   />
 ))(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "transparent" : "black",
+  backgroundColor: theme.palette.mode === "dark" ? "transparent" : "transparent",
   flexDirection: "row-reverse",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
@@ -35,8 +35,8 @@ const AccordionSummary = styled((props) => (
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: "1px solid rgba(0, 0, 0, .125)",
+  padding: theme.spacing(1),
+  borderTop: "0px solid rgba(0, 0, 0, .125)",
 }));
 
 export default function CustomAccordion(props) {

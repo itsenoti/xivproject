@@ -10,7 +10,7 @@ function Resources() {
       <Header />
       <Navigation />
       <Container className="containerBody">
-        <Title text="Resources"></Title>
+        <Title text="Resources" />
         <WhiteScrip />
       </Container>
     </>
