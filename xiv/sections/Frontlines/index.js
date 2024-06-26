@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import * as style from "./Frontlines.module.css";
 
 const pvpMaps = {
   0: "The Fields of Glory (Shatter)",
@@ -23,6 +24,17 @@ export default function Frontlines() {
 
   const mapsCount = Object.keys(pvpMaps).length;
 
+  const getRemainingTime = () => {
+    let remainingHr =
+      Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60 * 60)) % 24;
+    let remainingMn = Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60)) % 60;
+    let remainingSc = Math.floor(new Date(nextMapReset - new Date()).getTime() / 1000) % 60;
+    return `${String(remainingHr).padStart(2, "0")}:${String(remainingMn).padStart(
+      2,
+      "0"
+    )}:${String(remainingSc).padStart(2, "0")}`;
+  };
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -31,7 +43,7 @@ export default function Frontlines() {
     const interval = setInterval(() => {
       var dailyReset = getDailyReset();
       getMap(dailyReset);
-      setRemainingTime(getRemainingTime());
+      setRemainingTime(getRemainingTime);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -81,19 +93,9 @@ export default function Frontlines() {
 
     // Set active map
     setMapNow(pvpMaps[index]);
+
     // Set next map
     setMapNext(pvpMaps[mapNext]);
-  }
-
-  function getRemainingTime() {
-    let remainingHr =
-      Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60 * 60)) % 24;
-    let remainingMn = Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60)) % 60;
-    let remainingSc = Math.floor(new Date(nextMapReset - new Date()).getTime() / 1000) % 60;
-    return `${String(remainingHr).padStart(2, "0")}:${String(remainingMn).padStart(
-      2,
-      "0"
-    )}:${String(remainingSc).padStart(2, "0")}`;
   }
 
   return (
@@ -107,7 +109,8 @@ export default function Frontlines() {
           height={20}
           alt="ongoing pvp"
         />
-        <b>{mapNow}</b> ends in <b>{remainingTime}</b>
+        <span className={style.activeMap}>{mapNow}</span> ends in{" "}
+        <span className={style.endTime}>{remainingTime}</span>
       </div>
       <div>Next: {mapNext}</div>
     </div>

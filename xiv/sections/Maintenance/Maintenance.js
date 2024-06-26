@@ -10,7 +10,8 @@ function Maintenance() {
   });
 
   // Get user's timezone. Example: GMT+0800
-  var userTimeZone = new Date().toString().split(" ")[5];
+  var userCurrentDate = new Date().toLocaleString("en-US", { timeZoneName: "short" });
+  let userTimeZone = userCurrentDate.toString().split(" ")[3];
 
   useEffect(() => {
     // Get the news
@@ -20,6 +21,7 @@ function Maintenance() {
       .then((data) => {
         if (data.game.length > 0) {
           setHasMaintenance(true);
+
           setMaintenanceDetails({
             title: data.game[0]["title"] ? data.game[0]["title"] : null,
             startDate: new Date(data["game"][0]["start"]).toLocaleString("default", {
@@ -41,12 +43,20 @@ function Maintenance() {
       });
   }, []);
 
+  console.log(maintenanceDetails.title);
+
   const infoBoxMessage = `${maintenanceDetails.title.split("(")[0]} from ${
     maintenanceDetails.startDate
-  } (${userTimeZone}) until
-  ${maintenanceDetails.endDate} (${userTimeZone})`;
+  } (${userTimeZone}) until ${maintenanceDetails.endDate} (${userTimeZone})`;
 
-  return <>{hasMaintenance && <InfoBox message={infoBoxMessage} />}</>;
+  const details = {
+    title: `${maintenanceDetails.title.split("(")[0]}`,
+    startDate: `${maintenanceDetails.startDate}`,
+    endDate: `${maintenanceDetails.endDate}`,
+    timeZone: `${userTimeZone}`,
+  };
+
+  return <>{hasMaintenance && <InfoBox {...details} />}</>;
 }
 
 export default Maintenance;

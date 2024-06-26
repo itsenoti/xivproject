@@ -17,7 +17,7 @@ const poppins = Poppins({
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 const darkTheme = createTheme({
   palette: {
-    mode: "light",
+    mode: "dark",
   },
 });
 
