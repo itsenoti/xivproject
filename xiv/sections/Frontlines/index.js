@@ -7,6 +7,7 @@ const pvpMaps = {
   0: "The Fields of Glory (Shatter)",
   1: "Onsal Hakair (Danshig Naadam)",
   2: "Seal Rock (Seize)",
+  3: "Borderline Ruins (Secure)",
 };
 
 export default function Frontlines() {
