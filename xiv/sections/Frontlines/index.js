@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import * as style from "./Frontlines.module.css";
 
 const pvpMaps = {
-  0: "The Fields of Glory (Shatter)",
-  1: "Onsal Hakair (Danshig Naadam)",
-  2: "Seal Rock (Seize)",
-  3: "Borderline Ruins (Secure)",
+  0: "The Borderline Ruins (Secure)",
+  1: "Seal Rock (Seize)",
+  2: "The Fields of Glory (Shatter)",
+  3: "Onsal Hakair (Danshig Naadam)",
 };
 
 export default function Frontlines() {
@@ -19,9 +19,7 @@ export default function Frontlines() {
   // Tomorrow 11PM
   const nextMapReset = new Date();
   nextMapReset.setDate(nextMapReset.getDate() + 1);
-  nextMapReset.setHours(23);
-  nextMapReset.setMinutes(0);
-  nextMapReset.setSeconds(0);
+  nextMapReset.setHours(23, 0, 0);
 
   const mapsCount = Object.keys(pvpMaps).length;
 
