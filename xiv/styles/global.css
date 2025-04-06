@@ -33,14 +33,15 @@ Dark/Mixed - 600: For on background texts color
 }
 
 * {
+  font-family: 'Pretendard';
   font-size: 0.97em;
   color: #c5c5c5;
 }
 
 body {
-  /* font-family: 'Poppins'; */
+  /* font-family: 'Pretendard'; */
   padding: 0;
-  font-family: inherit;
+  /* font-family: inherit; */
 }
 
 
@@ -51,7 +52,7 @@ h2 {
 
 b {
   color: #53993d;
-  font-weight: 500;
+  font-weight: 900;
 }
 
 /* Global Overrides */

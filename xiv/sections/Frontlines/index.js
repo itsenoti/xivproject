@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import { formatDate_MMM_DD_YYYY_HHMMSS } from "../../utils/TimeConverter";
 import * as style from "./Frontlines.module.css";
 
 const pvpMaps = {
@@ -14,6 +14,8 @@ export default function Frontlines() {
   const [isMounted, setIsMounted] = useState(false);
   const [mapNow, setMapNow] = useState("･･･");
   const [mapNext, setMapNext] = useState("･･･");
+  const [mapNext2, setMapNext2] = useState("･･･");
+  const [mapNext3, setMapNext3] = useState("･･･");
   const [remainingTime, setRemainingTime] = useState("");
 
   // Tomorrow 11PM
@@ -21,13 +23,24 @@ export default function Frontlines() {
   nextMapReset.setDate(nextMapReset.getDate() + 1);
   nextMapReset.setHours(23, 0, 0);
 
+  const nextmapdate2 = formatDate_MMM_DD_YYYY_HHMMSS(
+    nextMapReset.setDate(nextMapReset.getDate() - 1)
+  );
+  const nextmapdate3 = formatDate_MMM_DD_YYYY_HHMMSS(
+    nextMapReset.setDate(nextMapReset.getDate() + 1)
+  );
+  const nextmapdate4 = formatDate_MMM_DD_YYYY_HHMMSS(
+    nextMapReset.setDate(nextMapReset.getDate() + 1)
+  );
+
   const mapsCount = Object.keys(pvpMaps).length;
 
   const getRemainingTime = () => {
+    let currentTime = new Date();
     let remainingHr =
-      Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60 * 60)) % 24;
-    let remainingMn = Math.floor(new Date(nextMapReset - new Date()).getTime() / (1000 * 60)) % 60;
-    let remainingSc = Math.floor(new Date(nextMapReset - new Date()).getTime() / 1000) % 60;
+      Math.floor(new Date(nextMapReset - currentTime).getTime() / (1000 * 60 * 60)) % 24;
+    let remainingMn = Math.floor(new Date(nextMapReset - currentTime).getTime() / (1000 * 60)) % 60;
+    let remainingSc = Math.floor(new Date(nextMapReset - currentTime).getTime() / 1000) % 60;
     return `${String(remainingHr).padStart(2, "0")}:${String(remainingMn).padStart(
       2,
       "0"
@@ -88,30 +101,39 @@ export default function Frontlines() {
     }
 
     // Get next map
-    let mapNext = index + 1 == Object.keys(pvpMaps).length ? MAP_1 : index + 1;
+    let mapNext = index + 1 >= Object.keys(pvpMaps).length ? index + 1 - 4 : index + 1;
+    let mapNext2 = index + 2 >= Object.keys(pvpMaps).length ? index + 2 - 4 : index + 2;
+    let mapNext3 = index + 3 >= Object.keys(pvpMaps).length ? index + 3 - 4 : index + 3;
 
     // Set active map
     setMapNow(pvpMaps[index]);
 
     // Set next map
     setMapNext(pvpMaps[mapNext]);
+    setMapNext2(pvpMaps[mapNext2]);
+    setMapNext3(pvpMaps[mapNext3]);
   }
 
   return (
     <div>
       <div className="section">Frontlines</div>
-      <div>
-        <Image
-          src="/icons/PvP/pvp_current.png"
-          className="sectionTitleImage"
-          width={20}
-          height={20}
-          alt="ongoing pvp"
-        />
-        <span className={style.activeMap}>{mapNow}</span> ends in{" "}
-        <span className={style.endTime}>{remainingTime}</span>
+      <div className={style.frontlinesMapTimeActiveMap}>
+        Ends in <span className={style.endTime}>{remainingTime}</span>
+        <div>
+          <span className={style.activeMap}>{mapNow}</span>
+        </div>
       </div>
-      <div>Next: {mapNext}</div>
+      <div className={style.frontlinesMapTime}>
+        {nextmapdate2} <div>{mapNext}</div>
+      </div>
+      <div className={style.frontlinesMapTime}>
+        {nextmapdate3}
+        <div>{mapNext2}</div>
+      </div>
+      <div className={style.frontlinesMapTime}>
+        {nextmapdate4}
+        <div>{mapNext3}</div>
+      </div>
     </div>
   );
 }
