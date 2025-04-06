@@ -67,9 +67,7 @@ export default function Frontlines() {
 
   function getDailyReset() {
     let dailyReset = new Date();
-    dailyReset.setHours(23);
-    dailyReset.setMinutes(0);
-    dailyReset.setSeconds(0);
+    dailyReset.setHours(23, 0, 0);
 
     let dateNow = new Date();
 
@@ -101,14 +99,15 @@ export default function Frontlines() {
     }
 
     // Get next map
-    let mapNext = index + 1 >= Object.keys(pvpMaps).length ? index + 1 - 4 : index + 1;
-    let mapNext2 = index + 2 >= Object.keys(pvpMaps).length ? index + 2 - 4 : index + 2;
-    let mapNext3 = index + 3 >= Object.keys(pvpMaps).length ? index + 3 - 4 : index + 3;
+    const length = Object.keys(pvpMaps).length;
+    const mapNext = (index + 1) % length;
+    const mapNext2 = (index + 2) % length;
+    const mapNext3 = (index + 3) % length;
 
     // Set active map
     setMapNow(pvpMaps[index]);
 
-    // Set next map
+    // Set next maps
     setMapNext(pvpMaps[mapNext]);
     setMapNext2(pvpMaps[mapNext2]);
     setMapNext3(pvpMaps[mapNext3]);
