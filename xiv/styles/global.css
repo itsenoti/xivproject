@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
    /** CSS DARK THEME PRIMARY COLORS */
    --color-primary-100: #ffeb3b;
@@ -34,7 +38,7 @@ Dark/Mixed - 600: For on background texts color
 
 * {
   font-family: 'Pretendard';
-  font-size: 0.97em;
+  font-size: 1em;
   color: #c5c5c5;
 }
 
@@ -43,7 +47,6 @@ body {
   padding: 0;
   /* font-family: inherit; */
 }
-
 
 h2 {
   font-size: 1rem;

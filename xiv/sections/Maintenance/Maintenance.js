@@ -43,7 +43,7 @@ function Maintenance() {
       });
   }, []);
 
-  console.log(maintenanceDetails.title);
+  // console.log(maintenanceDetails.title);
 
   const infoBoxMessage = `${maintenanceDetails.title.split("(")[0]} from ${
     maintenanceDetails.startDate

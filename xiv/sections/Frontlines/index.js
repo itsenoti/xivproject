@@ -1,7 +1,15 @@
+import TimelineItem, { timelineItemClasses } from "@mui/lab/TimelineItem";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { formatDate_MMM_DD_YYYY_HHMMSS } from "../../utils/TimeConverter";
-import * as style from "./Frontlines.module.css";
+
+import {
+  Timeline,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineSeparator,
+} from "@mui/lab";
 
 const pvpMaps = {
   0: "The Borderline Ruins (Secure)",
@@ -36,15 +44,19 @@ export default function Frontlines() {
   const mapsCount = Object.keys(pvpMaps).length;
 
   const getRemainingTime = () => {
-    let currentTime = new Date();
-    let remainingHr =
-      Math.floor(new Date(nextMapReset - currentTime).getTime() / (1000 * 60 * 60)) % 24;
-    let remainingMn = Math.floor(new Date(nextMapReset - currentTime).getTime() / (1000 * 60)) % 60;
-    let remainingSc = Math.floor(new Date(nextMapReset - currentTime).getTime() / 1000) % 60;
-    return `${String(remainingHr).padStart(2, "0")}:${String(remainingMn).padStart(
-      2,
-      "0"
-    )}:${String(remainingSc).padStart(2, "0")}`;
+    const now = new Date();
+    const diff = nextMapReset - now;
+
+    const totalSeconds = Math.floor(diff / 1000);
+    const hours = Math.floor(totalSeconds / 3600) % 24;
+    const minutes = Math.floor(totalSeconds / 60) % 60;
+    const seconds = totalSeconds % 60;
+
+    return [
+      hours.toString().padStart(2, "0"),
+      minutes.toString().padStart(2, "0"),
+      seconds.toString().padStart(2, "0"),
+    ].join(":");
   };
 
   useEffect(() => {
@@ -116,23 +128,31 @@ export default function Frontlines() {
   return (
     <div>
       <div className="section">Frontlines</div>
-      <div className={style.frontlinesMapTimeActiveMap}>
-        Ends in <span className={style.endTime}>{remainingTime}</span>
-        <div>
-          <span className={style.activeMap}>{mapNow}</span>
-        </div>
-      </div>
-      <div className={style.frontlinesMapTime}>
-        {nextmapdate2} <div>{mapNext}</div>
-      </div>
-      <div className={style.frontlinesMapTime}>
-        {nextmapdate3}
-        <div>{mapNext2}</div>
-      </div>
-      <div className={style.frontlinesMapTime}>
-        {nextmapdate4}
-        <div>{mapNext3}</div>
-      </div>
+      <Timeline
+        sx={{
+          [`& .${timelineItemClasses.root}:before`]: {
+            flex: 0,
+            padding: 0,
+          },
+        }}
+      >
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineDot />
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <div>{mapNow}</div>
+            Ends in {remainingTime}
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineDot />
+          </TimelineSeparator>
+          <TimelineContent>{mapNext}</TimelineContent>
+        </TimelineItem>
+      </Timeline>
     </div>
   );
 }

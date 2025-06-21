@@ -13,7 +13,7 @@ function Home({ theme, setTheme }) {
       <Container className={`containerBody`}>
         <Maintenance />
         <Frontlines />
-        <OceanFishing />
+        {/* <OceanFishing /> */}
         {/* <Events /> */}
       </Container>
     </>

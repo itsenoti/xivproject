@@ -1,0 +1,15 @@
+[ローカルに実行]
+ 1. Run from terminal: `npm run dev`
+
+[NextJS バージョン管理]
+ 1. Check the current version installed: `npm list next`
+ 2. Run from the root folder: `npm install next@latest react@latest react-dom@latest`
+
+ Note: When updating NextJS, it may be necessary to update ReactJS and ReactJS DOM as well.
+
+[ReactJS/DOM バージョン管理]
+ 1. Check current version of ReactJS: `npm list react react-dom`
+ 2. Run from the root folder: `npm install react@latest react-dom@latest`
+
+ Check all dependency updates
+ npx npm-check-updates -u
