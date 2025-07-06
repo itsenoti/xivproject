@@ -71,12 +71,12 @@ export default function CustomizedAccordions() {
         <AccordionDetails className={styles.content}>
           <div className={styles.title}>2025/08/05 (Patch 7.3)</div>
           <li>Main Story: The Promise of Tomorrow</li>
-          <li>Alliance Raid: Alliance Raid San d'Oria</li>
+          <li>Alliance Raid: Alliance Raid San d&apos;Oria</li>
           <li>Dungeon: The Meso Terminal</li>
           <li>Extreme: ???</li>
           <li>Unreal: The Wreath of Snakes</li>
           <li>Allied Society: Yok Huy (crafters)</li>
-          <li>Deep Dungeon: Pilgrim's Traverse (7.3x)</li>
+          <li>Deep Dungeon: Pilgrim&apos;s Traverse (7.3x)</li>
           <div className={styles.title}>2025/05/27 (Patch 7.25)</div>
           <li>Relic Weapons: Occult Crescent</li>
           <li>Allied Society: Mamool Ja (gatherers)</li>
@@ -87,7 +87,7 @@ export default function CustomizedAccordions() {
           <li>Dungeon: The Underkeep</li>
           <li>Extreme: Recollection</li>
           <li>Savage: AAC Cruiserweight Tier</li>
-          <li>Unreal: Hell's Kier</li>
+          <li>Unreal: Hell&apos;s Kier</li>
           <div className={styles.title}>2024/12/17 (Patch 7.15)</div>
           <li>Chaotic Raid: The Cloud of Darkness</li>
           <div className={styles.title}>2024/11/26 (Patch 7.11)</div>
@@ -96,7 +96,7 @@ export default function CustomizedAccordions() {
           <li>Main Story: Crossroads</li>
           <li>Alliance Raid: Alliance Raid Jeuno</li>
           <li>Dungeon: Yuweyawata Field Station</li>
-          <li>Extreme: Sphene's Burden</li>
+          <li>Extreme: Sphene&apos;s Burden</li>
           <li>Unreal: The Jade Stoa</li>
           <li>Allied Society: Pelupelu (battle)</li>
           <div className={styles.title}>2024/07/02 (Patch 7.0)</div>
