@@ -3,6 +3,8 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { formatDate_MMM_DD_YYYY_HHMMSS } from "../../utils/TimeConverter";
 
+import * as styles from "./Frontlines.module.css";
+
 import {
   Timeline,
   TimelineConnector,
@@ -126,33 +128,44 @@ export default function Frontlines() {
   }
 
   return (
-    <div>
+    <>
       <div className="section">Frontlines</div>
       <Timeline
         sx={{
           [`& .${timelineItemClasses.root}:before`]: {
             flex: 0,
             padding: 0,
+            margin: 0,
+            marginLeft: -2,
+            fontFamily: "Pretendard",
+            fontSize: "1em",
           },
         }}
       >
         <TimelineItem>
           <TimelineSeparator>
-            <TimelineDot />
+            <TimelineDot color="success" />
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
-            <div>{mapNow}</div>
-            Ends in {remainingTime}
+            <div className={styles.timelineContent}>{mapNow}</div>
+            <span className={styles.timelineContent}>Ends in {remainingTime}</span>
           </TimelineContent>
         </TimelineItem>
         <TimelineItem>
           <TimelineSeparator>
-            <TimelineDot />
+            <TimelineDot variant="outlined" />
+            <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>{mapNext}</TimelineContent>
+          <TimelineContent className={styles.timelineContent}>{mapNext}</TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineDot variant="outlined" />
+          </TimelineSeparator>
+          <TimelineContent className={styles.timelineContent}>{mapNext2}</TimelineContent>
         </TimelineItem>
       </Timeline>
-    </div>
+    </>
   );
 }

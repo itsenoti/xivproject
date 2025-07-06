@@ -56,7 +56,16 @@ function Maintenance() {
     timeZone: `${userTimeZone}`,
   };
 
-  return <>{hasMaintenance && <InfoBox {...details} />}</>;
+  return (
+    <>
+      {hasMaintenance && (
+        <>
+          <div className="section">News</div>
+          <InfoBox {...details} />
+        </>
+      )}
+    </>
+  );
 }
 
 export default Maintenance;

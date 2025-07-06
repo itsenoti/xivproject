@@ -14,3 +14,8 @@
   color: black;
   opacity: 0.8;
 }
+
+.timelineContent {
+  font-family: "Pretendard" !important;
+  font-size: 14px !important;
+}
